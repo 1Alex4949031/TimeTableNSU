@@ -15,19 +15,20 @@ const imageModal = require('@/assets/images/imageModal.png')
       <b-container fluid="sm" class="my-4">
         <b-row>
           <b-col md="6" class="d-flex flex-column justify-content-center">
-            <h2 class="modal-title">Вход</h2>
+            <h2 class="modal-title mb-4">Вход</h2>
             <b-form>
-              <b-form-group id="input-group-1" label="Логин" label-for="input-1">
-                <b-form-input v-model="login" id="input-1" placeholder="Введите ваш логин"></b-form-input>
+              <b-form-group class="form-group" id="input-group-1" label="Логин" label-for="input-1">
+                <b-form-input class="custom-input" v-model="login" id="input-1"
+                              placeholder="Введите ваш логин"></b-form-input>
               </b-form-group>
-              <b-form-group id="input-group-2" label="Пароль" label-for="input-2">
-                <b-form-input v-model="password" type="password" id="input-2"
+              <b-form-group class="form-group" id="input-group-2" label="Пароль" label-for="input-2">
+                <b-form-input class="custom-input" v-model="password" type="password" id="input-2"
                               placeholder="Введите ваш пароль"></b-form-input>
               </b-form-group>
-              <b-button variant="primary" type="submit">Вход</b-button>
+              <b-button class="custom-btn mt-4">Вход</b-button>
             </b-form>
           </b-col>
-          <b-col md="6">
+          <b-col md="6" class="mt-3">
             <b-img :src=imageModal alt="Modal image" fluid class="rounded-custom"></b-img>
           </b-col>
         </b-row>
@@ -37,6 +38,38 @@ const imageModal = require('@/assets/images/imageModal.png')
 </template>
 
 <style scoped>
+.form-group {
+  letter-spacing: 3px;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.custom-btn {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #fff;
+  color: black;
+  border: 1px solid #ced4da;
+  border-radius: 20px;
+  width: 100%;
+  font-size: 1.5rem;
+  transition: background-color 0.5s ease;
+}
+
+.custom-input {
+  font-family: 'Montserrat', sans-serif;
+  border: 1px solid #ced4da;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  line-height: 2;
+  color: #495057;
+  background-color: #fff;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.modal-title {
+  font-size: 50px;
+}
+
 @keyframes slide-fade-in {
   0% {
     transform: translateY(-50px);
@@ -71,10 +104,10 @@ const imageModal = require('@/assets/images/imageModal.png')
 }
 
 .close-button {
-  position: absolute; /* Абсолютное позиционирование для кнопки закрытия */
-  top: 10px; /* Отступ сверху */
-  right: 10px; /* Отступ справа */
-  cursor: pointer; /* Добавление стиля курсора для интерактивности */
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
 }
 
 .fullscreen-modal {
@@ -87,5 +120,6 @@ const imageModal = require('@/assets/images/imageModal.png')
   z-index: 10000;
   display: flex;
   align-content: start;
+  overflow-y: auto;
 }
 </style>

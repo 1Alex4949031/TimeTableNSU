@@ -58,8 +58,8 @@ const exampleImg3 = require('@/assets/images/example3.png')
 
 <style>
 .description{
-  margin-top: 30px;
   font-family: 'Montserrat', sans-serif;
+  margin-top: 30px;
   font-weight: 300;
   color: black;
 }
