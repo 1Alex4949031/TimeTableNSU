@@ -1,4 +1,8 @@
 <script setup>
+const exampleImg1 = require('@/assets/images/example1.png')
+const exampleImg2 = require('@/assets/images/example2.png')
+const exampleImg3 = require('@/assets/images/example3.png')
+
 </script>
 
 
@@ -16,9 +20,58 @@
       </b-col>
     </b-row>
   </b-container>
+
+  <b-container class="my-5">
+    <b-row class="mb-3 text-center">
+      <b-col>
+        <h2 class="text-content">Как это работает?</h2>
+      </b-col>
+    </b-row>
+
+    <b-row>
+      <b-col md="4" class="mb-3">
+        <b-img class="image-example" :src="exampleImg1" alt="Картинка 1"></b-img>
+        <b-col>
+          <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua ut enim ad.</p>
+        </b-col>
+      </b-col>
+
+      <b-col md="4" class="mb-3">
+        <b-img class="image-example" :src="exampleImg2" alt="Картинка 2"></b-img>
+        <b-col>
+          <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua ut enim ad.</p>
+        </b-col>
+      </b-col>
+
+      <b-col md="4" class="mb-3">
+        <b-img class="image-example" :src="exampleImg3" alt="Картинка 3"></b-img>
+        <b-col>
+          <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua ut enim ad.</p>
+        </b-col>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <style>
+.description{
+  margin-top: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  color: black;
+}
+
+.image-example {
+  border-radius: 50px;
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover
+}
+
 .background-image {
   height: 100%; /* Высота равна высоте родительского элемента */
   background-image: url('@/assets/images/university.png');
@@ -32,12 +85,12 @@
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   color: black;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 @media (max-width: 599px) {
   .text-content {
-    font-size: 20px;
+    font-size: 25px;
   }
 }
 
