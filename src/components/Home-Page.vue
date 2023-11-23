@@ -1,4 +1,5 @@
 <script setup>
+
 const imageUrl = require('@/assets/images/university.png')
 </script>
 
