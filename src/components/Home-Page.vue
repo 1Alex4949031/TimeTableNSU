@@ -1,38 +1,56 @@
 <script setup>
-const imageUrl = require('@/assets/images/university.png')
 </script>
 
 
 <template>
-  <div class="full-screen-container">
-    <img :src="imageUrl" alt="Full Screen Background" class="full-screen-image"/>
-    <div class="text-container">
-      <slot></slot> <!-- Слот для вставки любого текста или HTML -->
-    </div>
-  </div>
+  <b-container fluid="true" class="px-0 d-flex flex-column vh-100">
+    <b-row class="flex-grow-1">
+      <b-col cols="12" class="p-0">
+        <div class="background-image"></div>
+      </b-col>
+    </b-row>
+
+    <b-row class="d-flex align-items-start justify-content-center">
+      <b-col cols="12" class="text-center">
+        <div class="text-content">Удобное расписание для вашего образовательного учреждения!</div>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <style>
-.full-screen-container {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+.background-image {
+  height: 100%; /* Высота равна высоте родительского элемента */
+  background-image: url('@/assets/images/university.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.5);
 }
 
-.full-screen-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.text-content {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: black;
+  margin-top: 1rem;
 }
 
-.text-container {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 1em;
+@media (max-width: 599px) {
+  .text-content {
+    font-size: 20px;
+  }
+}
+
+
+@media (min-width: 600px) and (max-width: 899px) {
+  .text-content {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 900px) {
+  .text-content {
+    font-size: 40px;
+  }
 }
 </style>
