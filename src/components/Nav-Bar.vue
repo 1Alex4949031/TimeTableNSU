@@ -1,6 +1,7 @@
 <script setup>
 import LogInModal from "@/components/LogIn-Modal.vue";
-import {openModalAuth} from "@/JS/ModalLogic";
+import {openModalAuth, openModalDayTimeSelect} from "@/JS/ModalLogic";
+import DayTimeSelectModal from "@/components/Day-Time-Select-Modal.vue";
 </script>
 
 <template>
@@ -13,12 +14,14 @@ import {openModalAuth} from "@/JS/ModalLogic";
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav class="custom-navbar-nav">
         <b-nav-item @click="openModalAuth()">Login</b-nav-item>
+        <b-nav-item @click="openModalDayTimeSelect()">DayTime select</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
 
   <div class="modals">
     <LogInModal/>
+    <DayTimeSelectModal/>
   </div>
 </template>
 
