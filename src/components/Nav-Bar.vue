@@ -1,5 +1,5 @@
 <script setup>
-import LogInModal from "@/components/LogIn-Modal.vue";
+import LogInModal from "@/components/Login-Modal.vue";
 import {openModalAuth} from "@/JS/ModalLogic";
 </script>
 
@@ -12,7 +12,7 @@ import {openModalAuth} from "@/JS/ModalLogic";
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav class="custom-navbar-nav">
-        <b-nav-item @click="openModalAuth()">Login</b-nav-item>
+        <b-nav-item @click="openModalAuth()">Вход</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
