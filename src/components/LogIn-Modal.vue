@@ -7,21 +7,42 @@ const password = ref('test')
 </script>
 
 <template>
-  <transition>
-    <div class="fullscreen-modal" v-if="isVisibleAuth">
-      <div>
+  <transition name="localFade">
+    <div class="fullscreen-modal " v-if="isVisibleAuth">
+      <button @click="closeModalAuth" class="close-button">Закрыть</button>
+      <div class="grid-container">
         <h1>LogInn</h1>
-        <button @click="closeModalAuth">Закрыть</button>
+        <div>
+          <b-form-input v-model="login" placeholder="Login"></b-form-input>
+          <b-form-input v-model="password" placeholder="Password"></b-form-input>
+        </div>
+        <div>
+          <b-button pill variant="success" @click="console.log('Click!!')">Button</b-button>
+        </div>
       </div>
-      <div>
-        <input v-model="login" type="text">
-        <input v-model="password" type="text">
-      </div>
+
     </div>
   </transition>
 </template>
 
 <style scoped>
+
+.grid-container {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr); /* 3 ряда с равным распределением пространства */
+  height: 80%; /* Установите желаемую высоту контейнера */
+  justify-content: space-evenly;
+}
+
+
+.close-button {
+  position: absolute; /* Абсолютное позиционирование для кнопки закрытия */
+  top: 10px; /* Отступ сверху */
+  right: 10px; /* Отступ справа */
+  cursor: pointer; /* Добавление стиля курсора для интерактивности */
+
+  /* Дополнительные стили для кнопки закрытия, например, размер, цвет и т.д. */
+}
 
 @keyframes slideDown {
   from {
@@ -52,7 +73,6 @@ const password = ref('test')
   background: rgba(255, 255, 255, 1);
   z-index: 10000; /* Z-индекс для позиционирования поверх других элементов */
   display: flex; /* Используйте Flexbox для выравнивания содержимого */
-  justify-content: space-evenly; /* Горизонтальное выравнивание содержимого */
-  align-items: center; /* Вертикальное выравнивание содержимого */
+  align-content: start;
 }
 </style>
