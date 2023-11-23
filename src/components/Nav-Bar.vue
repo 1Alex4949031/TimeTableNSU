@@ -1,7 +1,9 @@
 <script setup>
+
 import LogInModal from "@/components/LogIn-Modal.vue";
 import {openModalAuth, openModalDayTimeSelect} from "@/JS/ModalLogic";
 import DayTimeSelectModal from "@/components/Day-Time-Select-Modal.vue";
+
 </script>
 
 <template>
