@@ -2,12 +2,14 @@
 const exampleImg1 = require('@/assets/images/example1.png')
 const exampleImg2 = require('@/assets/images/example2.png')
 const exampleImg3 = require('@/assets/images/example3.png')
+const universityHomeImg = require('@/assets/images/university-home.png')
 
 </script>
 
 
 <template>
-  <b-container data-aos="fade-in" data-aos-duration="1300" data-aos-once="true" fluid="true" class="px-0 d-flex flex-column vh-100">
+  <b-container data-aos="fade-in" data-aos-duration="1300" data-aos-once="true" fluid="true"
+               class="px-0 d-flex flex-column vh-100">
     <b-row class="flex-grow-1">
       <b-col cols="12" class="p-0">
         <div class="background-image"></div>
@@ -22,6 +24,13 @@ const exampleImg3 = require('@/assets/images/example3.png')
   </b-container>
 
   <b-container data-aos="fade-in" data-aos-duration="1000" data-aos-once="true" class="my-5">
+    <b-row>
+      <b-col>
+        <b-img :src="universityHomeImg" fluid class="custom-image"></b-img>
+      </b-col>
+      <b-col md="6" class="nav-faculty"><h3>По факультетам</h3></b-col>
+    </b-row>
+
     <b-row class="mb-3 text-center">
       <b-col>
         <h2 class="text-content">Как это работает?</h2>
@@ -32,7 +41,8 @@ const exampleImg3 = require('@/assets/images/example3.png')
       <b-col md="4" class="mb-3">
         <b-img class="image-example" :src="exampleImg1" alt="Картинка 1"></b-img>
         <b-col>
-          <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+          <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et
             dolore magna aliqua ut enim ad.</p>
         </b-col>
       </b-col>
@@ -40,7 +50,8 @@ const exampleImg3 = require('@/assets/images/example3.png')
       <b-col md="4" class="mb-3">
         <b-img class="image-example" :src="exampleImg2" alt="Картинка 2"></b-img>
         <b-col>
-          <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+          <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et
             dolore magna aliqua ut enim ad.</p>
         </b-col>
       </b-col>
@@ -48,7 +59,8 @@ const exampleImg3 = require('@/assets/images/example3.png')
       <b-col md="4" class="mb-3">
         <b-img class="image-example" :src="exampleImg3" alt="Картинка 3"></b-img>
         <b-col>
-          <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+          <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et
             dolore magna aliqua ut enim ad.</p>
         </b-col>
       </b-col>
@@ -61,7 +73,19 @@ body {
   overflow-x: hidden;
 }
 
-.description{
+.custom-image {
+  border-radius: 130px;
+}
+
+.nav-faculty {
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.description {
   font-family: 'Montserrat', sans-serif;
   margin-top: 30px;
   font-weight: 300;
