@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
+import router from './router/router'
 import store from './store'
 // Импорт bootstrap-vue-3
 import { BootstrapVue3 } from 'bootstrap-vue-3'

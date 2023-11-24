@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from "@/components/Home-Page.vue";
+import FacultiesInitial from "@/components/Faculties-Initial.vue";
 
 const routes = [
   {
@@ -7,6 +8,11 @@ const routes = [
     name: 'home',
     component: HomePage
   },
+  {
+    path: '/faculties',
+    name: 'faculties',
+    component: FacultiesInitial
+  }
 ]
 
 const router = createRouter({
