@@ -7,7 +7,7 @@ const exampleImg3 = require('@/assets/images/example3.png')
 
 
 <template>
-  <b-container fluid="true" class="px-0 d-flex flex-column vh-100">
+  <b-container data-aos="fade-in" data-aos-duration="1300" data-aos-once="true" fluid="true" class="px-0 d-flex flex-column vh-100">
     <b-row class="flex-grow-1">
       <b-col cols="12" class="p-0">
         <div class="background-image"></div>
@@ -21,7 +21,7 @@ const exampleImg3 = require('@/assets/images/example3.png')
     </b-row>
   </b-container>
 
-  <b-container class="my-5">
+  <b-container data-aos="fade-in" data-aos-duration="1000" data-aos-once="true" class="my-5">
     <b-row class="mb-3 text-center">
       <b-col>
         <h2 class="text-content">Как это работает?</h2>
@@ -57,6 +57,10 @@ const exampleImg3 = require('@/assets/images/example3.png')
 </template>
 
 <style>
+body {
+  overflow-x: hidden;
+}
+
 .description{
   font-family: 'Montserrat', sans-serif;
   margin-top: 30px;
