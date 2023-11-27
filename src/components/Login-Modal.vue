@@ -7,12 +7,6 @@ const email = ref('admin@gmail.com')
 const password = ref('admin')
 const imageModal = require('@/assets/images/imageModal.png')
 
-const showToast = () => {
-
-};
-
-
-
 </script>
 
 <template>
@@ -34,8 +28,6 @@ const showToast = () => {
                               placeholder="Введите ваш пароль"></b-form-input>
               </b-form-group>
               <b-button class="custom-btn mt-4" @click="auth(email.valueOf(), password.valueOf())">Вход</b-button>
-
-              <b-button class="custom-btn mt-4" @click="showToast">Тост</b-button>
             </b-form>
           </b-col>
           <b-col md="6" class="mt-3">
