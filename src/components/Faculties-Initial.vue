@@ -50,11 +50,11 @@ const faculties = reactive([
 
 <template>
   <b-container>
-    <b-col class="mb-4 mt-4">
+    <b-col data-aos="fade-in" data-aos-duration="1300" data-aos-once="true" class="mb-4 mt-4">
       <h1 class="text-faculties">Расписание по факультетам</h1>
     </b-col>
     <b-row>
-      <b-col v-for="(faculty, index) in faculties" :key="index" cols="12" md="4" class="mb-2 mt-2">
+      <b-col data-aos="fade-in" data-aos-duration="2000" data-aos-once="true"  v-for="(faculty, index) in faculties" :key="index" cols="12" md="4" class="mb-2 mt-2">
         <b-img class="faculty-image" :src="faculty.imageSrc" alt="Faculty"></b-img>
         <b-col>
           <p class="faculty-name">{{ faculty.name }}</p>
