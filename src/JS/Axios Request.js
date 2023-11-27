@@ -1,38 +1,70 @@
 import axios from "axios";
 import {closeModalAuth} from "@/JS/ModalLogic";
-import router from "@/router";
+import router from "@/router/router";
+import {ref} from "vue";
+import 'vue3-toastify/dist/index.css';
+import {toast} from "vue3-toastify";
 
-const serverURL = 'http://localhost:9090'
+export const isUserLogin = ref("User") // "User"/ "Admin"/"Teacher"
+const serverURL = 'http://localhost:7070'
 
 const instanceNoLogin = axios.create({
     baseURL: serverURL,
 });
-
 const instanceLogin = axios.create({
     baseURL: serverURL,
 });
+instanceLogin.interceptors.request.use(config => {
+    const token = sessionStorage.getItem("AccessToken");
+    if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+}, error => {
+    return Promise.reject(error);
+});
 
-export async function auth(login, password, ans, error) {
+
+export async function auth(email, password) {
+    const text = ref("Выполняю")
+    const toastId = ref('');
+    toastId.value = toast(
+        text,
+        {
+            toastId: 'custom id',
+            autoClose: false,
+            type: toast.TYPE.DEFAULT,
+            position: toast.POSITION.BOTTOM_RIGHT,
+        },
+    );
     try {
-        const response = await instanceNoLogin.post('/api/auth', {login, password});
-        ans.value = response.data
+        const response = await instanceNoLogin.post('/api/auth', {email, password});
+        text.value = "Успешный вход!"
+        toast.update(toastId.value, {
+            autoClose: 1000,
+            type: toast.TYPE.SUCCESS,
+        });
+
         console.log('Успешный вход:', response.data);
-        await router.push({path: "/user_profile"})
+        await router.push({path: "/faculties"})
         closeModalAuth()
         sessionStorage.setItem("AccessToken", response.data.access_token)
         sessionStorage.setItem("RefreshToken", response.data.refresh_token)
-        sessionStorage.setItem("TypeToken", response.data.token_type)
-        sessionStorage.setItem("ExpiresIn", response.data.expires_in)
+        isUserLogin.value = "Admin"
     } catch (err) {
         if (err.response) {
             console.log(err.response.status, err.response.data, err.message);
-            error.value = err.response.data.message;
+            text.value = err.message
         } else if (err.request) {
             console.log(err.request);
-            error.value = 'Ошибка сервера';
+            text.value = "Нет соеденения с сервером!"
         } else {
             console.log('Error', err.message);
-            error.value = err.message;
+            text.value = "Нет соеденения с сервером!"
         }
+        toast.update(toastId.value, {
+            autoClose: 10000,
+            type: toast.TYPE.ERROR,
+        });
     }
 }
