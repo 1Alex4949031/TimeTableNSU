@@ -5,7 +5,7 @@ import {addRoom} from "@/js/axios-request";
 
 
 const types = ["Лекционная", "Терминальная", "Стандартная"]
-const number = ref("")
+const name = ref("")
 const type = ref("")
 const cap = ref("")
 
@@ -13,13 +13,12 @@ const cap = ref("")
 
 <template>
 <div>
-
     <b-row>
       <b-col md="6" class="d-flex flex-column">
         <h2 class="modal-title mb-4">Управление комнатами</h2>
         <b-form>
           <b-form-group class="form-group" label="Номер комнаты" label-for="input-room-name">
-            <b-form-input class="custom-input" v-model="number" id="input-room-name"
+            <b-form-input class="custom-input" v-model="name" id="input-room-name"
                           placeholder="Введите номер" type="number">
             </b-form-input>
           </b-form-group>
@@ -31,7 +30,7 @@ const cap = ref("")
                           placeholder="Аудитория на N студентов" type="number">
             </b-form-input>
           </b-form-group>
-          <b-button class="custom-btn mt-4" @click="addRoom(number.valueOf(), type.valueOf(), cap.valueOf())">Создать аудиторию</b-button>
+          <b-button class="custom-btn mt-4" @click="addRoom(name.valueOf(), type.valueOf(), cap.valueOf())">Создать аудиторию</b-button>
         </b-form>
       </b-col>
       <b-col md="6" class="mt-3">

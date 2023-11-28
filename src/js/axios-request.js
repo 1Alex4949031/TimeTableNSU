@@ -40,3 +40,18 @@ export function addRoom(name, type, capacity) {
             console.error(consoleMessage)
         });
 }
+export function addGroup(groupNumber, faculty, course, studentsNumber) {
+    instance
+        .post(
+            '/api/admin/create_group',
+            {groupNumber, faculty, course, studentsNumber},
+            {useToken: true, requestName: "Create group"}
+        )
+        .then(response => {
+            router.push({path: "/admNav"})
+            console.error(response.config.requestName, " Done" )
+        })
+        .catch(consoleMessage =>{
+            console.error(consoleMessage)
+        });
+}
