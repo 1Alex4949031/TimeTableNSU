@@ -34,7 +34,7 @@ export function addRoom(name, type, capacity) {
         )
         .then(response => {
             router.push({path: "/admNav"})
-            console.error(response.config.requestName, "Done" )
+            console.log(response.config.requestName, "Done" )
         })
         .catch(consoleMessage =>{
             console.error(consoleMessage)
@@ -49,7 +49,22 @@ export function addGroup(groupNumber, faculty, course, studentsNumber) {
         )
         .then(response => {
             router.push({path: "/admNav"})
-            console.error(response.config.requestName, " Done" )
+            console.log(response.config.requestName, "Done" )
+        })
+        .catch(consoleMessage =>{
+            console.error(consoleMessage)
+        });
+}
+export function regTeacher(email, fullName, phone) {
+    instance
+        .post(
+            '/api/admin/register_teacher',
+            {email, fullName, phone},
+            {useToken: true, requestName: "Registration teacher"}
+        )
+        .then(response => {
+            router.push({path: "/admNav"})
+            console.log(response.config.requestName, "Done" )
         })
         .catch(consoleMessage =>{
             console.error(consoleMessage)
