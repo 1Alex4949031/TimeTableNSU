@@ -37,7 +37,7 @@ const course = ref(1)
             </b-form-input>
           </b-form-group>
           <b-button class="custom-btn mt-4" @click="addGroup(name.valueOf(), facul.valueOf(), studentCount.valueOf(), course.valueOf())">
-            Создать аудиторию</b-button>
+            Создать группу</b-button>
         </b-form>
       </b-col>
       <b-col md="6" class="mt-3">
