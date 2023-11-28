@@ -1,7 +1,7 @@
 <script setup>
 import {ref} from "vue";
-import {closeModalAuth, isVisibleAuth} from "@/JS/ModalLogic";
-import {auth} from "@/JS/Axios Request";
+import {closeModalAuth, isVisibleAuth} from "@/js/ModalLogic";
+import {auth} from "@/js/axios-request";
 
 const email = ref('admin@gmail.com')
 const password = ref('admin')
