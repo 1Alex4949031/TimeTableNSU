@@ -1,6 +1,6 @@
 <script setup>
 
-import {closeModalDayTimeSelect, isVisibleDayTimeSelect} from "@/JS/ModalLogic";
+import {closeModalDayTimeSelect, isVisibleDayTimeSelect} from "@/js/ModalLogic";
 import {reactive} from "vue";
 
 const tableArray = reactive(Array(7).fill().map(() => Array(6).fill(false)))

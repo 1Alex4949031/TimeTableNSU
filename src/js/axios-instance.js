@@ -17,7 +17,7 @@ instance.defaults.toastErrorDataText = ""
 instance.interceptors.request.use(
     config => {
         if (config.useToken) {
-            const token = sessionStorage.getItem("AccessToken");
+            const token = localStorage.getItem("AccessToken");
             if (token != null) {
                 config.headers['Authorization'] = `Bearer ${token}`;
             } else {
