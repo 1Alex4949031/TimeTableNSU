@@ -70,3 +70,34 @@ export function regTeacher(email, fullName, phone) {
             console.error(consoleMessage)
         });
 }
+
+export function getTeacher(teachers) {
+    instance
+        .get(
+            '/get/all_teachers',
+            {useToken: false, requestName: "Get teacher"}
+        )
+        .then(response => {
+            teachers.value = response.data
+            console.log(response.config.requestName, "Done" )
+        })
+        .catch(consoleMessage =>{
+            console.error(consoleMessage)
+        });
+}
+export function getGroup(group) {
+    instance
+        .get(
+            '/get/all_groups',
+            {useToken: false, requestName: "Get group"}
+        )
+        .then(response => {
+            for( let x of response.data ){
+                group.value.push(x.groupNumber)
+            }
+            console.log(response.config.requestName, "Done" )
+        })
+        .catch(consoleMessage =>{
+            console.error(consoleMessage)
+        });
+}
