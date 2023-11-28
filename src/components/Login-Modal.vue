@@ -1,10 +1,12 @@
 <script setup>
 import {ref} from "vue";
 import {closeModalAuth, isVisibleAuth} from "@/JS/ModalLogic";
+import {auth} from "@/JS/Axios Request";
 
-const login = ref('79134745790')
-const password = ref('test')
+const email = ref('admin@gmail.com')
+const password = ref('admin')
 const imageModal = require('@/assets/images/imageModal.png')
+
 </script>
 
 <template>
@@ -18,14 +20,14 @@ const imageModal = require('@/assets/images/imageModal.png')
             <h2 class="modal-title mb-4">Вход</h2>
             <b-form>
               <b-form-group class="form-group" id="input-group-1" label="Логин" label-for="input-1">
-                <b-form-input class="custom-input" v-model="login" id="input-1"
+                <b-form-input class="custom-input" v-model="email" id="input-1"
                               placeholder="Введите ваш логин"></b-form-input>
               </b-form-group>
               <b-form-group class="form-group" id="input-group-2" label="Пароль" label-for="input-2">
                 <b-form-input class="custom-input" v-model="password" type="password" id="input-2"
                               placeholder="Введите ваш пароль"></b-form-input>
               </b-form-group>
-              <b-button class="custom-btn mt-4">Вход</b-button>
+              <b-button class="custom-btn mt-4" @click="auth(email.valueOf(), password.valueOf())">Вход</b-button>
             </b-form>
           </b-col>
           <b-col md="6" class="mt-3">
@@ -117,7 +119,7 @@ const imageModal = require('@/assets/images/imageModal.png')
   width: 100%;
   height: 100%;
   background: rgba(255, 255, 255, 1);
-  z-index: 10000;
+  z-index: 1000;
   display: flex;
   align-content: start;
   overflow-y: auto;
