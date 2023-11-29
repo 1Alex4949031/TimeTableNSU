@@ -1,13 +1,13 @@
 import {closeModalAuth} from "@/js/ModalLogic";
 import router from "@/router/router";
-import {instance} from "@/js/axios-instance";
+import {customInstance} from "@/js/axios-instance";
 import {ref} from "vue";
 
-export const isUserLogin = ref("User") // "User"/ "Admin"/"Teacher"
+export const isUserLogin = ref(localStorage.getItem("isUserLogin")) // "User"/ "Admin"/"Teacher"
 
 
 export function auth(email, password) {
-    instance
+    customInstance
         .post(
             '/api/auth',
             {email, password},
@@ -18,6 +18,7 @@ export function auth(email, password) {
             closeModalAuth()
             localStorage.setItem("AccessToken", response.data.access_token)
             localStorage.setItem("RefreshToken", response.data.refresh_token)
+            localStorage.setItem("isUserLogin", "Admin")
             isUserLogin.value = "Admin"
         })
         .catch(consoleMessage =>{
@@ -26,7 +27,7 @@ export function auth(email, password) {
 }
 
 export function addRoom(name, type, capacity) {
-    instance
+    customInstance
         .post(
             '/api/admin/create_room',
             {name, type, capacity},
@@ -41,7 +42,7 @@ export function addRoom(name, type, capacity) {
         });
 }
 export function addGroup(groupNumber, faculty, course, studentsNumber) {
-    instance
+    customInstance
         .post(
             '/api/admin/create_group',
             {groupNumber, faculty, course, studentsNumber},
@@ -56,7 +57,7 @@ export function addGroup(groupNumber, faculty, course, studentsNumber) {
         });
 }
 export function regTeacher(email, fullName, phone) {
-    instance
+    customInstance
         .post(
             '/api/admin/register_teacher',
             {email, fullName, phone},
@@ -72,7 +73,7 @@ export function regTeacher(email, fullName, phone) {
 }
 
 export function getTeacher(teachers) {
-    instance
+    customInstance
         .get(
             '/get/all_teachers',
             {useToken: false, requestName: "Get teacher"}
@@ -86,7 +87,7 @@ export function getTeacher(teachers) {
         });
 }
 export function getGroup(group) {
-    instance
+    customInstance
         .get(
             '/get/all_groups',
             {useToken: false, requestName: "Get group"}

@@ -5,16 +5,16 @@ import 'vue3-toastify/dist/index.css';
 
 const serverURL = 'http://localhost:7070'
 
-export const instance = axios.create({
+export const customInstance = axios.create({
     baseURL: serverURL,
 });
-instance.defaults.useToken = false
-instance.defaults.requestName = "Неизвестный запрос"
-instance.defaults.showToast = true
-instance.defaults.toastWaitResponseText = "Запрос выполняется..."
-instance.defaults.toastSuccessText = "Успешно!"
-instance.defaults.toastErrorDataText = ""
-instance.interceptors.request.use(
+customInstance.defaults.useToken = false
+customInstance.defaults.requestName = "Неизвестный запрос"
+customInstance.defaults.showToast = true
+customInstance.defaults.toastWaitResponseText = "Запрос выполняется..."
+customInstance.defaults.toastSuccessText = "Успешно!"
+customInstance.defaults.toastErrorDataText = ""
+customInstance.interceptors.request.use(
     config => {
         if (config.useToken) {
             const token = localStorage.getItem("AccessToken");
@@ -31,7 +31,7 @@ instance.interceptors.request.use(
                     {
                         toastId: 'custom id',
                         autoClose: false,
-                        type: toast.TYPE.DEFAULT,
+                        type: "loading",
                         position: toast.POSITION.BOTTOM_RIGHT,
                     },
                 )
@@ -39,7 +39,7 @@ instance.interceptors.request.use(
         }
         return config;
     })
-instance.interceptors.response.use(
+customInstance.interceptors.response.use(
     response => {
         console.log(response.config.requestName + " успешно выполнен!")
         if (response.config.showToast) {
