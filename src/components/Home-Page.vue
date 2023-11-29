@@ -1,8 +1,14 @@
 <script setup>
+import router from "@/router/router";
+
 const exampleImg1 = require('@/assets/images/example1.png')
 const exampleImg2 = require('@/assets/images/example2.png')
 const exampleImg3 = require('@/assets/images/example3.png')
 const universityHomeImg = require('@/assets/images/university-home.png')
+
+function onClick(){
+  router.push('/faculties')
+}
 </script>
 
 
@@ -27,7 +33,7 @@ const universityHomeImg = require('@/assets/images/university-home.png')
       <b-col>
         <b-img :src="universityHomeImg" fluid class="custom-image"></b-img>
       </b-col>
-      <b-col md="6" class="nav-faculty"><h3>По факультетам</h3></b-col>
+      <b-col md="6" class="nav-faculty" @click="onClick"><h3>По факультетам</h3></b-col>
     </b-row>
 
     <b-row class="mb-3 text-center">
