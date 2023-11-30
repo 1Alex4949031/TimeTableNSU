@@ -74,10 +74,6 @@ function onClick(){
 </template>
 
 <style>
-body {
-  overflow-x: hidden;
-}
-
 .custom-image {
   border-radius: 130px;
 }

@@ -6,7 +6,6 @@ import {ref} from "vue";
 
 const name = ref("")
 
-
 </script>
 
 <template>
@@ -25,8 +24,10 @@ const name = ref("")
             Создать предмет</b-button>
         </b-form>
       </b-col>
-      <b-col md="6" class="mt-3">
-        <b-img :src=imageModal alt="Modal image" fluid class="rounded-custom"></b-img>
+      <b-col md="6">
+        <b-col class="mt-3 me-5 ms-5">
+          <b-img :src=imageModal alt="Modal image" fluid class="rounded-custom"></b-img>
+        </b-col>
       </b-col>
     </b-row>
 
@@ -34,5 +35,7 @@ const name = ref("")
 </template>
 
 <style scoped>
-
+.rounded-custom {
+  border-radius: 130px;
+}
 </style>

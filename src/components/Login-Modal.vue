@@ -5,7 +5,7 @@ import {auth} from "@/js/axios-request";
 
 const email = ref('admin@gmail.com')
 const password = ref('admin')
-const imageModal = require('@/assets/images/imageModal.png')
+const imageModal = require('@/assets/images/imageModal1.png')
 
 </script>
 

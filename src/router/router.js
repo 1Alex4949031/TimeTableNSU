@@ -5,7 +5,7 @@ import AdminNavigation from "@/components/admin-Page/admin-navigation.vue";
 import CreateGroup from "@/components/admin-Page/Create-Group.vue";
 import CreateRoom from "@/components/admin-Page/Create-Room.vue";
 import CreateSubject from "@/components/admin-Page/Create-Subject.vue";
-import RegistrationTeacher from "@/components/admin-Page/Registrate-Teacher.vue";
+import RegistrationTeacher from "@/components/admin-Page/Register-Teacher.vue";
 import GroupPage from "@/components/Group-Page.vue";
 import PlanePage from "@/components/admin-Page/Create-Plane.vue";
 
@@ -57,8 +57,11 @@ const routes = [
 ]
 
 const router = createRouter({
+    routes,
     history: createWebHistory(process.env.BASE_URL),
-    routes
+    scrollBehavior() {
+        return {top: 0};
+    }
 })
 
 export default router
