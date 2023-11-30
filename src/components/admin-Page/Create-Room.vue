@@ -1,5 +1,5 @@
 <script setup>
-import imageModal from "@/assets/images/imageModal.png";
+import imageModal from "@/assets/images/imageModal2.png";
 import {ref} from "vue";
 import {addRoom} from "@/js/axios-request";
 

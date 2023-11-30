@@ -1,7 +1,7 @@
 <script setup>
 
 import {regTeacher} from "@/js/axios-request";
-import imageModal from "@/assets/images/imageModal.png";
+import imageModal from "@/assets/images/imageModal4.png";
 import {ref} from "vue";
 
 const name = ref("")

@@ -1,7 +1,7 @@
 <script setup>
 
 import {getGroups, getTeachers} from "@/js/axios-request";
-import imageModal from "@/assets/images/imageModal.png";
+import imageModal from "@/assets/images/imageModal3.png";
 import {onMounted, ref} from "vue";
 
 const teachers = ref([])

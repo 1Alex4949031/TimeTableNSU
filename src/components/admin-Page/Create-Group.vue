@@ -1,7 +1,7 @@
 <script setup>
 
 import {addGroup} from "@/js/axios-request";
-import imageModal from "@/assets/images/imageModal.png";
+import imageModal from "@/assets/images/imageModal1.png";
 import {ref} from "vue";
 
 const facultets = ["ФИТ", "ММ", "ФФ", "ФИЯ", "ФЕН"]
@@ -55,7 +55,6 @@ const course = ref(1)
 </template>
 
 <style scoped>
-
 .rounded-custom {
   border-radius: 130px;
 }
