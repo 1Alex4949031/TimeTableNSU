@@ -1,22 +1,23 @@
 <script setup>
-// import {ref, onMounted} from 'vue';
-// import {useRoute} from 'vue-router';
-// import axios from 'axios';
+import {ref, onMounted} from 'vue';
+import {useRoute} from 'vue-router';
+import {getFacultyGroups} from "@/js/axios-request";
 
-// const route = useRoute();
-// const facultyName = route.params.facultyId;
-// const groups = ref([]);
+const route = useRoute();
+const facultyName = route.params.facultyId;
+const groups = ref([]);
 
-//onMounted(fetchGroups(facultyName))
+onMounted(() => getFacultyGroups(facultyName, groups))
+
 </script>
 
 <template>
   <div>
     <h1>Группы факультета</h1>
     <ul>
-<!--      <li v-for="group in groups" :key="group.id">-->
-<!--        {{ group.name }}-->
-<!--      </li>-->
+      <li v-for="group in groups" :key="group.id">
+        {{ group.groupNumber }}
+      </li>
     </ul>
   </div>
 </template>
