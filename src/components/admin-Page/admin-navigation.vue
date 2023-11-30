@@ -1,21 +1,25 @@
 <script setup>
 
+import {logOut} from "@/js/axios-request";
 </script>
 
 <template>
   <div>
     <p>Admin Pages</p>
     <div>
-      <router-link to="/newGroup">Group Controle</router-link>
+      <router-link to="/newGroup">Group Control</router-link>
     </div>
     <div>
-      <router-link to="/newTeacher">Teacher Controle</router-link>
+      <router-link to="/newTeacher">Teacher Control</router-link>
     </div>
     <div>
-      <router-link to="/newRoom">Room Controle</router-link>
+      <router-link to="/newRoom">Room Control</router-link>
     </div>
     <div>
-      <router-link to="/newSubj">Subject Controle</router-link>
+      <router-link to="/newSubj">Subject Control</router-link>
+    </div>
+    <div>
+      <router-link to="/home" @click="logOut()">Logout</router-link>
     </div>
   </div>
 </template>

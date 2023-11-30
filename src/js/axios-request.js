@@ -3,7 +3,7 @@ import router from "@/router/router";
 import {customInstance} from "@/js/axios-instance";
 import {ref} from "vue";
 
-export const isUserLogin = ref(localStorage.getItem("isUserLogin")) // "User"/ "Admin"/"Teacher"
+export const isUserLogin = ref(localStorage.getItem("isUserLogin") || "User") // "User"/ "Admin"/"Teacher"
 
 
 export function auth(email, password) {
@@ -26,6 +26,16 @@ export function auth(email, password) {
         });
 }
 
+//Вместо рефреша
+export function logOut() {
+    localStorage.removeItem("AccessToken")
+    localStorage.removeItem("RefreshToken")
+    localStorage.removeItem("isUserLogin")
+    isUserLogin.value = "User"
+    router.push({path: "/home"})
+}
+
+
 export function addRoom(name, type, capacity) {
     customInstance
         .post(
@@ -41,7 +51,7 @@ export function addRoom(name, type, capacity) {
             console.error(consoleMessage)
         });
 }
-export function addGroup(groupNumber, faculty, course, studentsNumber) {
+export function addGroup(groupNumber, faculty, studentsNumber, course) {
     customInstance
         .post(
             '/api/admin/create_group',
@@ -72,7 +82,7 @@ export function regTeacher(email, fullName, phone) {
         });
 }
 
-export function getTeacher(teachers) {
+export function getTeachers(teachers) {
     customInstance
         .get(
             '/get/all_teachers',
@@ -86,7 +96,7 @@ export function getTeacher(teachers) {
             console.error(consoleMessage)
         });
 }
-export function getGroup(group) {
+export function getGroups(group) {
     customInstance
         .get(
             '/get/all_groups',
