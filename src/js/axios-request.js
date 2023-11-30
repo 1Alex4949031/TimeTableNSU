@@ -14,14 +14,14 @@ export function auth(email, password) {
             {useToken: false, requestName: "Login"}
         )
         .then(response => {
-            router.push({path: "/admNav"})
+            router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
             closeModalAuth()
             localStorage.setItem("AccessToken", response.data.access_token)
             localStorage.setItem("RefreshToken", response.data.refresh_token)
             localStorage.setItem("isUserLogin", "Admin")
             isUserLogin.value = "Admin"
         })
-        .catch(consoleMessage =>{
+        .catch(consoleMessage => {
             console.error(consoleMessage)
         });
 }
@@ -32,7 +32,7 @@ export function logOut() {
     localStorage.removeItem("RefreshToken")
     localStorage.removeItem("isUserLogin")
     isUserLogin.value = "User"
-    router.push({path: "/"})
+    router.push({path: "/"}).then(x => console.log(x))
 }
 
 
@@ -44,13 +44,14 @@ export function addRoom(name, type, capacity) {
             {useToken: true, requestName: "Create room"}
         )
         .then(response => {
-            router.push({path: "/admNav"})
-            console.log(response.config.requestName, "Done" )
+            router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
+            console.log(response.config.requestName, "Done")
         })
-        .catch(consoleMessage =>{
+        .catch(consoleMessage => {
             console.error(consoleMessage)
         });
 }
+
 export function addGroup(groupNumber, faculty, studentsNumber, course) {
     customInstance
         .post(
@@ -59,13 +60,14 @@ export function addGroup(groupNumber, faculty, studentsNumber, course) {
             {useToken: true, requestName: "Create group"}
         )
         .then(response => {
-            router.push({path: "/admNav"})
-            console.log(response.config.requestName, "Done" )
+            router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
+            console.log(response.config.requestName, "Done")
         })
-        .catch(consoleMessage =>{
+        .catch(consoleMessage => {
             console.error(consoleMessage)
         });
 }
+
 export function regTeacher(email, fullName, phone) {
     customInstance
         .post(
@@ -74,10 +76,10 @@ export function regTeacher(email, fullName, phone) {
             {useToken: true, requestName: "Registration teacher"}
         )
         .then(response => {
-            router.push({path: "/admNav"})
-            console.log(response.config.requestName, "Done" )
+            router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
+            console.log(response.config.requestName, "Done")
         })
-        .catch(consoleMessage =>{
+        .catch(consoleMessage => {
             console.error(consoleMessage)
         });
 }
@@ -90,12 +92,13 @@ export function getTeachers(teachers) {
         )
         .then(response => {
             teachers.value = response.data
-            console.log(response.config.requestName, "Done" )
+            console.log(response.config.requestName, "Done")
         })
-        .catch(consoleMessage =>{
+        .catch(consoleMessage => {
             console.error(consoleMessage)
         });
 }
+
 export function getGroups(group) {
     customInstance
         .get(
@@ -103,12 +106,27 @@ export function getGroups(group) {
             {useToken: false, requestName: "Get group"}
         )
         .then(response => {
-            for( let x of response.data ){
+            for (let x of response.data) {
                 group.value.push(x.groupNumber)
             }
-            console.log(response.config.requestName, "Done" )
+            console.log(response.config.requestName, "Done")
         })
-        .catch(consoleMessage =>{
+        .catch(consoleMessage => {
+            console.error(consoleMessage)
+        });
+}
+
+export function getFacultyGroups(faculty, groupFeedback) {
+    customInstance
+        .get(
+            '/get/faculty_groups' + '/' + faculty,
+            {useToken: false, requestName: "Get group faculty"}
+        )
+        .then(response => {
+            groupFeedback.value = response.data
+            console.log(response.config.requestName, "Done")
+        })
+        .catch(consoleMessage => {
             console.error(consoleMessage)
         });
 }
