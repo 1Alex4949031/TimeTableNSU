@@ -8,6 +8,7 @@ import CreateSubject from "@/components/admin-Page/Create-Subject.vue";
 import RegistrationTeacher from "@/components/admin-Page/Register-Teacher.vue";
 import GroupPage from "@/components/Group-Page.vue";
 import PlanePage from "@/components/admin-Page/Create-Plane.vue";
+import GroupTimetablePage from "@/components/GroupTimetable-Page.vue";
 
 const routes = [
     {
@@ -54,6 +55,9 @@ const routes = [
         name: 'newPlane',
         component: PlanePage
     },
+        path: '/faculties/:facultyId/:group/table',
+        component: GroupTimetablePage
+    }
 ]
 
 const router = createRouter({
