@@ -10,7 +10,7 @@ export const customInstance = axios.create({
 });
 customInstance.defaults.useToken = false
 customInstance.defaults.requestName = "Неизвестный запрос"
-customInstance.defaults.showToast = true
+customInstance.defaults.showToast = "all"//
 customInstance.defaults.toastWaitResponseText = "Запрос выполняется..."
 customInstance.defaults.toastSuccessText = "Успешно!"
 customInstance.defaults.toastErrorDataText = ""
@@ -29,7 +29,7 @@ customInstance.interceptors.request.use(
             config.toastId = ref(toast(
                     config.toastText,
                     {
-                        toastId: 'custom id',
+                        toastId: config.toastId || config.requestName,
                         autoClose: false,
                         type: "loading",
                         position: toast.POSITION.BOTTOM_RIGHT,
