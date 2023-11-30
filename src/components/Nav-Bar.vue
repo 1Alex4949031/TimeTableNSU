@@ -24,7 +24,7 @@ function routeToOptions() {
       <b-navbar-nav class="custom-navbar-nav">
 
         <b-nav-item v-if="isUserLogin === 'User'" @click="openModalAuth()">Вход</b-nav-item>
-        <b-nav-item v-else @click="routeToOptions">Профиль</b-nav-item>
+        <b-nav-item v-else @click="routeToOptions">Опции</b-nav-item>
 
         <b-nav-item @click="openModalDayTimeSelect()">Первичный выбор предпочтений</b-nav-item>
       </b-navbar-nav>
