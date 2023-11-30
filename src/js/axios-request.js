@@ -68,6 +68,45 @@ export function addGroup(groupNumber, faculty, studentsNumber, course) {
         });
 }
 
+export function addSubject(name, timesInAWeek) {
+    customInstance
+        .post(
+            'api/admin/create_subject',
+            {name, timesInAWeek},
+            {useToken: true, requestName: "Create subject"}
+        )
+        .then(response => {
+            router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
+            console.log(response.config.requestName, "Done")
+        })
+        .catch(consoleMessage => {
+            console.error(consoleMessage)
+        });
+}
+
+export function addPlane(teacher, subject, timesInAWeek, subjectType, groups) {
+    console.log(teacher, subject, timesInAWeek, subjectType, groups)
+    customInstance
+        .post(
+            'api/admin/create_plan',
+            {teacher, subject, timesInAWeek, subjectType, groups},
+            {
+                useToken: true,
+                requestName: "Create subject",
+                toastId: Math.random(),
+                toastSuccessText: "Предмет " + subject + "для группы " + groups
+            }
+        )
+        .then(response => {
+            router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
+            console.log(response.config.requestName, "Done")
+        })
+        .catch(consoleMessage => {
+            console.error(consoleMessage)
+        });
+}
+
+
 export function regTeacher(email, fullName, phone) {
     customInstance
         .post(
@@ -124,6 +163,20 @@ export function getFacultyGroups(faculty, groupFeedback) {
         )
         .then(response => {
             groupFeedback.value = response.data
+            console.log(response.config.requestName, "Done")
+        })
+        .catch(consoleMessage => {
+            console.error(consoleMessage)
+        });
+}
+export function getSubject(subjectFeedback) {
+    customInstance
+        .get(
+            '/get/all_subjects',
+            {useToken: false, requestName: "Get group faculty"}
+        )
+        .then(response => {
+            subjectFeedback.value = response.data
             console.log(response.config.requestName, "Done")
         })
         .catch(consoleMessage => {

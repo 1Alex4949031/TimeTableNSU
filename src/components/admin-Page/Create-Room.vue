@@ -2,9 +2,9 @@
 import imageModal from "@/assets/images/imageModal.png";
 import {ref} from "vue";
 import {addRoom} from "@/js/axios-request";
+import {roomTypes} from "@/js/data-for-show";
 
 
-const types = ["Лекционная", "Терминальная", "Стандартная"]
 const name = ref("")
 const type = ref("")
 const cap = ref("")
@@ -23,7 +23,7 @@ const cap = ref("")
             </b-form-input>
           </b-form-group>
           <b-form-group class="form-group" label="Тип комнаты" label-for="input-room-type">
-            <b-form-select v-model="type" :options="types" label="Выберите опцию"></b-form-select>
+            <b-form-select v-model="type" :options="roomTypes" label="Выберите опцию"></b-form-select>
           </b-form-group>
           <b-form-group class="form-group" label="Вместимость" label-for="input-room-cap">
             <b-form-input class="custom-input" v-model="cap" id="input-room-name"
