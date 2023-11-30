@@ -1,6 +1,6 @@
 <script setup>
 
-import {getGroup, getTeacher} from "@/js/axios-request";
+import {getGroups, getTeachers} from "@/js/axios-request";
 import imageModal from "@/assets/images/imageModal.png";
 import {onMounted, ref} from "vue";
 
@@ -12,8 +12,8 @@ const name = ref("")
 const timeAWeek = ref(1)
 
 onMounted(() => {
-  getTeacher(teachers)
-  getGroup(allGroups)
+  getTeachers(teachers)
+  getGroups(allGroups)
 })
 </script>
 
@@ -25,7 +25,7 @@ onMounted(() => {
         <b-form>
           <b-form-group class="form-group" label="Название предмета" label-for="input-subject-name">
             <b-form-input class="custom-input" v-model="name" id="input-subject-name"
-                          placeholder="Проэктирование ПО">
+                          placeholder="Проектирование ПО">
             </b-form-input>
           </b-form-group>
 
