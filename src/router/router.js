@@ -7,7 +7,7 @@ import CreateRoom from "@/components/admin-Page/Create-Room.vue";
 import CreateSubject from "@/components/admin-Page/Create-Subject.vue";
 import RegistrationTeacher from "@/components/admin-Page/Register-Teacher.vue";
 import GroupPage from "@/components/Group-Page.vue";
-import PlanePage from "@/components/admin-Page/Create-Plane.vue";
+import PlanPage from "@/components/admin-Page/Create-Plan.vue";
 import GroupTimetablePage from "@/components/GroupTimetable-Page.vue";
 
 const routes = [
@@ -51,10 +51,11 @@ const routes = [
         component: GroupPage
     },
     {
-        path: '/newPlane',
-        name: 'newPlane',
-        component: PlanePage
+        path: '/newPlan',
+        name: 'newPlan',
+        component: PlanPage
     },
+    {
         path: '/faculties/:facultyId/:group/table',
         component: GroupTimetablePage
     }

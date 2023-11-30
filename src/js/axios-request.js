@@ -84,7 +84,7 @@ export function addSubject(name, timesInAWeek) {
         });
 }
 
-export function addPlane(teacher, subject, timesInAWeek, subjectType, groups) {
+export function addPlan(teacher, subject, timesInAWeek, subjectType, groups) {
     console.log(teacher, subject, timesInAWeek, subjectType, groups)
     customInstance
         .post(

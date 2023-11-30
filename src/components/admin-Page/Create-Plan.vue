@@ -1,6 +1,6 @@
 <script setup>
 
-import {addPlane, getGroups, getSubject, getTeachers} from "@/js/axios-request";
+import {addPlan, getGroups, getSubject, getTeachers} from "@/js/axios-request";
 import imageModal from "@/assets/images/imageModal2.png"; //на рандом 2 дописал
 import {onMounted, ref} from "vue";
 import {roomTypes} from "@/js/data-for-show";
@@ -17,7 +17,7 @@ const timeAWeek = ref(1)
 
 function addPlansLocal(){
   groups.value.forEach( x => {
-    addPlane(
+    addPlan(
         teacher.value,
         subject.value,
         timeAWeek.value,
