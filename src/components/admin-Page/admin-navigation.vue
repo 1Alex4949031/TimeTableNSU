@@ -19,7 +19,7 @@ import {logOut} from "@/js/axios-request";
       <router-link to="/newSubj">Subject Control</router-link>
     </div>
     <div>
-      <router-link to="/home" @click="logOut()">Logout</router-link>
+      <router-link to="/" @click="logOut()">Logout</router-link>
     </div>
   </div>
 </template>

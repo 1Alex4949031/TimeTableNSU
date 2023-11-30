@@ -32,7 +32,7 @@ export function logOut() {
     localStorage.removeItem("RefreshToken")
     localStorage.removeItem("isUserLogin")
     isUserLogin.value = "User"
-    router.push({path: "/home"})
+    router.push({path: "/"})
 }
 
 
