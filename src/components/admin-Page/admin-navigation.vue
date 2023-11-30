@@ -1,6 +1,7 @@
 <script setup>
 
 import {logOut} from "@/js/axios-request";
+
 </script>
 
 <template>
