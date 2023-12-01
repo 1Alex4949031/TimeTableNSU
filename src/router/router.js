@@ -9,6 +9,7 @@ import RegistrationTeacher from "@/components/admin-Page/Register-Teacher.vue";
 import GroupPage from "@/components/Group-Page.vue";
 import PlanPage from "@/components/admin-Page/Create-Plan.vue";
 import GroupTimetablePage from "@/components/GroupTimetable-Page.vue";
+import TimeTableExample from "@/components/TimeTable-Example.vue";
 
 const routes = [
     {
@@ -58,6 +59,10 @@ const routes = [
     {
         path: '/faculties/:facultyId/:group/table',
         component: GroupTimetablePage
+    },
+    {
+        path: '/time-table-example',
+        component: TimeTableExample
     }
 ]
 
