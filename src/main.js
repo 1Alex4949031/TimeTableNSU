@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 // AOS для
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+
 AOS.init()
 
 createApp(App)

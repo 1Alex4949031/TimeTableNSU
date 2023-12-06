@@ -6,7 +6,7 @@ const exampleImg2 = require('@/assets/images/example2.png')
 const exampleImg3 = require('@/assets/images/example3.png')
 const universityHomeImg = require('@/assets/images/university-home.png')
 
-function onClick(){
+function onClick() {
   router.push('/faculties')
 }
 </script>
@@ -33,7 +33,9 @@ function onClick(){
       <b-col>
         <b-img :src="universityHomeImg" fluid class="custom-image"></b-img>
       </b-col>
-      <b-col md="6" class="nav-faculty" @click="onClick"><h3>По факультетам</h3></b-col>
+      <b-col md="6" class="nav-faculty" @click="onClick">
+        <h3>По факультетам</h3>
+      </b-col>
     </b-row>
 
     <b-row class="mb-3 text-center">
@@ -74,6 +76,15 @@ function onClick(){
 </template>
 
 <style>
+.nav-faculty:hover h3 {
+  transform: scale(1.2);
+  transition: transform 0.3s ease;
+}
+
+.nav-faculty h3 {
+  transition: transform 0.3s ease;
+}
+
 .custom-image {
   border-radius: 130px;
 }

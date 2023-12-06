@@ -1,19 +1,23 @@
 <script setup>
-import {ref, onMounted} from 'vue';
+import {ref, onMounted, computed} from 'vue';
 import {useRoute} from 'vue-router';
 import {getFacultyGroups} from "@/js/axios-request";
-import imageFaculty from "@/assets/images/faculties/fit.png";
 import router from "@/router/router";
+import {faculties} from "@/js/data-for-show";
 
 const route = useRoute();
-const facultyName = route.params.facultyId;
+const facultyId = ref(route.params.facultyId);
 const groups = ref([]);
 
-onMounted(() => getFacultyGroups(facultyName, groups))
+onMounted(() => getFacultyGroups(facultyId.value, groups))
 
 const goToGroupTimetable = (groupNumber) => {
-  router.push({path: `/faculties/${facultyName}/${groupNumber}/table`});
+  router.push({path: `/faculties/${facultyId.value}/${groupNumber}/table`});
 };
+
+const imageSrc = computed(() => {
+  return faculties[facultyId.value]?.imageSrc;
+});
 
 
 </script>
@@ -33,7 +37,7 @@ const goToGroupTimetable = (groupNumber) => {
     </b-col>
     <b-col md="6">
       <b-col class="mt-3 me-5 ms-5">
-        <b-img :src=imageFaculty alt="Faculty image" fluid class="rounded-custom"></b-img>
+        <b-img :src=imageSrc alt="Faculty image" fluid class="rounded-custom"/>
       </b-col>
     </b-col>
   </b-row>
