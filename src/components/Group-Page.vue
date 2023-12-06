@@ -46,6 +46,10 @@ const imageSrc = computed(() => {
 </template>
 
 <style scoped>
+.list-group-item {
+  font-size: 1.2em;
+  cursor: pointer;
+}
 .rounded-custom {
   border-radius: 130px;
 }

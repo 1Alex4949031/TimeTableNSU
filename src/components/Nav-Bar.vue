@@ -5,6 +5,7 @@ import DayTimeSelectModal from "@/components/Day-Time-Select-Modal.vue";
 import LoginModal from "@/components/Login-Modal.vue";
 import {isUserLogin} from "@/js/axios-request";
 import router from "@/router/router";
+import logo from '@/assets/images/logo.png'
 
 function routeToOptions() {
   router.push('/admNav');
@@ -15,7 +16,12 @@ function routeToOptions() {
 <template>
 
   <b-navbar toggleable="lg" type="dark" variant="light">
-    <b-navbar-brand class="text" href="#">TimeTable</b-navbar-brand>
+    <b-navbar-brand>
+      <b-row class="brand-row">
+        <img class="logo" :src=logo alt="Logo">
+        <b-col class="text">TimeTable</b-col>
+      </b-row>
+    </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -38,9 +44,17 @@ function routeToOptions() {
 </template>
 
 <style scoped>
+.brand-row{
+  justify-content: center;
+  align-items: center;
+}
 .text {
   font-weight: 700;
   color: black;
+}
+
+.logo {
+  width: 65px;
 }
 
 .custom-navbar-nav {
