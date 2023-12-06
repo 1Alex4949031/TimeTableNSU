@@ -43,11 +43,9 @@ const imageModal = require('@/assets/images/imageModal1.png')
 .form-group {
   letter-spacing: 3px;
   font-weight: 500;
-  font-family: 'Montserrat', sans-serif;
 }
 
 .custom-btn {
-  font-family: 'Montserrat', sans-serif;
   background-color: #fff;
   color: black;
   border: 1px solid #ced4da;
@@ -58,7 +56,6 @@ const imageModal = require('@/assets/images/imageModal1.png')
 }
 
 .custom-input {
-  font-family: 'Montserrat', sans-serif;
   border: 1px solid #ced4da;
   border-radius: 20px;
   font-size: 1.5rem;

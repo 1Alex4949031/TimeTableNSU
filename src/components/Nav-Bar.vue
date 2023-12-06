@@ -39,7 +39,6 @@ function routeToOptions() {
 
 <style scoped>
 .text {
-  font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   color: black;
 }

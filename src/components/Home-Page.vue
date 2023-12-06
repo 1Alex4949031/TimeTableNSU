@@ -90,7 +90,6 @@ function onClick() {
 }
 
 .nav-faculty {
-  font-family: 'Montserrat', sans-serif;
   display: flex;
   text-align: center;
   justify-content: center;
@@ -98,7 +97,6 @@ function onClick() {
 }
 
 .description {
-  font-family: 'Montserrat', sans-serif;
   margin-top: 30px;
   font-weight: 300;
   color: black;
@@ -122,7 +120,6 @@ function onClick() {
 }
 
 .text-content {
-  font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   color: black;
   margin-top: 2rem;

@@ -15,10 +15,11 @@ const goToFaculty = (facultyId) => {
     </b-col>
     <b-row>
       <b-col data-aos="fade-in" data-aos-duration="2000" data-aos-once="true"
-             v-for="(faculty, index) in Object.entries(faculties)" :key="index" cols="12" md="4" class="faculty mb-2 mt-2"
+             v-for="(faculty, index) in Object.entries(faculties)" :key="index" cols="12" md="4"
+             class="faculty mb-2 mt-2"
              @click="goToFaculty(faculty[0])">
         <b-img class="faculty-image" :src="faculty[1].imageSrc" alt="Faculty"></b-img>
-        <b-col>
+        <b-col class="mt-1">
           <p class="faculty-name">{{ faculty[1].name }}</p>
         </b-col>
       </b-col>
@@ -28,15 +29,14 @@ const goToFaculty = (facultyId) => {
 
 <style scoped>
 .text-faculties {
-  font-family: 'Montserrat', sans-serif;
   text-align: center;
   font-weight: 700;
 }
 
 .faculty-name {
-  font-family: 'Montserrat', sans-serif;
   text-align: center;
   font-weight: 600;
+  font-size: large;
 }
 
 .faculty-image {

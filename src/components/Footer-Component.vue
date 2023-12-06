@@ -13,7 +13,6 @@
 <style scoped>
 .footer-text{
   margin-top: 10px;
-  font-family: 'Montserrat', sans-serif;
   font-weight: 400;
 }
 .footer {

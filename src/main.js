@@ -8,8 +8,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 // AOS для
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-
 AOS.init()
+
+//Montserrat
+import './css/font.css'
 
 createApp(App)
     .use(BootstrapVue3)
