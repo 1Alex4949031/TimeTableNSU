@@ -15,9 +15,10 @@ export function auth(email, password) {
         )
         .then(response => {
             router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
+            const {access_token, refresh_token} = response.data
             closeModalAuth()
-            localStorage.setItem("AccessToken", response.data.access_token)
-            localStorage.setItem("RefreshToken", response.data.refresh_token)
+            localStorage.setItem("AccessToken", access_token)
+            localStorage.setItem("RefreshToken", refresh_token)
             localStorage.setItem("isUserLogin", "Admin")
             isUserLogin.value = "Admin"
         })
@@ -45,7 +46,7 @@ export function addRoom(name, type, capacity) {
         )
         .then(response => {
             router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
-            console.log(response.config.requestName, "Done")
+            console.log(response.config["requestName"], "Done")
         })
         .catch(consoleMessage => {
             console.error(consoleMessage)
@@ -61,7 +62,7 @@ export function addGroup(groupNumber, faculty, studentsNumber, course) {
         )
         .then(response => {
             router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
-            console.log(response.config.requestName, "Done")
+            console.log(response.config["requestName"], "Done")
         })
         .catch(consoleMessage => {
             console.error(consoleMessage)
@@ -77,7 +78,7 @@ export function addSubject(name, timesInAWeek) {
         )
         .then(response => {
             router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
-            console.log(response.config.requestName, "Done")
+            console.log(response.config["requestName"], "Done")
         })
         .catch(consoleMessage => {
             console.error(consoleMessage)
@@ -99,7 +100,7 @@ export function addPlan(teacher, subject, timesInAWeek, subjectType, groups) {
         )
         .then(response => {
             router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
-            console.log(response.config.requestName, "Done")
+            console.log(response.config["requestName"], "Done")
         })
         .catch(consoleMessage => {
             console.error(consoleMessage)
@@ -116,7 +117,7 @@ export function regTeacher(email, fullName, phone) {
         )
         .then(response => {
             router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
-            console.log(response.config.requestName, "Done")
+            console.log(response.config["requestName"], "Done")
         })
         .catch(consoleMessage => {
             console.error(consoleMessage)
@@ -131,7 +132,7 @@ export function getTeachers(teachers) {
         )
         .then(response => {
             teachers.value = response.data
-            console.log(response.config.requestName, "Done")
+            console.log(response.config["requestName"], "Done")
         })
         .catch(consoleMessage => {
             console.error(consoleMessage)
@@ -148,7 +149,7 @@ export function getGroups(group) {
             for (let x of response.data) {
                 group.value.push(x.groupNumber)
             }
-            console.log(response.config.requestName, "Done")
+            console.log(response.config["requestName"], "Done")
         })
         .catch(consoleMessage => {
             console.error(consoleMessage)
@@ -163,7 +164,7 @@ export function getFacultyGroups(faculty, groupFeedback) {
         )
         .then(response => {
             groupFeedback.value = response.data
-            console.log(response.config.requestName, "Done")
+            console.log(response.config["requestName"], "Done")
         })
         .catch(consoleMessage => {
             console.error(consoleMessage)
@@ -177,7 +178,7 @@ export function getSubject(subjectFeedback) {
         )
         .then(response => {
             subjectFeedback.value = response.data
-            console.log(response.config.requestName, "Done")
+            console.log(response.config["requestName"], "Done")
         })
         .catch(consoleMessage => {
             console.error(consoleMessage)
