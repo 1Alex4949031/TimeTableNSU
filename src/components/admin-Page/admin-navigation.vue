@@ -61,6 +61,12 @@ async function getExampleAll() {
           <router-link to="/newPlan">Plane Control</router-link>
         </div>
         <div>
+          <router-link to="/newConstrain">Constrain add</router-link>
+        </div>
+        <div>
+          <router-link to="/removeConstrain">Constrain remove</router-link>
+        </div>
+        <div>
           <router-link to="/" @click="logOut()">Logout</router-link>
         </div>
         <div>

@@ -65,7 +65,7 @@ export function addPlan(teacher, subject, timesInAWeek, subjectType, groups) {
             }
         )
         .then(response => {
-            router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
+           // router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
             console.log(response.config["requestName"], "Done")
         })
         .catch(consoleMessage => {

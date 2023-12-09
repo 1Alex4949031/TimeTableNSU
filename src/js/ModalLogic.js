@@ -7,11 +7,3 @@ export function closeModalAuth () {
 export function openModalAuth () {
     isVisibleAuth.value = true;
 }
-
-export const isVisibleDayTimeSelect = ref(false);
-export function closeModalDayTimeSelect () {
-    isVisibleDayTimeSelect.value = false;
-}
-export function openModalDayTimeSelect () {
-    isVisibleDayTimeSelect.value = true;
-}

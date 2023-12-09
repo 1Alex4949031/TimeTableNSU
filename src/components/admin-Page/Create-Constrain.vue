@@ -1,0 +1,163 @@
+<script setup>
+import imageModal from "@/assets/images/imageModal1.png";
+import {onMounted, ref} from "vue";
+import {getGroups, getTeachers} from "@/js/add-get-request";
+import DayTimeSelectModal from "@/components/admin-Page/Day-Time-Select-Modal.vue";
+import {addConstrains} from "@/js/constraint-requests";
+import {isSelected} from "@/js/selected-timetable";
+
+const teachers = ref([])
+const teacher = ref("")
+const allGroups = ref([])
+const groups = ref()
+
+const maxDay = ref(7)
+
+const lockDay = ref()
+
+const constrains = ref([
+  'Максимальное кол-во рабочих дней',
+  'Запрещенный порядковый номер пары для препода в определённый день',
+  'Запрещенные порядковый номер пары для групп в определённый день',
+  'Запрещенный день для преподавания для препода',
+  'Запрещенный день для преподавания для группы'
+])
+const selectedConstrains = ref("")
+
+function addConstrain() {
+  switch (selectedConstrains.value) {
+    case 'Запрещенный день для преподавания для препода' : {
+      addConstrains({constraintNameRu: selectedConstrains.value, teacher: teacher.value, day: lockDay.value})
+      break;
+    }
+    case 'Запрещенный день для преподавания для группы' : {
+      for (let group of groups.value) {
+        addConstrains({constraintNameRu: selectedConstrains.value, group: group, day: lockDay.value})
+      }
+      break;
+    }
+    case 'Максимальное кол-во рабочих дней' : {
+      addConstrains({constraintNameRu: selectedConstrains.value, teacher: teacher.value, day: maxDay.value})
+      break;
+    }
+    case 'Запрещенный порядковый номер пары для препода в определённый день' : {
+      for (let day = 1; day <= 6; day++) {
+        for (let lessonNumber = 1; lessonNumber <= 7; lessonNumber++) {
+          console.log(isSelected(1, 1))
+          if (isSelected(lessonNumber, day)) {
+            addConstrains({
+              constraintNameRu: selectedConstrains.value,
+              teacher: teacher.value,
+              day: day,
+              number: lessonNumber
+            })
+          }
+        }
+      }
+      break;
+    }
+    case 'Запрещенные порядковый номер пары для групп в определённый день' : {
+      for (let group of groups.value) {
+        for (let day = 1; day <= 6; day++) {
+          for (let lessonNumber = 1; lessonNumber <= 7; lessonNumber++) {
+            console.log(isSelected(1, 1))
+            if (isSelected(lessonNumber, day)) {
+              addConstrains({
+                constraintNameRu: selectedConstrains.value,
+                group: group,
+                day: day,
+                number: lessonNumber
+              })
+            }
+          }
+        }
+      }
+      break;
+    }
+  }
+}
+
+onMounted(() => {
+  getTeachers(teachers)
+  getGroups(allGroups)
+})
+
+</script>
+
+<template>
+
+  <div>
+    <b-row>
+      <b-col md="6">
+        <b-col class="mt-4 ms-4 me-4">
+          <h2 class="modal-title mb-4">Управление Ограничениями</h2>
+          <b-form>
+
+            <b-form-group class="form-group" label="Тип ограничения" label-for="input-group-type">
+              <b-form-select v-model="selectedConstrains" :options="constrains" label="Выберите опцию"
+                             id="input-group-type"/>
+            </b-form-group>
+
+            <div v-if="selectedConstrains === 'Максимальное кол-во рабочих дней'">
+              <b-form-group class="form-group" label="Преподователь" label-for="input-subject-teacher">
+                <b-form-select v-model="teacher" :options="teachers" label="ФИО" id="input-subject-teacher"/>
+              </b-form-group>
+              <b-form-group class="form-group" label="Количество рабочих дней" label-for="input-teacher-cap">
+                <b-form-input class="custom-input" v-model="maxDay" id="input-teacher-cap"
+                              placeholder="" type="number"/>
+              </b-form-group>
+            </div>
+
+            <div v-if="selectedConstrains === 'Запрещенный порядковый номер пары для препода в определённый день'">
+              <b-form-group class="form-group" label="Преподователь" label-for="input-subject-teacher">
+                <b-form-select v-model="teacher" :options="teachers" label="ФИО" id="input-subject-teacher"/>
+              </b-form-group>
+              <DayTimeSelectModal/>
+            </div>
+            <div v-if="selectedConstrains === 'Запрещенные порядковый номер пары для групп в определённый день'">
+              <b-form-group class="form-group" label="Группы" label-for="input-subject-groups">
+                <b-form-select v-model="groups" :options="allGroups" multiple="true"
+                               id="input-subject-groups"></b-form-select>
+              </b-form-group>
+              <DayTimeSelectModal/>
+            </div>
+
+            <div v-if="selectedConstrains === 'Запрещенный день для преподавания для группы'">
+              <b-form-group class="form-group" label="Группы" label-for="input-subject-groups">
+                <b-form-select v-model="groups" :options="allGroups" multiple="true"
+                               id="input-subject-groups"></b-form-select>
+              </b-form-group>
+              <b-form-group class="form-group" label="Нерабочий день" label-for="input-teacher-cap">
+                <b-form-input class="custom-input" v-model="lockDay" id="input-teacher-cap"
+                              placeholder="" type="number"/>
+              </b-form-group>
+            </div>
+
+            <div v-if="selectedConstrains === 'Запрещенный день для преподавания для препода'">
+              <b-form-group class="form-group" label="Преподователь" label-for="input-subject-teacher">
+                <b-form-select v-model="teacher" :options="teachers" label="ФИО" id="input-subject-teacher"/>
+              </b-form-group>
+              <b-form-group class="form-group" label="Нерабочий день" label-for="input-teacher-cap">
+                <b-form-input class="custom-input" v-model="lockDay" id="input-teacher-cap"
+                              placeholder="" type="number"/>
+              </b-form-group>
+            </div>
+
+            <b-button class="custom-btn" @click="addConstrain">
+              Создать ограничение
+            </b-button>
+          </b-form>
+        </b-col>
+      </b-col>
+      <b-col md="6">
+        <b-col class="mt-3 me-5 ms-5">
+          <b-img :src=imageModal alt="Modal image" fluid class="rounded-custom"></b-img>
+        </b-col>
+      </b-col>
+    </b-row>
+  </div>
+</template>
+
+<style scoped>
+
+</style>
