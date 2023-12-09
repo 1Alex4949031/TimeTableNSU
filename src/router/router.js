@@ -6,12 +6,21 @@ import CreateGroup from "@/components/admin-Page/Create-Group.vue";
 import CreateRoom from "@/components/admin-Page/Create-Room.vue";
 import CreateSubject from "@/components/admin-Page/Create-Subject.vue";
 import RegistrationTeacher from "@/components/admin-Page/Register-Teacher.vue";
-import GroupPage from "@/components/Group-Page.vue";
+import GroupPage from "@/components/Groups-Page.vue";
 import PlanPage from "@/components/admin-Page/Create-Plan.vue";
 import GroupTimetablePage from "@/components/GroupTimetable-Page.vue";
 import TimeTableExample from "@/components/TimeTable-Example.vue";
+import NotFoundPage from "@/components/Not-Found-Page.vue";
 
 const routes = [
+    {
+        path: '/:catchAll(.*)*',
+        name: 'NotFound',
+        component: NotFoundPage,
+        meta: {
+            requiresAuth: false
+        }
+    },
     {
         path: '/',
         name: 'home',
