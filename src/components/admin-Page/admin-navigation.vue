@@ -1,6 +1,6 @@
 <script setup>
 
-import {logOut} from "@/js/axios-request";
+import {logOut} from "@/js/axios-auth-request";
 import {getGroup, getRoom, getTeacher} from "@/js/get-timetable";
 
 async function getExampleGroup() {

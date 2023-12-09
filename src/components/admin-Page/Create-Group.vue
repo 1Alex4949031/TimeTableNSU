@@ -1,6 +1,6 @@
 <script setup>
 
-import {addGroup} from "@/js/axios-request";
+import {addGroup} from "@/js/add-get-request";
 import imageModal from "@/assets/images/imageModal1.png";
 import {ref} from "vue";
 

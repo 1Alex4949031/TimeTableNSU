@@ -1,6 +1,6 @@
 <script setup>
 
-import {addPlan, getGroups, getSubject, getTeachers} from "@/js/axios-request";
+import {addPlan, getGroups, getSubject, getTeachers} from "@/js/add-get-request";
 import imageModal from "@/assets/images/imageModal2.png"; //на рандом 2 дописал
 import {onMounted, ref} from "vue";
 import {roomTypes} from "@/js/data-for-show";

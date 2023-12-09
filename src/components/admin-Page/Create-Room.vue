@@ -1,7 +1,7 @@
 <script setup>
 import imageModal from "@/assets/images/imageModal2.png";
 import {ref} from "vue";
-import {addRoom} from "@/js/axios-request";
+import {addRoom} from "@/js/add-get-request";
 import {roomTypes} from "@/js/data-for-show";
 
 const name = ref("")

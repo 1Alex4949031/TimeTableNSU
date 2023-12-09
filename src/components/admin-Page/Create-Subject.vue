@@ -1,6 +1,6 @@
 <script setup>
 
-import {addSubject} from "@/js/axios-request";
+import {addSubject} from "@/js/add-get-request";
 import imageModal from "@/assets/images/imageModal3.png";
 import {ref} from "vue";
 

@@ -1,7 +1,7 @@
 <script setup>
 import {ref, onMounted, computed} from 'vue';
 import {useRoute} from 'vue-router';
-import {getFacultyGroups} from "@/js/axios-request";
+import {getFacultyGroups} from "@/js/add-get-request";
 import router from "@/router/router";
 import {faculties} from "@/js/data-for-show";
 
