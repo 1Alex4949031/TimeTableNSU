@@ -10,6 +10,12 @@ const facul = ref("")
 const studentCount = ref(15)
 const course = ref(1)
 
+function addGroups(){
+  for (let x of name.value.split(";")) {
+    addGroup(x, facul.value, studentCount.value, course.value)
+  }
+}
+
 </script>
 
 <template>
@@ -39,7 +45,7 @@ const course = ref(1)
               </b-form-input>
             </b-form-group>
             <b-button class="custom-btn"
-                      @click="addGroup(name.valueOf(), facul.valueOf(), studentCount.valueOf(), course.valueOf())">
+                      @click="addGroups">
               Создать группу
             </b-button>
           </b-form>

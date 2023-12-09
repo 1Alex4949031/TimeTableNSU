@@ -10,7 +10,7 @@ export const customInstance = axios.create({
 });
 customInstance.defaults.useToken = false
 customInstance.defaults.requestName = "Неизвестный запрос"
-customInstance.defaults.showToast = "all"//
+customInstance.defaults.showToast = true//
 customInstance.defaults.toastWaitResponseText = "Запрос выполняется..."
 customInstance.defaults.toastSuccessText = "Успешно!"
 customInstance.defaults.toastErrorDataText = ""
@@ -24,8 +24,8 @@ customInstance.interceptors.request.use(
                 console.log("Ошибка прикрепления токена")
             }
         }
+        config.toastText = ref(config.toastWaitResponseText)
         if (config.showToast) {
-            config.toastText = ref(config.toastWaitResponseText)
             config.toastId = ref(toast(
                     config.toastText,
                     {
@@ -49,8 +49,8 @@ customInstance.interceptors.response.use(
                     autoClose: 1000,
                     type: toast.TYPE.SUCCESS,
                 });
-            return response;
         }
+        return response;
     },
     error => {
         let consoleMessage
