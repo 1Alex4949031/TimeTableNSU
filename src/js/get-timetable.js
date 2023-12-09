@@ -31,19 +31,19 @@
 // ]
 //
 // Пример использования на странице админ навигейт
-// Получение всего и получения факультета пока не добавлял, немогу придумать где использовать, но вытащить можно
+// Получения факультета пока не добавлял, немогу придумать где использовать, но вытащить можно
 
 
 import {customInstance} from "@/js/axios-instance";
-export async function getGroup(group, potential = false) {
-    const url = '/timetable/actual/group/' + group
+export async function getGroupTimetable(group, potential = false) {
+    let url = '/timetable/actual/group/' + group
     if (potential){
-        url.replace("actual","potential")
+        url = url.replace("actual","potential")
     }
     return await customInstance
         .get(
             url,
-            {useToken: false, requestName: "Get actual group " + group}
+            {useToken: false, requestName: "Get group timetable" + group}
         )
         .then(response => {
             console.log(response.data)
@@ -54,15 +54,15 @@ export async function getGroup(group, potential = false) {
             return null
         });
 }
-export async function getTeacher(teacher, potential = false)  {
-    const url = '/timetable/actual/teacher/' + teacher
+export async function getTeacherTimetable(teacher, potential = false)  {
+    let url = '/timetable/actual/teacher/' + teacher
     if (potential){
-        url.replace("actual","potential")
+         url = url.replace("actual","potential")
     }
     return await customInstance
         .get(
             url,
-            {useToken: false, requestName: "Get actual teacher " + teacher}
+            {useToken: false, requestName: "Get teacher timetable" + teacher}
         )
         .then(response => {
             return response.data
@@ -73,15 +73,15 @@ export async function getTeacher(teacher, potential = false)  {
         });
 
 }
-export async function getRoom(room, potential = false)  {
-    const url = '/timetable/actual/room/' + room
+export async function getRoomTimetable(room, potential = false)  {
+    let url = '/timetable/actual/room/' + room
     if (potential){
-        url.replace("actual","potential")
+        url = url.replace("actual","potential")
     }
     return await customInstance
         .get(
             url,
-            {useToken: false, requestName: "Get actual room " + room}
+            {useToken: false, requestName: "Get room timetable" + room}
         )
         .then(response => {
             return response.data
@@ -90,5 +90,23 @@ export async function getRoom(room, potential = false)  {
             console.error(consoleMessage)
             return null
         });
+}
 
+export async function getAllTimetable(potential = false)  {
+    let url = "/timetable/actual/all"
+    if (potential){
+        url = url.replace("actual","potential")
+    }
+    return await customInstance
+        .get(
+            url,
+            {useToken: false, requestName: "Get all timetable"}
+        )
+        .then(response => {
+            return response.data
+        })
+        .catch(consoleMessage => {
+            console.error(consoleMessage)
+            return null
+        });
 }
