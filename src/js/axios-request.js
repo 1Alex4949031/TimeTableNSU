@@ -95,7 +95,7 @@ export function addPlan(teacher, subject, timesInAWeek, subjectType, groups) {
                 useToken: true,
                 requestName: "Create subject",
                 toastId: Math.random(),
-                toastSuccessText: "Предмет " + subject + "для группы " + groups
+                toastSuccessText: "Предмет " + subject + " для группы " + groups
             }
         )
         .then(response => {
