@@ -1,6 +1,6 @@
 <script setup>
 
-import {addGroup} from "@/js/axios-request";
+import {addGroup} from "@/js/add-get-request";
 import imageModal from "@/assets/images/imageModal1.png";
 import {ref} from "vue";
 
@@ -9,6 +9,12 @@ const name = ref("")
 const facul = ref("")
 const studentCount = ref(15)
 const course = ref(1)
+
+function addGroups(){
+  for (let x of name.value.split(";")) {
+    addGroup(x, facul.value, studentCount.value, course.value)
+  }
+}
 
 </script>
 
@@ -39,7 +45,7 @@ const course = ref(1)
               </b-form-input>
             </b-form-group>
             <b-button class="custom-btn"
-                      @click="addGroup(name.valueOf(), facul.valueOf(), studentCount.valueOf(), course.valueOf())">
+                      @click="addGroups">
               Создать группу
             </b-button>
           </b-form>

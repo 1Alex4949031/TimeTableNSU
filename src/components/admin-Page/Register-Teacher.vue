@@ -1,6 +1,6 @@
 <script setup>
 
-import {regTeacher} from "@/js/axios-request";
+import {regTeacher} from "@/js/add-get-request";
 import imageModal from "@/assets/images/imageModal4.png";
 import {ref} from "vue";
 

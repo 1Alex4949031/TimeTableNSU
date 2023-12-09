@@ -1,12 +1,18 @@
 <script setup>
 import imageModal from "@/assets/images/imageModal2.png";
 import {ref} from "vue";
-import {addRoom} from "@/js/axios-request";
+import {addRoom} from "@/js/add-get-request";
 import {roomTypes} from "@/js/data-for-show";
 
 const name = ref("")
 const type = ref("")
 const cap = ref("")
+
+function addRooms(){
+  for (let x of name.value.split(";")) {
+    addRoom(x, type.value, cap.value)
+  }
+}
 </script>
 
 <template>
@@ -18,7 +24,7 @@ const cap = ref("")
           <b-form>
             <b-form-group class="form-group" label="Номер комнаты" label-for="input-room-name">
               <b-form-input class="custom-input" v-model="name" id="input-room-name"
-                            placeholder="Введите номер" type="number">
+                            placeholder="Введите номер" type="text">
               </b-form-input>
             </b-form-group>
             <b-form-group class="form-group" label="Тип комнаты" label-for="input-room-type">
@@ -29,7 +35,7 @@ const cap = ref("")
                             placeholder="Аудитория на N студентов" type="number">
               </b-form-input>
             </b-form-group>
-            <b-button class="custom-btn mt-4" @click="addRoom(name.valueOf(), type.valueOf(), cap.valueOf())">Создать
+            <b-button class="custom-btn mt-4" @click="addRooms">Создать
               аудиторию
             </b-button>
           </b-form>

@@ -1,48 +1,14 @@
-import {closeModalAuth} from "@/js/ModalLogic";
-import router from "@/router/router";
 import {customInstance} from "@/js/axios-instance";
-import {ref} from "vue";
+import router from "@/router/router";
 
-export const isUserLogin = ref(localStorage.getItem("isUserLogin") || "User") // "User"/ "Admin"/"Teacher"
-
-
-export function auth(email, password) {
-    customInstance
-        .post(
-            '/api/auth',
-            {email, password},
-            {useToken: false, requestName: "Login"}
-        )
-        .then(response => {
-            router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
-            const {access_token, refresh_token} = response.data
-            closeModalAuth()
-            localStorage.setItem("AccessToken", access_token)
-            localStorage.setItem("RefreshToken", refresh_token)
-            localStorage.setItem("isUserLogin", "Admin")
-            isUserLogin.value = "Admin"
-        })
-        .catch(consoleMessage => {
-            console.error(consoleMessage)
-        });
-}
-
-//Вместо рефреша
-export function logOut() {
-    localStorage.removeItem("AccessToken")
-    localStorage.removeItem("RefreshToken")
-    localStorage.removeItem("isUserLogin")
-    isUserLogin.value = "User"
-    router.push({path: "/"}).then(x => console.log(x))
-}
-
-
+//Room group teacher subject plan
+//Оставил тосты только для создания плана
 export function addRoom(name, type, capacity) {
     customInstance
         .post(
             '/api/admin/create_room',
             {name, type, capacity},
-            {useToken: true, requestName: "Create room"}
+            {useToken: true, requestName: "Create room", showToast: false}
         )
         .then(response => {
             router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
@@ -58,7 +24,7 @@ export function addGroup(groupNumber, faculty, studentsNumber, course) {
         .post(
             '/api/admin/create_group',
             {groupNumber, faculty, course, studentsNumber},
-            {useToken: true, requestName: "Create group"}
+            {useToken: true, requestName: "Create group", showToast: false}
         )
         .then(response => {
             router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
@@ -74,7 +40,7 @@ export function addSubject(name, timesInAWeek) {
         .post(
             'api/admin/create_subject',
             {name, timesInAWeek},
-            {useToken: true, requestName: "Create subject"}
+            {useToken: true, requestName: "Create subject", showToast: false}
         )
         .then(response => {
             router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
@@ -95,7 +61,7 @@ export function addPlan(teacher, subject, timesInAWeek, subjectType, groups) {
                 useToken: true,
                 requestName: "Create subject",
                 toastId: Math.random(),
-                toastSuccessText: "Предмет " + subject + "для группы " + groups
+                toastSuccessText: "Предмет " + subject + " для группы " + groups
             }
         )
         .then(response => {
@@ -113,7 +79,7 @@ export function regTeacher(email, fullName, phone) {
         .post(
             '/api/admin/register_teacher',
             {email, fullName, phone},
-            {useToken: true, requestName: "Registration teacher"}
+            {useToken: true, requestName: "Registration teacher", showToast: false}
         )
         .then(response => {
             router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
@@ -128,7 +94,7 @@ export function getTeachers(teachers) {
     customInstance
         .get(
             '/get/all_teachers',
-            {useToken: false, requestName: "Get teacher"}
+            {useToken: false, requestName: "Get teacher", showToast: false}
         )
         .then(response => {
             teachers.value = response.data
@@ -143,7 +109,7 @@ export function getGroups(group) {
     customInstance
         .get(
             '/get/all_groups',
-            {useToken: false, requestName: "Get group"}
+            {useToken: false, requestName: "Get group", showToast: false}
         )
         .then(response => {
             for (let x of response.data) {
@@ -160,7 +126,7 @@ export function getFacultyGroups(faculty, groupFeedback) {
     customInstance
         .get(
             '/get/faculty_groups' + '/' + faculty,
-            {useToken: false, requestName: "Get group faculty"}
+            {useToken: false, requestName: "Get group faculty", showToast: false}
         )
         .then(response => {
             groupFeedback.value = response.data
@@ -174,7 +140,7 @@ export function getSubject(subjectFeedback) {
     customInstance
         .get(
             '/get/all_subjects',
-            {useToken: false, requestName: "Get group faculty"}
+            {useToken: false, requestName: "Get group faculty", showToast: false}
         )
         .then(response => {
             subjectFeedback.value = response.data

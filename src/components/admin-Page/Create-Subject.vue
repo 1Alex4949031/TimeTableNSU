@@ -1,10 +1,16 @@
 <script setup>
 
-import {addSubject} from "@/js/axios-request";
+import {addSubject} from "@/js/add-get-request";
 import imageModal from "@/assets/images/imageModal3.png";
 import {ref} from "vue";
 
 const name = ref("")
+
+function addSubjects(){
+  for (let x of name.value.split(";")) {
+    addSubject(x,0)
+  }
+}
 
 </script>
 
@@ -20,7 +26,7 @@ const name = ref("")
             </b-form-input>
           </b-form-group>
 
-          <b-button class="custom-btn mt-4" @click="addSubject(name.valueOf(),0)">
+          <b-button class="custom-btn mt-4" @click="addSubjects">
             Создать предмет</b-button>
         </b-form>
       </b-col>

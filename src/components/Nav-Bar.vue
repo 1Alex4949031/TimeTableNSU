@@ -3,7 +3,7 @@
 import {openModalAuth, openModalDayTimeSelect} from "@/js/ModalLogic";
 import DayTimeSelectModal from "@/components/Day-Time-Select-Modal.vue";
 import LoginModal from "@/components/Login-Modal.vue";
-import {isUserLogin} from "@/js/axios-request";
+import {isUserLogin} from "@/js/axios-auth-request";
 import router from "@/router/router";
 import logo from '@/assets/images/logo.png'
 
