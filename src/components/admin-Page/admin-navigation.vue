@@ -30,6 +30,7 @@ async function getExampleRoom() {
     console.log(id, subjectName, teacher)
   }
 }
+
 async function getExampleAll() {
   const timetable = await getAllTimetable();
   console.log("Обрабатываю " + timetable)
@@ -45,46 +46,36 @@ async function getExampleAll() {
     <p>Admin Pages</p>
     <b-row>
       <b-col>
-        <div>
-          <router-link to="/newGroup">Group Control</router-link>
-        </div>
-        <div>
-          <router-link to="/newTeacher">Teacher Control</router-link>
-        </div>
-        <div>
-          <router-link to="/newRoom">Room Control</router-link>
-        </div>
-        <div>
-          <router-link to="/newSubj">Subject Control</router-link>
-        </div>
-        <div>
-          <router-link to="/newPlan">Plane Control</router-link>
-        </div>
-        <div>
-          <router-link to="/newConstrain">Constrain add</router-link>
-        </div>
-        <div>
-          <router-link to="/removeConstrain">Constrain remove</router-link>
-        </div>
-        <div>
-          <router-link to="/" @click="logOut()">Logout</router-link>
-        </div>
-        <div>
-          Запросы(кроме all) вытаскивают расписание для конкретного имени которое есть в дефолтном
-          конфиге(в новом расписании их надо добавить чтобы работали)
-        </div>
-        <div>
-          <router-link to="/" @click="getExampleGroup()">get Group Timetable</router-link>
-        </div>
-        <div>
-          <router-link to="/" @click="getExampleRoom()">get Room Timetable</router-link>
-        </div>
-        <div>
-          <router-link to="/" @click="getExampleTeacher()">get Teacher Timetable</router-link>
-        </div>
-        <div>
-          <router-link to="/" @click="getExampleAll()">get All Timetable</router-link>
-        </div>
+        <b-row>
+          <b-col>
+            <div>
+              <router-link to="/newGroup">Group Control</router-link>
+            </div>
+            <div>
+              <router-link to="/newTeacher">Teacher Control</router-link>
+            </div>
+            <div>
+              <router-link to="/newRoom">Room Control</router-link>
+            </div>
+            <div>
+              <router-link to="/newSubj">Subject Control</router-link>
+            </div>
+            <div>
+              <router-link to="/" @click="logOut()">Logout</router-link>
+            </div>
+          </b-col>
+          <b-col>
+            <div>
+              <router-link to="/newPlan">Plane Control</router-link>
+            </div>
+            <div>
+              <router-link to="/newConstrain">Constrain add</router-link>
+            </div>
+            <div>
+              <router-link to="/removeConstrain">Constrain remove</router-link>
+            </div>
+          </b-col>
+        </b-row>
       </b-col>
       <b-col>
         <div>
@@ -98,6 +89,22 @@ async function getExampleAll() {
         </div>
       </b-col>
     </b-row>
+    <div>
+      Запросы(кроме all) вытаскивают расписание для конкретного имени которое есть в дефолтном
+      конфиге(в новом расписании их надо добавить чтобы работали)
+    </div>
+    <div>
+      <router-link to="/" @click="getExampleGroup()">get Group Timetable</router-link>
+    </div>
+    <div>
+      <router-link to="/" @click="getExampleRoom()">get Room Timetable</router-link>
+    </div>
+    <div>
+      <router-link to="/" @click="getExampleTeacher()">get Teacher Timetable</router-link>
+    </div>
+    <div>
+      <router-link to="/" @click="getExampleAll()">get All Timetable</router-link>
+    </div>
   </div>
 </template>
 
