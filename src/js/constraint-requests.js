@@ -14,10 +14,12 @@ import {customInstance} from "@/js/axios-instance";
 // }
 
 export function addConstrains(data) {
+    //Временное решение
+    const newData = {constraintNameRu: "", group: 0, group1: 0, group2: 0, day: 1, number: 1,period: 1,teacher: "Faa",teacher1: "Faa",teacher2: "Faa", ...data}
     customInstance
         .post(
             '/api/constraints/create_constraint',
-            data,
+            newData,
             {useToken: true, requestName: "Create constrains", showToast: true}
         )
         .then(response => {

@@ -19,7 +19,7 @@ function processConstrains(rawConstrains) {
           if(key !== "dd")
            return  `${value}`;
         })
-        .join(" "); // КОСТЫЛЬ незнаю как разбить на несколько строк...
+        .join(","); // КОСТЫЛЬ незнаю как разбить на несколько строк...
 
     // Возвращаем объект для options с id и текстом
     return { value: constrain.id, text: constrain.id + textValues };
