@@ -7,14 +7,14 @@ const constrains = ref()
 
 function remove() {
   for (const x of constrains.value) {
-    removeConstrains(x.id)
+    removeConstrains(x)
   }
 }
 function processConstrains(rawConstrains) {
   return rawConstrains.map(constrain => {
     // Фильтрация и объединение всех непустых значений, кроме id
     let textValues = Object.entries(constrain)
-        .filter(([key, value]) => value != null && key !== 'id' && key !== 'constraintNameEng')
+        .filter(([key, value]) => value != null  && key !== 'constraintNameEng')
         .map(([key, value]) => {
           if(key !== "dd")
            return  `${value}`;
@@ -22,7 +22,7 @@ function processConstrains(rawConstrains) {
         .join(" "); // КОСТЫЛЬ незнаю как разбить на несколько строк...
 
     // Возвращаем объект для options с id и текстом
-    return { value: constrain.id, text: textValues };
+    return { value: constrain.id, text: constrain.id + textValues };
   });
 }
 onMounted(async () => {

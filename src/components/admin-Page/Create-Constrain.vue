@@ -37,7 +37,7 @@ function addConstrain() {
       break;
     }
     case 'Максимальное кол-во рабочих дней' : {
-      addConstrains({constraintNameRu: selectedConstrains.value, teacher: teacher.value, day: maxDay.value})
+      addConstrains({constraintNameRu: selectedConstrains.value, teacher: teacher.value, number: maxDay.value})
       break;
     }
     case 'Запрещенный порядковый номер пары для препода в определённый день' : {
@@ -49,7 +49,7 @@ function addConstrain() {
               constraintNameRu: selectedConstrains.value,
               teacher: teacher.value,
               day: day,
-              number: lessonNumber
+              period: lessonNumber
             })
           }
         }
@@ -66,7 +66,7 @@ function addConstrain() {
                 constraintNameRu: selectedConstrains.value,
                 group: group,
                 day: day,
-                number: lessonNumber
+                period: lessonNumber
               })
             }
           }
