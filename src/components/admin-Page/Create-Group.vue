@@ -27,7 +27,7 @@ function addGroups(){
           <b-form>
             <b-form-group class="form-group" label="Номер группы" label-for="input-group-name">
               <b-form-input class="custom-input" v-model="name" id="input-group-name"
-                            placeholder="Введите номер" type="number">
+                            placeholder="Введите номер" type="text">
               </b-form-input>
             </b-form-group>
             <b-form-group class="form-group" label="Факультет" label-for="input-group-type">

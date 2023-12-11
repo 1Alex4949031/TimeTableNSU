@@ -1,7 +1,6 @@
 <script setup>
 
-import {openModalAuth, openModalDayTimeSelect} from "@/js/ModalLogic";
-import DayTimeSelectModal from "@/components/Day-Time-Select-Modal.vue";
+import {openModalAuth} from "@/js/ModalLogic";
 import LoginModal from "@/components/Login-Modal.vue";
 import {isUserLogin} from "@/js/axios-auth-request";
 import router from "@/router/router";
@@ -9,6 +8,10 @@ import logo from '@/assets/images/logo.png'
 
 function routeToOptions() {
   router.push('/admNav');
+}
+
+function routeToMain() {
+  router.push('/');
 }
 
 </script>
@@ -19,7 +22,7 @@ function routeToOptions() {
     <b-navbar-brand>
       <b-row class="brand-row">
         <img class="logo" :src=logo alt="Logo">
-        <b-col class="text">TimeTable</b-col>
+        <b-col class="text" @click="routeToMain">TimeTable</b-col>
       </b-row>
     </b-navbar-brand>
 
@@ -31,15 +34,12 @@ function routeToOptions() {
 
         <b-nav-item v-if="isUserLogin === 'User'" @click="openModalAuth()">Вход</b-nav-item>
         <b-nav-item v-else @click="routeToOptions">Опции</b-nav-item>
-
-        <b-nav-item @click="openModalDayTimeSelect()">Первичный выбор предпочтений</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
 
   <div class="modals">
     <LoginModal/>
-    <DayTimeSelectModal/>
   </div>
 </template>
 
