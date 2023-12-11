@@ -10,6 +10,10 @@ function routeToOptions() {
   router.push('/admNav');
 }
 
+function routeToMain() {
+  router.push('/');
+}
+
 </script>
 
 <template>
@@ -18,7 +22,7 @@ function routeToOptions() {
     <b-navbar-brand>
       <b-row class="brand-row">
         <img class="logo" :src=logo alt="Logo">
-        <b-col class="text">TimeTable</b-col>
+        <b-col class="text" @click="routeToMain">TimeTable</b-col>
       </b-row>
     </b-navbar-brand>
 

@@ -3,7 +3,7 @@ import imageModal from "@/assets/images/imageModal1.png";
 import {onMounted, ref} from "vue";
 import {getGroups, getTeachers} from "@/js/add-get-request";
 import DayTimeSelectModal from "@/components/admin-Page/Day-Time-Select-Modal.vue";
-import {addConstrains} from "@/js/constraint-requests";
+import {addConstraint} from "@/js/constraint-requests";
 import {isSelected} from "@/js/selected-timetable";
 
 const teachers = ref([])
@@ -15,29 +15,29 @@ const maxDay = ref(7)
 
 const lockDay = ref()
 
-const constrains = ref([
+const constraint = ref([
   'Максимальное кол-во рабочих дней',
   'Запрещенный порядковый номер пары для препода в определённый день',
   'Запрещенные порядковый номер пары для групп в определённый день',
   'Запрещенный день для преподавания для препода',
   'Запрещенный день для преподавания для группы'
 ])
-const selectedConstrains = ref("")
+const selectedConstraint = ref("")
 
 function addConstrain() {
-  switch (selectedConstrains.value) {
+  switch (selectedConstraint.value) {
     case 'Запрещенный день для преподавания для препода' : {
-      addConstrains({constraintNameRu: selectedConstrains.value, teacher: teacher.value, day: lockDay.value})
+      addConstraint({constraintNameRu: selectedConstraint.value, teacher: teacher.value, day: lockDay.value})
       break;
     }
     case 'Запрещенный день для преподавания для группы' : {
       for (let group of groups.value) {
-        addConstrains({constraintNameRu: selectedConstrains.value, group: group, day: lockDay.value})
+        addConstraint({constraintNameRu: selectedConstraint.value, group: group, day: lockDay.value})
       }
       break;
     }
     case 'Максимальное кол-во рабочих дней' : {
-      addConstrains({constraintNameRu: selectedConstrains.value, teacher: teacher.value, number: maxDay.value})
+      addConstraint({constraintNameRu: selectedConstraint.value, teacher: teacher.value, number: maxDay.value})
       break;
     }
     case 'Запрещенный порядковый номер пары для препода в определённый день' : {
@@ -45,8 +45,8 @@ function addConstrain() {
         for (let lessonNumber = 1; lessonNumber <= 7; lessonNumber++) {
           console.log(isSelected(1, 1))
           if (isSelected(lessonNumber, day)) {
-            addConstrains({
-              constraintNameRu: selectedConstrains.value,
+            addConstraint({
+              constraintNameRu: selectedConstraint.value,
               teacher: teacher.value,
               day: day,
               period: lessonNumber
@@ -62,8 +62,8 @@ function addConstrain() {
           for (let lessonNumber = 1; lessonNumber <= 7; lessonNumber++) {
             console.log(isSelected(1, 1))
             if (isSelected(lessonNumber, day)) {
-              addConstrains({
-                constraintNameRu: selectedConstrains.value,
+              addConstraint({
+                constraintNameRu: selectedConstraint.value,
                 group: group,
                 day: day,
                 period: lessonNumber
@@ -94,11 +94,11 @@ onMounted(() => {
           <b-form>
 
             <b-form-group class="form-group" label="Тип ограничения" label-for="input-group-type">
-              <b-form-select v-model="selectedConstrains" :options="constrains" label="Выберите опцию"
+              <b-form-select v-model="selectedConstraint" :options="constraint" label="Выберите опцию"
                              id="input-group-type"/>
             </b-form-group>
 
-            <div v-if="selectedConstrains === 'Максимальное кол-во рабочих дней'">
+            <div v-if="selectedConstraint === 'Максимальное кол-во рабочих дней'">
               <b-form-group class="form-group" label="Преподователь" label-for="input-subject-teacher">
                 <b-form-select v-model="teacher" :options="teachers" label="ФИО" id="input-subject-teacher"/>
               </b-form-group>
@@ -108,13 +108,13 @@ onMounted(() => {
               </b-form-group>
             </div>
 
-            <div v-if="selectedConstrains === 'Запрещенный порядковый номер пары для препода в определённый день'">
+            <div v-if="selectedConstraint === 'Запрещенный порядковый номер пары для препода в определённый день'">
               <b-form-group class="form-group" label="Преподователь" label-for="input-subject-teacher">
                 <b-form-select v-model="teacher" :options="teachers" label="ФИО" id="input-subject-teacher"/>
               </b-form-group>
               <DayTimeSelectModal/>
             </div>
-            <div v-if="selectedConstrains === 'Запрещенные порядковый номер пары для групп в определённый день'">
+            <div v-if="selectedConstraint === 'Запрещенные порядковый номер пары для групп в определённый день'">
               <b-form-group class="form-group" label="Группы" label-for="input-subject-groups">
                 <b-form-select v-model="groups" :options="allGroups" multiple="true"
                                id="input-subject-groups"></b-form-select>
@@ -122,7 +122,7 @@ onMounted(() => {
               <DayTimeSelectModal/>
             </div>
 
-            <div v-if="selectedConstrains === 'Запрещенный день для преподавания для группы'">
+            <div v-if="selectedConstraint === 'Запрещенный день для преподавания для группы'">
               <b-form-group class="form-group" label="Группы" label-for="input-subject-groups">
                 <b-form-select v-model="groups" :options="allGroups" multiple="true"
                                id="input-subject-groups"></b-form-select>
@@ -133,7 +133,7 @@ onMounted(() => {
               </b-form-group>
             </div>
 
-            <div v-if="selectedConstrains === 'Запрещенный день для преподавания для препода'">
+            <div v-if="selectedConstraint === 'Запрещенный день для преподавания для препода'">
               <b-form-group class="form-group" label="Преподователь" label-for="input-subject-teacher">
                 <b-form-select v-model="teacher" :options="teachers" label="ФИО" id="input-subject-teacher"/>
               </b-form-group>

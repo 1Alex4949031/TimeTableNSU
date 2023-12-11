@@ -11,8 +11,8 @@ import PlanPage from "@/components/admin-Page/Create-Plan.vue";
 import GroupTimetablePage from "@/components/GroupTimetable-Page.vue";
 import TimeTableExample from "@/components/TimeTable-Example.vue";
 import NotFoundPage from "@/components/Not-Found-Page.vue";
-import ConstrainPage from "@/components/admin-Page/Create-Constrain.vue";
-import ConstrainRemovePage from "@/components/admin-Page/Remove-Constrains.vue";
+import ConstrainPage from "@/components/admin-Page/Create-Constraint.vue";
+import ConstrainRemovePage from "@/components/admin-Page/Remove-Constraint.vue";
 
 const routes = [
     {

@@ -13,14 +13,14 @@ import {customInstance} from "@/js/axios-instance";
 //     "period": 0
 // }
 
-export function addConstrains(data) {
+export function addConstraint(data) {
     //Временное решение
     const newData = {constraintNameRu: "", group: 0, group1: 0, group2: 0, day: 1, number: 1,period: 1,teacher: "Faa",teacher1: "Faa",teacher2: "Faa", ...data}
     customInstance
         .post(
             '/api/constraints/create_constraint',
             newData,
-            {useToken: true, requestName: "Create constrains", showToast: true}
+            {useToken: true, requestName: "Create constraint", showToast: true}
         )
         .then(response => {
             console.log(response.config["requestName"], "Done")
@@ -30,11 +30,11 @@ export function addConstrains(data) {
         });
 }
 
-export async function getConstrains() {
+export async function getConstraint() {
     return await customInstance
         .get(
             '/api/constraints/get_all',
-            {useToken: true, requestName: "Get constrains", showToast: true}
+            {useToken: true, requestName: "Get constraint", showToast: true}
         )
         .then(response => {
             console.log(response.config["requestName"], "Done")
@@ -46,11 +46,11 @@ export async function getConstrains() {
         });
 }
 
-export function removeConstrains(id) {
+export function removeConstraint(id) {
     customInstance
         .delete(
             '/api/constraints/delete_constraint/' + id,
-            {useToken: true, requestName: "Create constrains", showToast: true}
+            {useToken: true, requestName: "Create constraint", showToast: true}
         )
         .then(response => {
             console.log(response.config["requestName"], "Done")
