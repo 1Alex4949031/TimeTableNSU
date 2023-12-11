@@ -69,10 +69,10 @@ async function getExampleAll() {
               <router-link to="/newPlan">Plane Control</router-link>
             </div>
             <div>
-              <router-link to="/newConstrain">Constrain add</router-link>
+              <router-link to="/newConstraint">Constraint add</router-link>
             </div>
             <div>
-              <router-link to="/removeConstrain">Constrain remove</router-link>
+              <router-link to="/removeConstraint">Constraint remove</router-link>
             </div>
           </b-col>
         </b-row>
