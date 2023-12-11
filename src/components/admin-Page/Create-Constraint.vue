@@ -24,7 +24,7 @@ const constraint = ref([
 ])
 const selectedConstraint = ref("")
 
-function addConstrain() {
+function addConstraint() {
   switch (selectedConstraint.value) {
     case 'Запрещенный день для преподавания для препода' : {
       addConstraint({constraintNameRu: selectedConstraint.value, teacher: teacher.value, day: lockDay.value})
@@ -143,7 +143,7 @@ onMounted(() => {
               </b-form-group>
             </div>
 
-            <b-button class="custom-btn" @click="addConstrain">
+            <b-button class="custom-btn" @click="addConstraint">
               Создать ограничение
             </b-button>
           </b-form>
