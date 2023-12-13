@@ -28,6 +28,10 @@ const goToFaculty = (facultyId) => {
 </template>
 
 <style scoped>
+.faculty {
+  cursor: pointer;
+}
+
 .text-faculties {
   text-align: center;
   font-weight: 700;

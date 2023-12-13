@@ -155,6 +155,7 @@ function toOptions() {
 }
 
 .navigate-image {
+  cursor: pointer;
   position: relative;
   text-align: center;
   object-fit: cover;

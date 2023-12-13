@@ -20,9 +20,9 @@ function routeToMain() {
 
   <b-navbar toggleable="lg" type="dark" variant="light">
     <b-navbar-brand>
-      <b-row class="brand-row">
+      <b-row class="brand-row" @click="routeToMain">
         <img class="logo" :src=logo alt="Logo">
-        <b-col class="text" @click="routeToMain">TimeTable</b-col>
+        <b-col class="text">Расписание для ваc!</b-col>
       </b-row>
     </b-navbar-brand>
 
@@ -45,11 +45,12 @@ function routeToMain() {
 
 <style scoped>
 .brand-row{
+  cursor: pointer;
   justify-content: center;
   align-items: center;
 }
 .text {
-  font-weight: 700;
+  font-weight: 600;
   color: black;
 }
 
