@@ -1,6 +1,6 @@
 <script setup>
 
-import {logOut} from "@/js/axios-auth-request";
+import {isUserLogin, logOut} from "@/js/axios-auth-request";
 import {getAllTimetable, getGroupTimetable, getRoomTimetable, getTeacherTimetable} from "@/js/get-timetable";
 import {activateNewTimetable, createNewTimetable} from "@/js/timetable-setting-request";
 import {toast} from "vue3-toastify";
@@ -68,7 +68,7 @@ async function ToastTest() {
 </script>
 
 <template>
-  <div>
+  <div v-if="isUserLogin === 'Admin'">
     <p>Admin Pages</p>
     <b-row>
       <b-col>
@@ -136,6 +136,21 @@ async function ToastTest() {
     </div>
     <div>
       <router-link to @click="ToastTest()">Toast test</router-link>
+    </div>
+  </div>
+
+  <div v-else>
+    <p>Teacher Page</p>
+    <div>
+      <div>
+        <router-link to="/newConstraint">Constraint add</router-link>
+      </div>
+      <div>
+        <router-link to="/removeConstraint">Constraint remove</router-link>
+      </div>
+      <div>
+        <router-link to="/" @click="logOut()">Logout</router-link>
+      </div>
     </div>
   </div>
 </template>

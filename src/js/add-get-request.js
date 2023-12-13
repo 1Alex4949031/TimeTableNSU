@@ -117,7 +117,7 @@ export function getTeachers(teachers) {
             {useToken: false, requestName: "Get teacher", showToast: false}
         )
         .then(response => {
-            teachers.value = response.data
+            teachers.value = response.data.filter(item => item !== "Admin User");
             console.log(response.config["requestName"], "Done")
         })
         .catch(consoleMessage => {
