@@ -16,6 +16,10 @@ function toFaculties() {
   router.push('/faculties')
 }
 
+function toTeachers() {
+  router.push('/teachers')
+}
+
 function toOptions() {
   router.push('/admNav')
 }
@@ -79,7 +83,7 @@ function toOptions() {
         <h3 class="centered-text">По группам</h3>
       </b-col>
 
-      <b-col md="4" class="navigate-image mb-1">
+      <b-col md="4" class="navigate-image mb-1" @click="toTeachers">
         <b-img class="nav-img image-example" :src="teachersImg" alt="Картинка 3"></b-img>
         <h3 class="centered-text">По учителям</h3>
       </b-col>

@@ -14,6 +14,8 @@ import NotFoundPage from "@/components/Not-Found-Page.vue";
 import ConstraintPage from "@/components/admin-Page/Create-Constraint.vue";
 import ConstraintRemovePage from "@/components/admin-Page/Remove-Constraint.vue";
 import RemoveBase from "@/components/admin-Page/Remove-group-subject-room-Page.vue"
+import TeachersListPage from "@/components/Teachers-list-Page.vue";
+import TeacherTimetablePage from "@/components/Teacher-Timetable-Page.vue";
 
 const routes = [
     {
@@ -87,6 +89,14 @@ const routes = [
     {
         path: '/removeBase',
         component: RemoveBase
+    },
+    {
+        path: '/teachers',
+        component: TeachersListPage
+    },
+    {
+        path: '/teachers/:teacherName/table',
+        component: TeacherTimetablePage
     }
 ]
 
