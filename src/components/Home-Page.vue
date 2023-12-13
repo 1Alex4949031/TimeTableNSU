@@ -38,7 +38,8 @@ function toOptions() {
     </b-row>
   </b-container>
 
-  <b-container data-aos="fade-in" data-aos-duration="1000" data-aos-once="true" class="my-5">
+  <b-container data-aos="fade-in" data-aos-duration="1000" data-aos-once="true" class="my-2">
+    <b-col class="transparent-line mt-3 mb-4"></b-col>
     <b-row>
       <b-col md="7">
         <b-img :src="universityHomeImg" fluid class="custom-image"></b-img>
@@ -60,6 +61,7 @@ function toOptions() {
       </b-col>
     </b-row>
 
+    <b-col class="transparent-line mt-3 mb-2"></b-col>
     <b-row class="mb-2 text-center">
       <b-col>
         <h2 class="text-content">Расписание</h2>
@@ -83,7 +85,7 @@ function toOptions() {
       </b-col>
     </b-row>
 
-
+    <b-col class="transparent-line mt-3 mb-2"></b-col>
     <b-row class="mb-3 text-center">
       <b-col>
         <h2 class="text-content">Как это работает?</h2>
@@ -122,6 +124,11 @@ function toOptions() {
 </template>
 
 <style scoped>
+.transparent-line {
+  width: 100%;
+  border-top: 2px solid #EAEAEA;
+}
+
 .text-for-teacher-description {
   text-align: center;
 }
@@ -224,7 +231,7 @@ function toOptions() {
 .text-content {
   font-weight: 700;
   color: black;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 @media (max-width: 599px) {

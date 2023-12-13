@@ -31,20 +31,20 @@
 
 @media (max-width: 599px) {
   .footer-text {
-    font-size: 8px;
+    font-size: 15px;
   }
 }
 
 
 @media (min-width: 600px) and (max-width: 899px) {
   .footer-text {
-    font-size: 10px;
+    font-size: 18px;
   }
 }
 
 @media (min-width: 900px) {
   .footer-text {
-    font-size: 15px;
+    font-size: 20px;
   }
 }
 </style>
