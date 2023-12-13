@@ -24,7 +24,7 @@ function addRooms(){
           <b-form>
             <b-form-group class="form-group" label="Номер комнаты" label-for="input-room-name">
               <b-form-input class="custom-input" v-model="name" id="input-room-name"
-                            placeholder="Введите номер" type="text">
+                            placeholder="Введите номер, или несколько через ; ~ xxx;xxx;xxx;xxx" type="text">
               </b-form-input>
             </b-form-group>
             <b-form-group class="form-group" label="Тип комнаты" label-for="input-room-type">

@@ -3,6 +3,7 @@
 import {logOut} from "@/js/axios-auth-request";
 import {getAllTimetable, getGroupTimetable, getRoomTimetable, getTeacherTimetable} from "@/js/get-timetable";
 import {activateNewTimetable, createNewTimetable} from "@/js/timetable-setting-request";
+import {toast} from "vue3-toastify";
 
 async function getExampleGroup() {
   const timetable = await getGroupTimetable("21213");
@@ -39,6 +40,31 @@ async function getExampleAll() {
     console.log(id, subjectName, teacher, room)
   }
 }
+
+
+async function ToastTest() {
+  const toastId = "41"
+  const toastPromise = toast(
+      "hi",
+      {
+        toastId: toastId,
+        autoClose: false,
+        type: "loading",
+        position: toast.POSITION.BOTTOM_RIGHT,
+      },
+  )
+  console.log(toast.isActive(toastId))
+  await toastPromise
+  if (toast.isActive(toastId)) {
+    toast.update(toastId,
+        {
+          autoClose: 1000,
+          type: toast.TYPE.SUCCESS,
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+    console.log("Up")
+  }
+}
 </script>
 
 <template>
@@ -59,6 +85,9 @@ async function getExampleAll() {
             </div>
             <div>
               <router-link to="/newSubj">Subject Control</router-link>
+            </div>
+            <div>
+              <router-link to="/removeBase">Remove base</router-link>
             </div>
             <div>
               <router-link to="/" @click="logOut()">Logout</router-link>
@@ -104,6 +133,9 @@ async function getExampleAll() {
     </div>
     <div>
       <router-link to="/" @click="getExampleAll()">get All Timetable</router-link>
+    </div>
+    <div>
+      <router-link to @click="ToastTest()">Toast test</router-link>
     </div>
   </div>
 </template>

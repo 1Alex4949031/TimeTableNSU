@@ -8,7 +8,12 @@ export function addRoom(name, type, capacity) {
         .post(
             '/api/admin/create_room',
             {name, type, capacity},
-            {useToken: true, requestName: "Create room", showToast: false}
+            {
+                useToken: true,
+                requestName: "Create room",
+                toastId: Math.random(),
+                toastSuccessText: "Комната  " + name + " добавлена"
+            }
         )
         .then(response => {
             router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
@@ -24,7 +29,12 @@ export function addGroup(groupNumber, faculty, studentsNumber, course) {
         .post(
             '/api/admin/create_group',
             {groupNumber, faculty, course, studentsNumber},
-            {useToken: true, requestName: "Create group", showToast: false}
+            {
+                useToken: true,
+                requestName: "Create group",
+                toastId: Math.random(),
+                toastSuccessText: "Группа " + groupNumber + " добавлена"
+            }
         )
         .then(response => {
             router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
@@ -40,7 +50,12 @@ export function addSubject(name, timesInAWeek) {
         .post(
             'api/admin/create_subject',
             {name, timesInAWeek},
-            {useToken: true, requestName: "Create subject", showToast: false}
+            {
+                useToken: true,
+                requestName: "Create subject",
+                toastId: Math.random(),
+                toastSuccessText: "Предмет " + name + " добавлен"
+            }
         )
         .then(response => {
             router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
@@ -65,7 +80,7 @@ export function addPlan(teacher, subject, timesInAWeek, subjectType, groups) {
             }
         )
         .then(response => {
-           // router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
+            // router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
             console.log(response.config["requestName"], "Done")
         })
         .catch(consoleMessage => {
@@ -79,7 +94,12 @@ export function regTeacher(email, fullName, phone) {
         .post(
             '/api/admin/register_teacher',
             {email, fullName, phone},
-            {useToken: true, requestName: "Registration teacher", showToast: false}
+            {
+                useToken: true,
+                requestName: "Registration teacher",
+                showToast: true,
+                toastSuccessText: "Учитель " + fullName + " создан"
+            }
         )
         .then(response => {
             router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
@@ -105,17 +125,15 @@ export function getTeachers(teachers) {
         });
 }
 
-export function getGroups(group) {
-    customInstance
+export async function getGroups() {
+    return customInstance
         .get(
             '/get/all_groups',
             {useToken: false, requestName: "Get group", showToast: false}
         )
         .then(response => {
-            for (let x of response.data) {
-                group.value.push(x.groupNumber)
-            }
             console.log(response.config["requestName"], "Done")
+            return response.data
         })
         .catch(consoleMessage => {
             console.error(consoleMessage)
@@ -123,9 +141,12 @@ export function getGroups(group) {
 }
 
 export function getFacultyGroups(faculty, groupFeedback) {
+    let url = '/get/faculty_groups' + '/' + faculty
+    if (faculty === 'Все_группы')
+        url = "/get/all_groups"
     customInstance
         .get(
-            '/get/faculty_groups' + '/' + faculty,
+            url,
             {useToken: false, requestName: "Get group faculty", showToast: false}
         )
         .then(response => {
@@ -136,6 +157,7 @@ export function getFacultyGroups(faculty, groupFeedback) {
             console.error(consoleMessage)
         });
 }
+
 export function getSubject(subjectFeedback) {
     customInstance
         .get(
