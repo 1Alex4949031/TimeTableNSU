@@ -8,10 +8,16 @@ import universityHomeImg from '@/assets/images/university-home.png'
 import facultiesImg from '@/assets/images/faculties.png'
 import groupsImg from '@/assets/images/groups.png'
 import teachersImg from '@/assets/images/teachers.png'
+import {openModalAuth} from "@/js/ModalLogic";
+import {isUserLogin} from "@/js/axios-auth-request";
 
 
-function onClick() {
+function toFaculties() {
   router.push('/faculties')
+}
+
+function toOptions() {
+  router.push('/admNav')
 }
 </script>
 
@@ -34,22 +40,34 @@ function onClick() {
 
   <b-container data-aos="fade-in" data-aos-duration="1000" data-aos-once="true" class="my-5">
     <b-row>
-      <b-col>
+      <b-col md="7">
         <b-img :src="universityHomeImg" fluid class="custom-image"></b-img>
       </b-col>
-      <b-col md="6" class="nav-faculty" @click="onClick">
-        <h3>По факультетам</h3>
+      <b-col md="5" class="section-for-teachers align-self-center mt-4 mb-4">
+        <b-col class="d-flex justify-content-center mt-2 mb-2">
+          <h1 class="text-for-teacher">Для учителей</h1>
+        </b-col>
+        <b-col class="d-flex justify-content-center align-content-between mt-3 mb-3 ms-5 me-5">
+          <h4 v-if="isUserLogin === 'User'" class="text-for-teacher-description">Для того, чтобы добавлять предпочтения,
+            пожалуйста, свяжитесь с администратором и войдите в систему!</h4>
+          <h4 v-else class="text-for-teacher-description">Вы успешно вошли в систему, теперь можно внести предпочтения
+            перейдя в соответствующий раздел!</h4>
+        </b-col>
+        <b-col class="nav-faculty mt-2">
+          <b-button v-if="isUserLogin === 'User'" class="custom-btn" @click="openModalAuth()">Войти в систему</b-button>
+          <b-button v-else class="custom-btn" @click="toOptions">В раздел опций</b-button>
+        </b-col>
       </b-col>
     </b-row>
 
-    <b-row class="mb-3 text-center">
+    <b-row class="mb-2 text-center">
       <b-col>
         <h2 class="text-content">Расписание</h2>
       </b-col>
     </b-row>
 
-    <b-row class="mt-4 mb-4">
-      <b-col md="4" class="navigate-image mb-3">
+    <b-row class="mt-4 mb-1">
+      <b-col md="4" class="navigate-image mb-3" @click="toFaculties">
         <b-img class="nav-img image-example" :src="facultiesImg" alt="Картинка 1"></b-img>
         <h3 class="centered-text">По факультетам</h3>
       </b-col>
@@ -59,7 +77,7 @@ function onClick() {
         <h3 class="centered-text">По группам</h3>
       </b-col>
 
-      <b-col md="4" class="navigate-image mb-3">
+      <b-col md="4" class="navigate-image mb-1">
         <b-img class="nav-img image-example" :src="teachersImg" alt="Картинка 3"></b-img>
         <h3 class="centered-text">По учителям</h3>
       </b-col>
@@ -104,9 +122,29 @@ function onClick() {
 </template>
 
 <style scoped>
+.text-for-teacher-description {
+  text-align: center;
+}
+
+.custom-btn {
+  background-color: #fff;
+  color: black;
+  border: 1px solid #ced4da;
+  border-radius: 20px;
+  width: 70%;
+  font-size: 1.5rem;
+  transition: background-color 0.5s ease;
+}
+
 .navigate-image:hover .centered-text {
   opacity: 0;
   visibility: hidden;
+}
+
+.text-for-teacher {
+  text-align: center;
+  font-weight: 600;
+  color: black;
 }
 
 .centered-text {
@@ -134,7 +172,7 @@ function onClick() {
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-.nav-img:hover  {
+.nav-img:hover {
   filter: brightness(95%);
   transition: transform 0.3s ease, filter 0.3s ease;
 }
@@ -174,7 +212,7 @@ function onClick() {
 }
 
 .background-image {
-  height: 100%; /* Высота равна высоте родительского элемента */
+  height: 100%;
   background-image: url('@/assets/images/university.png');
   background-size: cover;
   background-position: center;
@@ -192,6 +230,14 @@ function onClick() {
   .text-content {
     font-size: 25px;
   }
+
+  .text-for-teacher {
+    font-size: 30px;
+  }
+
+  .text-for-teacher-description {
+    font-size: 18px;
+  }
 }
 
 
@@ -199,11 +245,27 @@ function onClick() {
   .text-content {
     font-size: 30px;
   }
+
+  .text-for-teacher {
+    font-size: 30px;
+  }
+
+  .text-for-teacher-description {
+    font-size: 25px;
+  }
 }
 
 @media (min-width: 900px) {
   .text-content {
     font-size: 40px;
+  }
+
+  .text-for-teacher {
+    font-size: 40px;
+  }
+
+  .text-for-teacher-description {
+    font-size: 25px;
   }
 }
 </style>
