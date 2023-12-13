@@ -188,6 +188,21 @@ export async function getRoom() {
         });
 }
 
+export async function getPlan() {
+    return customInstance
+        .get(
+            '/get/all_plan',
+            {useToken: false, requestName: "Get all plan", showToast: false}
+        )
+        .then(response => {
+            console.log(response.config["requestName"], "Done")
+            return response.data
+        })
+        .catch(consoleMessage => {
+            console.error(consoleMessage)
+        });
+}
+
 export function removeRoom(room) {
     customInstance
         .post(
@@ -221,6 +236,20 @@ export function removeSubject(subject) {
         .post(
             '/api/admin/delete_subject/' + subject,
             {useToken: true, requestName: "Remove subject", showToast: true}
+        )
+        .then(response => {
+            console.log(response.config["requestName"], "Done")
+        })
+        .catch(consoleMessage => {
+            console.error(consoleMessage)
+        });
+}
+
+export function removePlan(id) {
+    customInstance
+        .delete(
+            '/api/admin/delete_plan/' + id,
+            {useToken: true, requestName: "Remove plan", showToast: true}
         )
         .then(response => {
             console.log(response.config["requestName"], "Done")

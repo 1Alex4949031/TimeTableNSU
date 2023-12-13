@@ -1,11 +1,20 @@
 <script setup>
 import {onMounted, ref} from "vue";
-import {getGroups, getRoom, getSubject, removeGroup, removeRoom, removeSubject} from "@/js/add-get-request";
+import {
+  getGroups,
+  getPlan,
+  getRoom,
+  getSubject,
+  removeGroup,
+  removePlan,
+  removeRoom,
+  removeSubject
+} from "@/js/add-get-request";
 import Multiselect from '@vueform/multiselect'
 import "@vueform/multiselect/themes/default.css"
 import imageModal from "@/assets/images/imageModal1.png";
 
-const removeType = ["Групп", "Комнат", "Предметов"]
+const removeType = ["Групп", "Комнат", "Предметов", "Учебного плана"]
 const selectedRemoveType = ref()
 
 const allGroup = ref([])
@@ -13,6 +22,9 @@ const group = ref()
 
 const allSubject = ref([])
 const subject = ref()
+
+const allPlan = ref([])
+const plan = ref()
 
 const allRoom = ref([])
 const room = ref()
@@ -47,6 +59,15 @@ async function remove() {
       subject.value = []
       break;
     }
+    case 'Учебного плана': {
+      for (let x in plan.value) {
+        removePlan(allPlan.value[x].value)
+      }
+      const rawPlan = await getPlan()
+      allPlan.value = processPlan(rawPlan)
+      plan.value = []
+      break;
+    }
   }
 }
 
@@ -68,6 +89,13 @@ function processRoom(rawRoom) {
   });
 }
 
+function processPlan(rawPlan) {
+  return rawPlan.map(plan => {
+    return {value: plan.id,
+      label: plan.teacher + " " + plan.subject + " Вместимость: " + plan.groups + " " + plan.subjectType + " " + plan.timesInAWeek};
+  });
+}
+
 onMounted(async () => {
   const rawGroup = await getGroups()
   allGroup.value = processGroup(rawGroup)
@@ -77,6 +105,9 @@ onMounted(async () => {
 
   const rawRoom = await getRoom()
   allRoom.value = processRoom(rawRoom)
+
+  const rawPlan = await getPlan()
+  allPlan.value = processPlan(rawPlan)
 })
 </script>
 
@@ -131,6 +162,20 @@ onMounted(async () => {
                 />
               </b-form-group>
             </div>
+
+            <div v-if="selectedRemoveType === 'Учебного плана'">
+              <b-form-group class="form-group" label="Список предметов">
+                <Multiselect
+                    v-model="plan"
+                    mode="tags"
+                    :close-on-select="false"
+                    :searchable="true"
+                    :create-option="true"
+                    :options="allPlan"
+                />
+              </b-form-group>
+            </div>
+
             <b-button class="custom-btn" @click="remove">
               Удалить
             </b-button>
