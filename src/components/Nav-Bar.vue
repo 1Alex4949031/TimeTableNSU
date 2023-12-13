@@ -33,7 +33,7 @@ function routeToMain() {
       <b-navbar-nav class="custom-navbar-nav">
 
         <b-nav-item v-if="isUserLogin === 'User'" @click="openModalAuth()">Вход</b-nav-item>
-        <b-nav-item v-else @click="routeToOptions">Опции</b-nav-item>
+        <b-nav-item v-else @click="routeToOptions()">Опции</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
@@ -60,5 +60,24 @@ function routeToMain() {
 
 .custom-navbar-nav {
   margin-left: auto;
+}
+
+@media (max-width: 599px) {
+  .text {
+    font-size: 18px;
+  }
+}
+
+
+@media (min-width: 600px) and (max-width: 899px) {
+  .text {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 900px) {
+  .text {
+    font-size: 20px;
+  }
 }
 </style>

@@ -25,11 +25,11 @@ const imageSrc = computed(() => {
 <template>
   <b-row>
     <b-col md="6">
-      <b-col class="mt-4 ms-4 me-4" >
+      <b-col class="mt-4 ms-4 me-4">
         <h1 data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
           Группы факультета
         </h1>
-        <ul class="list-group list-group-flush" data-aos="fade-right" data-aos-duration="1300" data-aos-once="true">
+        <ul class="list-group list-group-flush" data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
           <li class="list-group-item" v-for="group in groups" :key="group.id"
               @click="goToGroupTimetable(group.groupNumber)">
             {{ group.groupNumber }}
@@ -50,6 +50,7 @@ const imageSrc = computed(() => {
   font-size: 1.2em;
   cursor: pointer;
 }
+
 .rounded-custom {
   border-radius: 130px;
 }

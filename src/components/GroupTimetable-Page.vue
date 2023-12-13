@@ -3,6 +3,9 @@ import {useRoute} from 'vue-router';
 import {onMounted, ref} from "vue";
 import {getGroupTimetable} from "@/js/get-timetable";
 import {days, pairTimes} from "@/js/data-for-show";
+import labSvg from '@/assets/images/lab.svg'
+import pracSvg from '@/assets/images/prac.svg'
+import lecSvg from '@/assets/images/lec.svg'
 
 const route = useRoute();
 const timetable = ref([]);
@@ -43,10 +46,16 @@ const getSchedule = (dayName, pairNumber) => {
         <td v-for="day in days" :key="day">
           <div class="class-cell">
             <div v-for="item in getSchedule(day, pair)" :key="item.id">
-              {{ item.subjectName }} <br>
-              {{ item.room }}
-              {{ item.teacher }}
-              {{ item.pairType }}
+              <!--Можно будет упростить-->
+              <img class="lesson-svg" v-if="item.pairType === 'lab'" :src="labSvg" alt="Lab">
+              <img class="lesson-svg" v-else-if="item.pairType === 'prac'" :src="pracSvg" alt="Prac">
+              <img class="lesson-svg" v-else :src="lecSvg" alt="Lec">
+              <div class="class-cell-info">
+                {{ item.subjectName }} <br>
+                {{ item.room }} <br>
+                {{ item.teacher }} <br>
+                {{ item.pairType }} <br>
+              </div>
             </div>
           </div>
         </td>
@@ -57,6 +66,14 @@ const getSchedule = (dayName, pairNumber) => {
 </template>
 
 <style scoped>
+.lesson-svg {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: 0;
+  top: 0;
+}
+
 .schedule-container {
   overflow-x: auto;
 }
@@ -70,7 +87,6 @@ const getSchedule = (dayName, pairNumber) => {
 .schedule-table td {
   border: 1px solid #ddd;
   padding: 8px;
-  text-align: center;
 }
 
 .schedule-table thead th {
@@ -78,6 +94,7 @@ const getSchedule = (dayName, pairNumber) => {
 }
 
 .class-cell {
+  position: relative;
   min-height: 60px;
 }
 </style>
