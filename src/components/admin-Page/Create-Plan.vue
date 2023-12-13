@@ -38,7 +38,7 @@ function addPlansLocal() {
 
 onMounted(async () => {
   getTeachers(teachers)
-  getSubject(allSubject)
+  allSubject.value = await getSubject()
   const rawGroup = await getGroups()
   for (let x of rawGroup) {
     allGroups.value.push(x.groupNumber)

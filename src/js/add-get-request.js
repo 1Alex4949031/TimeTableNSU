@@ -158,14 +158,71 @@ export function getFacultyGroups(faculty, groupFeedback) {
         });
 }
 
-export function getSubject(subjectFeedback) {
-    customInstance
+export async function getSubject() {
+    return customInstance
         .get(
             '/get/all_subjects',
-            {useToken: false, requestName: "Get group faculty", showToast: false}
+            {useToken: false, requestName: "Get all subjects", showToast: false}
         )
         .then(response => {
-            subjectFeedback.value = response.data
+            console.log(response.config["requestName"], "Done")
+            return response.data
+        })
+        .catch(consoleMessage => {
+            console.error(consoleMessage)
+        });
+}
+
+export async function getRoom() {
+    return customInstance
+        .get(
+            '/get/all_rooms',
+            {useToken: false, requestName: "Get all rooms", showToast: false}
+        )
+        .then(response => {
+            console.log(response.config["requestName"], "Done")
+            return response.data
+        })
+        .catch(consoleMessage => {
+            console.error(consoleMessage)
+        });
+}
+
+export function removeRoom(room) {
+    customInstance
+        .post(
+            '/api/admin/delete_room/' + room,
+            {useToken: true, requestName: "Remove room", showToast: true}
+        )
+        .then(response => {
+            console.log(response.config["requestName"], "Done")
+        })
+        .catch(consoleMessage => {
+            console.error(consoleMessage)
+        });
+}
+
+export function removeGroup(group) {
+    customInstance
+        .post(
+            '/api/admin/delete_group/' + group,
+            {useToken: true, requestName: "Remove group", showToast: true}
+        )
+        .then(response => {
+            console.log(response.config["requestName"], "Done")
+        })
+        .catch(consoleMessage => {
+            console.error(consoleMessage)
+        });
+}
+
+export function removeSubject(subject) {
+    customInstance
+        .post(
+            '/api/admin/delete_subject/' + subject,
+            {useToken: true, requestName: "Remove subject", showToast: true}
+        )
+        .then(response => {
             console.log(response.config["requestName"], "Done")
         })
         .catch(consoleMessage => {
