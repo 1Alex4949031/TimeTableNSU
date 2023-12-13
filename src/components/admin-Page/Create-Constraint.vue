@@ -5,6 +5,7 @@ import {getGroups, getTeachers} from "@/js/add-get-request";
 import DayTimeSelectModal from "@/components/admin-Page/Day-Time-Select-Modal.vue";
 import {addConstraint} from "@/js/constraint-requests";
 import {isSelected} from "@/js/selected-timetable";
+import {constraint, daysWithKey} from "@/js/data-for-show";
 
 const teachers = ref([])
 const teacher = ref("")
@@ -15,13 +16,7 @@ const maxDay = ref(7)
 
 const lockDay = ref()
 
-const constraint = ref([
-  'Максимальное кол-во рабочих дней',
-  'Запрещенный порядковый номер пары для препода в определённый день',
-  'Запрещенные порядковый номер пары для групп в определённый день',
-  'Запрещенный день для преподавания для препода',
-  'Запрещенный день для преподавания для группы'
-])
+
 const selectedConstraint = ref("")
 
 function addConstraints() {
@@ -77,9 +72,12 @@ function addConstraints() {
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
   getTeachers(teachers)
-  getGroups(allGroups)
+  const rawGroup = await getGroups(allGroups)
+  for (let x of rawGroup) {
+    allGroups.value.push(x.groupNumber)
+  }
 })
 
 </script>
@@ -128,8 +126,7 @@ onMounted(() => {
                                id="input-subject-groups"></b-form-select>
               </b-form-group>
               <b-form-group class="form-group" label="Нерабочий день" label-for="input-teacher-cap">
-                <b-form-input class="custom-input" v-model="lockDay" id="input-teacher-cap"
-                              placeholder="" type="number"/>
+                <b-form-select v-model="lockDay" :options="daysWithKey" label="Нерабочие дни" id="input-subject-teacher"/>
               </b-form-group>
             </div>
 

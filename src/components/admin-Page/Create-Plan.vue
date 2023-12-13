@@ -15,21 +15,34 @@ const subject = ref("")
 const subjectRequirement = ref("")//Есть вероятность что это можно привязать к предметам, но пока так
 const timeAWeek = ref(1)
 
-function addPlansLocal(){
-  groups.value.forEach( x => {
-    addPlan(
-        teacher.value,
-        subject.value,
-        timeAWeek.value,
-        subjectRequirement.value,
-        x)
-  })
+function addPlansLocal() {
+  if (subjectRequirement.value !== roomTypes[0].value) {
+    groups.value.forEach(x => {
+      addPlan(
+          teacher.value,
+          subject.value,
+          timeAWeek.value,
+          subjectRequirement.value,
+          x)
+    })
+  } else {
+      addPlan(
+          teacher.value,
+          subject.value,
+          timeAWeek.value,
+          subjectRequirement.value,
+          groups.value.join(",")
+      )
+    }
 }
 
-onMounted(() => {
+onMounted(async () => {
   getTeachers(teachers)
-  getGroups(allGroups)
-  getSubject(allSubject)
+  allSubject.value = await getSubject()
+  const rawGroup = await getGroups()
+  for (let x of rawGroup) {
+    allGroups.value.push(x.groupNumber)
+  }
 })
 </script>
 
@@ -43,7 +56,8 @@ onMounted(() => {
             <b-form-select v-model="teacher" :options="teachers" label="ФИО" id="input-subject-teacher"></b-form-select>
           </b-form-group>
           <b-form-group class="form-group" label="Группы" label-for="input-subject-groups">
-            <b-form-select v-model="groups" :options="allGroups" multiple="true" id="input-subject-groups"></b-form-select>
+            <b-form-select v-model="groups" :options="allGroups" multiple="true"
+                           id="input-subject-groups"></b-form-select>
           </b-form-group>
           <b-form-group class="form-group" label="Предмет" label-for="input-subject-groups">
             <b-form-select v-model="subject" :options="allSubject" id="input-subject-groups"></b-form-select>

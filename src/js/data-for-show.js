@@ -1,8 +1,19 @@
+import {ref} from "vue";
+
 export const roomTypes = [
     {value: "lec", text: "Лекционная"},
-    {value: "prac", text: "Терминальная"},
-    {value: "lab", text: "Стандартная"},
+    {value: "prac", text: "Практическая"},
+    {value: "lab", text: "Лабораторная"},
 ]
+
+
+export const constraint = ref([
+    'Максимальное кол-во рабочих дней',
+    'Запрещенный порядковый номер пары для препода в определённый день',
+    'Запрещенные порядковый номер пары для групп в определённый день',
+    'Запрещенный день для преподавания для препода',
+    'Запрещенный день для преподавания для группы'
+])
 
 export const pairTimes = {
     1: '9:00',
@@ -15,6 +26,8 @@ export const pairTimes = {
 };
 
 export const days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+
+export const daysWithKey = days.map((day, index) => ({ value: index + 1, text: day }));
 
 export const faculties = {
     "ГГФ": {
@@ -56,5 +69,11 @@ export const faculties = {
     "ЭФ": {
         name: "Экономический факультет",
         imageSrc: require("@/assets/images/faculties/ef.png"),
+    },
+    "Все_группы": {
+        name: "Полный список групп",
+        imageSrc: require("@/assets/images/faculties/ef.png"),
     }
 }
+
+export const facultiesName = Object.keys(faculties).filter(item => item !== "Все_группы");

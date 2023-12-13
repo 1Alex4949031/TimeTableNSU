@@ -3,8 +3,8 @@
 import {addGroup} from "@/js/add-get-request";
 import imageModal from "@/assets/images/imageModal1.png";
 import {ref} from "vue";
+import {facultiesName} from "@/js/data-for-show";
 
-const facultets = ["ФИТ", "ММ", "ФФ", "ФИЯ", "ФЕН"]
 const name = ref("")
 const facul = ref("")
 const studentCount = ref(15)
@@ -27,11 +27,11 @@ function addGroups(){
           <b-form>
             <b-form-group class="form-group" label="Номер группы" label-for="input-group-name">
               <b-form-input class="custom-input" v-model="name" id="input-group-name"
-                            placeholder="Введите номер" type="text">
+                            placeholder="Введите номер, или несколько через ; ~ xxx;xxx;xxx;xxx" type="text">
               </b-form-input>
             </b-form-group>
             <b-form-group class="form-group" label="Факультет" label-for="input-group-type">
-              <b-form-select v-model="facul" :options="facultets" label="Выберите опцию"
+              <b-form-select v-model="facul" :options="facultiesName" label="Выберите опцию"
                              id="input-group-type"></b-form-select>
             </b-form-group>
             <b-form-group class="form-group" label="Количество студентов" label-for="input-group-cap">

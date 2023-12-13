@@ -14,6 +14,7 @@ customInstance.defaults.showToast = true//
 customInstance.defaults.toastWaitResponseText = "Запрос выполняется..."
 customInstance.defaults.toastSuccessText = "Успешно!"
 customInstance.defaults.toastErrorDataText = ""
+customInstance.defaults.toastId = ""
 customInstance.interceptors.request.use(
     config => {
         if (config.useToken) {
@@ -25,17 +26,30 @@ customInstance.interceptors.request.use(
             }
         }
         config.toastText = ref(config.toastWaitResponseText)
+
+
         if (config.showToast) {
-            config.toastId = ref(toast(
+            if (config.toastId === "") {
+                config.toastId = config.requestName
+            }
+            if (toast.isActive(config.toastId)) {
+                toast.update(config.toastId,
+                    {
+                        autoClose: false,
+                        type: "loading",
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+            } else {
+                toast(
                     config.toastText,
                     {
-                        toastId: config.toastId || config.requestName,
+                        toastId: config.toastId,
                         autoClose: false,
                         type: "loading",
                         position: toast.POSITION.BOTTOM_RIGHT,
                     },
                 )
-            );
+            }
         }
         return config;
     })
@@ -44,7 +58,7 @@ customInstance.interceptors.response.use(
         console.log(response.config.requestName + " успешно выполнен!")
         if (response.config.showToast) {
             response.config.toastText.value = response.config.toastSuccessText
-            toast.update(response.config.toastId.value,
+            toast.update(response.config.toastId,
                 {
                     autoClose: 1000,
                     type: toast.TYPE.SUCCESS,
@@ -61,14 +75,22 @@ customInstance.interceptors.response.use(
             consoleMessage = error.config.requestName + error.request
             error.config.toastText.value = "Нет соеденения с сервером!"
         } else {
-            consoleMessage = 'Error '  + error.config.requestName + error.message
+            consoleMessage = 'Error ' + error.config.requestName + error.message
             error.config.toastText.value = "Ошибка при разработке!"
         }
         if (error.config.showToast) {
-            toast.update(error.config.toastId.value, {
+            toast.update(error.config.toastId, {
                 autoClose: 10000,
                 type: toast.TYPE.ERROR,
             });
+        } else {
+            toast(
+                error.config.toastText,
+                {
+                    toastId: error.config.toastId,
+                    autoClose: 10000,
+                    type: toast.TYPE.ERROR,
+                });
         }
         return Promise.reject(consoleMessage);
     }

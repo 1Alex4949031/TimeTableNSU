@@ -22,7 +22,7 @@ function addSubjects(){
         <b-form>
           <b-form-group class="form-group" label="Название" label-for="input-subject-name">
             <b-form-input class="custom-input" v-model="name" id="input-subject-name"
-                          placeholder="Введите название предмета">
+                          placeholder="Введите название предмета, или несколько через ; ~ xxx;xxx;xxx;xxx">
             </b-form-input>
           </b-form-group>
 

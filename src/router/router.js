@@ -13,6 +13,7 @@ import TimeTableExample from "@/components/TimeTable-Example.vue";
 import NotFoundPage from "@/components/Not-Found-Page.vue";
 import ConstraintPage from "@/components/admin-Page/Create-Constraint.vue";
 import ConstraintRemovePage from "@/components/admin-Page/Remove-Constraint.vue";
+import RemoveBase from "@/components/admin-Page/Remove-group-subject-room-Page.vue"
 
 const routes = [
     {
@@ -78,11 +79,14 @@ const routes = [
     {
         path: '/newConstraint',
         component: ConstraintPage
-    }
-    ,
+    },
     {
         path: '/removeConstraint',
         component: ConstraintRemovePage
+    },
+    {
+        path: '/removeBase',
+        component: RemoveBase
     }
 ]
 
