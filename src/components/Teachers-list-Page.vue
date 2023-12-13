@@ -13,7 +13,7 @@ const goToGroupTimetable = (teacher) => {
 };
 
 const imageSrc = computed(() => {
-  return faculties[1]?.imageSrc;
+  return faculties["ФФ"]?.imageSrc;
 });
 
 
