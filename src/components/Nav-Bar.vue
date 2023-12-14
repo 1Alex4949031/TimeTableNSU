@@ -4,7 +4,7 @@ import {openModalAuth} from "@/js/ModalLogic";
 import LoginModal from "@/components/Login-Modal.vue";
 import {isUserLogin} from "@/js/axios-auth-request";
 import router from "@/router/router";
-import logo from '@/assets/images/logo.png'
+import logo from '@/assets/images/logo2.png'
 
 function routeToOptions() {
     router.push('/admNav');
