@@ -16,6 +16,7 @@ import ConstraintRemovePage from "@/components/admin-Page/Remove-Constraint.vue"
 import RemoveBase from "@/components/admin-Page/Remove-group-subject-room-Page.vue"
 import TeachersListPage from "@/components/Teachers-list-Page.vue";
 import TeacherTimetablePage from "@/components/Teacher-Timetable-Page.vue";
+import {isUserLogin} from "@/js/axios-auth-request";
 
 const routes = [
     {
@@ -39,36 +40,43 @@ const routes = [
     {
         path: '/admNav',
         name: 'admNav',
-        component: AdminNavigation
+        component: AdminNavigation,
+        meta: { requiresAuth: true }
     },
     {
         path: '/newGroup',
         name: 'newGroup',
-        component: CreateGroup
+        component: CreateGroup,
+        meta: { requiresAuth: true }
     },
     {
         path: '/newRoom',
         name: 'newRoom',
-        component: CreateRoom
+        component: CreateRoom,
+        meta: { requiresAuth: true }
     },
     {
         path: '/newTeacher',
         name: 'newTeacher',
-        component: RegistrationTeacher
+        component: RegistrationTeacher,
+        meta: { requiresAuth: true }
     },
     {
         path: '/newSubj',
         name: 'newSubj',
-        component: CreateSubject
+        component: CreateSubject,
+        meta: { requiresAuth: true }
     },
     {
         path: '/faculties/:facultyId/groups',
-        component: GroupPage
+        component: GroupPage,
+        meta: { requiresAuth: true }
     },
     {
         path: '/newPlan',
         name: 'newPlan',
-        component: PlanPage
+        component: PlanPage,
+        meta: { requiresAuth: true }
     },
     {
         path: '/faculties/:facultyId/:group/table',
@@ -80,15 +88,18 @@ const routes = [
     },
     {
         path: '/newConstraint',
-        component: ConstraintPage
+        component: ConstraintPage,
+        meta: { requiresAuth: true }
     },
     {
         path: '/removeConstraint',
-        component: ConstraintRemovePage
+        component: ConstraintRemovePage,
+        meta: { requiresAuth: true }
     },
     {
         path: '/removeBase',
-        component: RemoveBase
+        component: RemoveBase,
+        meta: { requiresAuth: true }
     },
     {
         path: '/teachers',
@@ -97,7 +108,7 @@ const routes = [
     {
         path: '/teachers/:teacherName/table',
         component: TeacherTimetablePage
-    }
+    },
 ]
 
 const router = createRouter({
@@ -107,5 +118,16 @@ const router = createRouter({
         return {top: 0};
     }
 })
+
+router.beforeEach((to, from, next) => {
+    const isAuthenticated = isUserLogin.value !== "User"; // Функция для проверки авторизации пользователя
+
+    if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
+        // Если маршрут требует авторизации и пользователь не аутентифицирован, перенаправляем на страницу входа
+        next('/');
+    } else {
+        next();
+    }
+});
 
 export default router

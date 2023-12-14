@@ -7,7 +7,7 @@ import router from "@/router/router";
 import logo from '@/assets/images/logo.png'
 
 function routeToOptions() {
-  router.push('/admNav');
+    router.push('/admNav');
 }
 
 function routeToMain() {

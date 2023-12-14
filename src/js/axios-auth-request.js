@@ -15,12 +15,20 @@ export function auth(email, password) {
         )
         .then(response => {
             router.push({path: "/admNav"}).then(x => console.log(x || "Навигация завершена!"))
-            const {access_token, refresh_token} = response.data
+            const {access_token, refresh_token, roles} = response.data
             closeModalAuth()
             localStorage.setItem("AccessToken", access_token)
             localStorage.setItem("RefreshToken", refresh_token)
-            localStorage.setItem("isUserLogin", "Admin")
-            isUserLogin.value = "Admin"
+            if (roles.some(role => role.includes("ROLE_ADMINISTRATOR"))) {
+                localStorage.setItem("isUserLogin", "Admin")
+                isUserLogin.value = "Admin"
+
+            }
+            else {
+                localStorage.setItem("isUserLogin", "Teacher")
+                isUserLogin.value = "Teacher"
+            }
+            console.log(isUserLogin.value)
         })
         .catch(consoleMessage => {
             console.error(consoleMessage)
