@@ -8,15 +8,16 @@ import CreateSubject from "@/components/admin-Page/Create-Subject.vue";
 import RegistrationTeacher from "@/components/admin-Page/Register-Teacher.vue";
 import GroupPage from "@/components/Groups-Page.vue";
 import PlanPage from "@/components/admin-Page/Create-Plan.vue";
-import GroupTimetablePage from "@/components/GroupTimetable-Page.vue";
 import TimeTableExample from "@/components/TimeTable-Example.vue";
 import NotFoundPage from "@/components/Not-Found-Page.vue";
 import ConstraintPage from "@/components/admin-Page/Create-Constraint.vue";
 import ConstraintRemovePage from "@/components/admin-Page/Remove-Constraint.vue";
 import RemoveBase from "@/components/admin-Page/Remove-group-subject-room-Page.vue"
-import TeachersListPage from "@/components/Teachers-list-Page.vue";
 import TeacherTimetablePage from "@/components/Teacher-Timetable-Page.vue";
 import {isUserLogin} from "@/js/axios-auth-request";
+import GroupTimetablePage from "@/components/Group-Timetable-Page.vue";
+import TeachersListPage from "@/components/Teachers-List-Page.vue";
+import AllGroupsPage from "@/components/All-Groups-Page.vue";
 
 const routes = [
     {
@@ -41,42 +42,42 @@ const routes = [
         path: '/admNav',
         name: 'admNav',
         component: AdminNavigation,
-        meta: { requiresAuth: true }
+        meta: {requiresAuth: true}
     },
     {
         path: '/newGroup',
         name: 'newGroup',
         component: CreateGroup,
-        meta: { requiresAuth: true }
+        meta: {requiresAuth: true}
     },
     {
         path: '/newRoom',
         name: 'newRoom',
         component: CreateRoom,
-        meta: { requiresAuth: true }
+        meta: {requiresAuth: true}
     },
     {
         path: '/newTeacher',
         name: 'newTeacher',
         component: RegistrationTeacher,
-        meta: { requiresAuth: true }
+        meta: {requiresAuth: true}
     },
     {
         path: '/newSubj',
         name: 'newSubj',
         component: CreateSubject,
-        meta: { requiresAuth: true }
+        meta: {requiresAuth: true}
     },
     {
         path: '/faculties/:facultyId/groups',
         component: GroupPage,
-        meta: { requiresAuth: true }
+        meta: {requiresAuth: true}
     },
     {
         path: '/newPlan',
         name: 'newPlan',
         component: PlanPage,
-        meta: { requiresAuth: true }
+        meta: {requiresAuth: true}
     },
     {
         path: '/faculties/:facultyId/:group/table',
@@ -89,17 +90,17 @@ const routes = [
     {
         path: '/newConstraint',
         component: ConstraintPage,
-        meta: { requiresAuth: true }
+        meta: {requiresAuth: true}
     },
     {
         path: '/removeConstraint',
         component: ConstraintRemovePage,
-        meta: { requiresAuth: true }
+        meta: {requiresAuth: true}
     },
     {
         path: '/removeBase',
         component: RemoveBase,
-        meta: { requiresAuth: true }
+        meta: {requiresAuth: true}
     },
     {
         path: '/teachers',
@@ -109,6 +110,14 @@ const routes = [
         path: '/teachers/:teacherName/table',
         component: TeacherTimetablePage
     },
+    {
+        path: '/all_groups',
+        component: AllGroupsPage
+    },
+    {
+        path: '/all_groups/:group/table',
+        component: GroupTimetablePage
+    }
 ]
 
 const router = createRouter({
