@@ -71,7 +71,6 @@ const routes = [
     {
         path: '/faculties/:facultyId/groups',
         component: GroupPage,
-        meta: {requiresAuth: true}
     },
     {
         path: '/newPlan',
