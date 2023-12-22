@@ -12,9 +12,13 @@ AOS.init()
 
 //Montserrat
 import './css/font.css'
+//Toast
+import Toast, {POSITION} from "vue-toastification";
+const options = { position: POSITION.BOTTOM_RIGHT};
 
 createApp(App)
     .use(BootstrapVue3)
+    .use(Toast, options)
     .use(store)
     .use(router)
     .mount('#app')

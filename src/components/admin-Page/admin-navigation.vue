@@ -1,72 +1,9 @@
 <script setup>
 
 import {isUserLogin, logOut} from "@/js/axios-auth-request";
-import {getAllTimetable, getGroupTimetable, getRoomTimetable, getTeacherTimetable} from "@/js/get-timetable";
 import {activateNewTimetable, createNewTimetable} from "@/js/timetable-setting-request";
-import {toast} from "vue3-toastify";
 import imageModal from "@/assets/images/imageModal1.png";
 import router from "@/router/router";
-
-async function getExampleGroup() {
-  const timetable = await getGroupTimetable("21213");
-  console.log("Обрабатываю " + timetable)
-  for (let x of timetable) {
-    const {id, subjectName, teacher} = x
-    console.log(id, subjectName, teacher)
-  }
-}
-
-async function getExampleTeacher() {
-  const timetable = await getTeacherTimetable("miginsky");
-  console.log("Обрабатываю " + timetable)
-  for (let x of timetable) {
-    const {id, subjectName, teacher} = x
-    console.log(id, subjectName, teacher)
-  }
-}
-
-async function getExampleRoom() {
-  const timetable = await getRoomTimetable("306");
-  console.log("Обрабатываю " + timetable)
-  for (let x of timetable) {
-    const {id, subjectName, teacher} = x
-    console.log(id, subjectName, teacher)
-  }
-}
-
-async function getExampleAll() {
-  const timetable = await getAllTimetable();
-  console.log("Обрабатываю " + timetable)
-  for (let x of timetable) {
-    const {id, subjectName, teacher, room} = x
-    console.log(id, subjectName, teacher, room)
-  }
-}
-
-
-async function ToastTest() {
-  const toastId = "41"
-  const toastPromise = toast(
-      "hi",
-      {
-        toastId: toastId,
-        autoClose: false,
-        type: "loading",
-        position: toast.POSITION.BOTTOM_RIGHT,
-      },
-  )
-  console.log(toast.isActive(toastId))
-  await toastPromise
-  if (toast.isActive(toastId)) {
-    toast.update(toastId,
-        {
-          autoClose: 1000,
-          type: toast.TYPE.SUCCESS,
-          position: toast.POSITION.BOTTOM_RIGHT,
-        });
-    console.log("Up")
-  }
-}
 
 function routeToPage(page) {
   router.push(page)
@@ -149,25 +86,6 @@ function routeToPage(page) {
         </div>
       </b-col>
     </b-row>
-    <div>
-      Запросы(кроме all) вытаскивают расписание для конкретного имени которое есть в дефолтном
-      конфиге(в новом расписании их надо добавить чтобы работали)
-    </div>
-    <div>
-      <router-link to="/" @click="getExampleGroup()">get Group Timetable</router-link>
-    </div>
-    <div>
-      <router-link to="/" @click="getExampleRoom()">get Room Timetable</router-link>
-    </div>
-    <div>
-      <router-link to="/" @click="getExampleTeacher()">get Teacher Timetable</router-link>
-    </div>
-    <div>
-      <router-link to="/" @click="getExampleAll()">get All Timetable</router-link>
-    </div>
-    <div>
-      <router-link to @click="ToastTest()">Toast test</router-link>
-    </div>
   </div>
 
   <div v-else>
