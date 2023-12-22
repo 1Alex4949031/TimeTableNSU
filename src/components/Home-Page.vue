@@ -1,4 +1,5 @@
 <script setup>
+import {ref, onMounted} from 'vue';
 import router from "@/router/router";
 
 import exampleImg1 from '@/assets/images/example1.png'
@@ -11,6 +12,23 @@ import teachersImg from '@/assets/images/teachers.png'
 import {openModalAuth} from "@/js/ModalLogic";
 import {isUserLogin} from "@/js/axios-auth-request";
 
+const images = [
+  require('@/assets/images/university1.png'),
+  require('@/assets/images/university2.png'),
+  require('@/assets/images/university3.png'),
+  require('@/assets/images/university4.png'),
+  require('@/assets/images/university5.png')
+];
+
+let index = ref(0);
+let currentImage = ref(images[0]);
+
+onMounted(() => {
+  setInterval(() => {
+    index.value = (index.value + 1) % images.length;
+    currentImage.value = images[index.value];
+  }, 5000);
+});
 
 function toFaculties() {
   router.push('/faculties')
@@ -36,10 +54,14 @@ function toAllGroups() {
     <b-row class="flex-grow-1">
       <b-col cols="12" class="p-0">
         <div class="background-image"></div>
+        <!--        <div class="background-image"-->
+        <!--             :style="{backgroundImage: `url(${currentImage})`}"-->
+        <!--             :key="currentImage.value">-->
+        <!--        </div>-->
       </b-col>
     </b-row>
 
-    <b-row class="d-flex align-items-start justify-content-center">
+    <b-row class=" d-flex align-items-start justify-content-center">
       <b-col cols="12" class="text-center">
         <div class="text-content">Удобное расписание для вашего образовательного учреждения!</div>
       </b-col>
@@ -227,13 +249,22 @@ function toAllGroups() {
   object-fit: cover
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .background-image {
   height: 100%;
-  background-image: url('@/assets/images/university.png');
   background-size: cover;
-  background-position: center;
+  background-position: top center;
   background-repeat: no-repeat;
   box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.5);
+  background-image: url('@/assets/images/university3.png');
 }
 
 .text-content {
