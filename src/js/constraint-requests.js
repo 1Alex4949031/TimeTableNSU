@@ -18,7 +18,7 @@ export function addConstraint(data) {
     const newData = {constraintNameRu: "", group: 0, group1: 0, group2: 0, day: 1, number: 1,period: 1,teacher: "Faa",teacher1: "Faa",teacher2: "Faa", ...data}
     customInstance
         .post(
-            '/api/constraints/create_constraint',
+            '/api/constraints/create',
             newData,
             {useToken: true, requestName: "Create constraint", showToast: true}
         )
@@ -49,7 +49,7 @@ export async function getConstraint() {
 export function removeConstraint(id) {
     customInstance
         .delete(
-            '/api/constraints/delete_constraint/' + id,
+            '/api/constraints/delete/' + id,
             {useToken: true, requestName: "Create constraint", showToast: true}
         )
         .then(response => {
