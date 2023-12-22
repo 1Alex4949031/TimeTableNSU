@@ -4,6 +4,7 @@ import {addPlan, getGroups, getSubject, getTeachers} from "@/js/add-get-request"
 import imageModal from "@/assets/images/imageModal2.png"; //на рандом 2 дописал
 import {onMounted, ref} from "vue";
 import {roomTypes} from "@/js/data-for-show";
+import Multiselect from "@vueform/multiselect";
 
 const teachers = ref([])
 const teacher = ref("")
@@ -56,8 +57,14 @@ onMounted(async () => {
             <b-form-select v-model="teacher" :options="teachers" label="ФИО" id="input-subject-teacher"></b-form-select>
           </b-form-group>
           <b-form-group class="form-group" label="Группы" label-for="input-subject-groups">
-            <b-form-select v-model="groups" :options="allGroups" multiple="true"
-                           id="input-subject-groups"></b-form-select>
+            <Multiselect
+                v-model="groups"
+                mode="tags"
+                :close-on-select="false"
+                :searchable="true"
+                :create-option="true"
+                :options="allGroups"
+            />
           </b-form-group>
           <b-form-group class="form-group" label="Предмет" label-for="input-subject-groups">
             <b-form-select v-model="subject" :options="allSubject" id="input-subject-groups"></b-form-select>

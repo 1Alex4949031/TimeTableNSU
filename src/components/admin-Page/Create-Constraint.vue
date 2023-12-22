@@ -6,6 +6,7 @@ import DayTimeSelectModal from "@/components/admin-Page/Day-Time-Select-Modal.vu
 import {addConstraint} from "@/js/constraint-requests";
 import {isSelected} from "@/js/selected-timetable";
 import {constraint, daysWithKey} from "@/js/data-for-show";
+import Multiselect from "@vueform/multiselect";
 
 const teachers = ref([])
 const teacher = ref("")
@@ -114,16 +115,28 @@ onMounted(async () => {
             </div>
             <div v-if="selectedConstraint === 'Запрещенные порядковый номер пары для групп в определённый день'">
               <b-form-group class="form-group" label="Группы" label-for="input-subject-groups">
-                <b-form-select v-model="groups" :options="allGroups" multiple="true"
-                               id="input-subject-groups"></b-form-select>
+                <Multiselect
+                    v-model="groups"
+                    mode="tags"
+                    :close-on-select="false"
+                    :searchable="true"
+                    :create-option="true"
+                    :options="allGroups"
+                />
               </b-form-group>
               <DayTimeSelectModal/>
             </div>
 
             <div v-if="selectedConstraint === 'Запрещенный день для преподавания для группы'">
               <b-form-group class="form-group" label="Группы" label-for="input-subject-groups">
-                <b-form-select v-model="groups" :options="allGroups" multiple="true"
-                               id="input-subject-groups"></b-form-select>
+                <Multiselect
+                    v-model="groups"
+                    mode="tags"
+                    :close-on-select="false"
+                    :searchable="true"
+                    :create-option="true"
+                    :options="allGroups"
+                />
               </b-form-group>
               <b-form-group class="form-group" label="Нерабочий день" label-for="input-teacher-cap">
                 <b-form-select v-model="lockDay" :options="daysWithKey" label="Нерабочие дни" id="input-subject-teacher"/>
