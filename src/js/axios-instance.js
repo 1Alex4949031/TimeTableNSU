@@ -1,10 +1,10 @@
 import {ref} from "vue";
 import axios from "axios";
-import {toast} from "vue3-toastify";
-import 'vue3-toastify/dist/index.css';
+import { useToast } from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
 const serverURL = 'http://localhost:7070'
-
+const toast = useToast();
 export const customInstance = axios.create({
     baseURL: serverURL,
 });
@@ -32,24 +32,7 @@ customInstance.interceptors.request.use(
             if (config.toastId === "") {
                 config.toastId = config.requestName
             }
-            if (toast.isActive(config.toastId)) {
-                toast.update(config.toastId,
-                    {
-                        autoClose: false,
-                        type: "loading",
-                        position: toast.POSITION.BOTTOM_RIGHT,
-                    });
-            } else {
-                toast(
-                    config.toastText,
-                    {
-                        toastId: config.toastId,
-                        autoClose: false,
-                        type: "loading",
-                        position: toast.POSITION.BOTTOM_RIGHT,
-                    },
-                )
-            }
+            config.toastId = toast.info(config.toastWaitResponseText, { timeout: 10000 })
         }
         return config;
     })
@@ -58,11 +41,8 @@ customInstance.interceptors.response.use(
         console.log(response.config.requestName + " успешно выполнен!")
         if (response.config.showToast) {
             response.config.toastText.value = response.config.toastSuccessText
-            toast.update(response.config.toastId,
-                {
-                    autoClose: 1000,
-                    type: toast.TYPE.SUCCESS,
-                });
+            toast.dismiss(response.config.toastId)
+            toast.success(response.config.toastSuccessText, { timeout: 1000 })
         }
         return response;
     },
@@ -79,19 +59,9 @@ customInstance.interceptors.response.use(
             error.config.toastText.value = "Ошибка при разработке!"
         }
         if (error.config.showToast) {
-            toast.update(error.config.toastId, {
-                autoClose: 10000,
-                type: toast.TYPE.ERROR,
-            });
-        } else {
-            toast(
-                error.config.toastText,
-                {
-                    toastId: error.config.toastId,
-                    autoClose: 10000,
-                    type: toast.TYPE.ERROR,
-                });
+            toast.dismiss(error.config.toastId)
         }
+        toast.error(error.config.toastText.value , { timeout: 5000 })
         return Promise.reject(consoleMessage);
     }
 );

@@ -2,6 +2,7 @@
 
 import {onMounted, ref} from "vue";
 import {getConstraint, removeConstraint} from "@/js/constraint-requests";
+import Multiselect from "@vueform/multiselect";
 const allConstraints = ref([])
 const constraint = ref()
 
@@ -36,7 +37,14 @@ onMounted(async () => {
         <h2 class="modal-title mb-4">Управление учебным планом</h2>
         <b-form>
           <b-form-group class="form-group" label="Все ограничения" label-for="input-subject-groups">
-            <b-form-select v-model="constraint" :options="allConstraints" multiple="true" id="input-subject-groups"/>
+            <Multiselect
+                v-model="constraint"
+                mode="tags"
+                :close-on-select="false"
+                :searchable="true"
+                :create-option="true"
+                :options="allConstraints"
+            />
           </b-form-group>
 
           <b-button class="custom-btn mt-4" @click="remove">
