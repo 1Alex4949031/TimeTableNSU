@@ -34,13 +34,13 @@ export function activateNewTimetable() {
         });
 }
 
-export function startCreatingNewTimetable(useTestingParam = false) {
+export async function startCreatingNewTimetable(useTestingParam = false) {
 
     let url = "/timetable/potential/create_timetable_db_async"
     if (useTestingParam) {
         url = url.replace("create_timetable_db", "create_timetable_kolya")
     }
-    customInstance
+    await customInstance
         .post(
             url,
             {},

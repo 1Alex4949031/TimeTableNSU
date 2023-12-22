@@ -22,7 +22,14 @@ async function checkStatus() {
   }
 }
 
-onMounted(async () => {
+async function startCreatingNew(useTestingParam = false) {
+  currentStatus.value = "Upload"
+  buttonDisable.value = true
+  await startCreatingNewTimetable(useTestingParam)
+  await checkStatus()
+}
+
+onMounted(() => {
   checkStatus()
 })
 </script>
@@ -38,14 +45,21 @@ onMounted(async () => {
             <div>
               <button @click="checkStatus">Проверить состояние</button>
             </div>
-            <div>Текущий статус: {{currentStatus}}</div>
-
+            <b-row>
+              <b-col>Текущий статус: {{ currentStatus }}</b-col>
+              <b-col >
+                <button v-if="buttonDisable" @click="buttonDisable = false">
+                  Игнорировать
+                </button>
+              </b-col>
+            </b-row>
             <div>
-              <button @click="startCreatingNewTimetable()" :disabled="buttonDisable">
-                Запустить создание нового расписания</button>
+              <button @click="startCreatingNew()" :disabled="buttonDisable">
+                Запустить создание нового расписания
+              </button>
             </div>
             <div>
-              <button @click="startCreatingNewTimetable(true)" :disabled="buttonDisable">
+              <button @click="startCreatingNew(true)" :disabled="buttonDisable">
                 Запустить создание расписания по тестовым данным
               </button>
             </div>
