@@ -1,7 +1,6 @@
 <script setup>
 
 import {isUserLogin, logOut} from "@/js/axios-auth-request";
-import {activateNewTimetable, createNewTimetable} from "@/js/timetable-setting-request";
 import imageModal from "@/assets/images/imageModal1.png";
 import router from "@/router/router";
 
@@ -22,6 +21,7 @@ function routeToPage(page) {
         <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newSubj')">Добавление предмета</b-button>
         <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newPlan')">Добавление учебного плана</b-button>
         <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newConstraint')">Добавление ограничений</b-button>
+        <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/createTimetable')">Создание расписания</b-button>
         <b-button class="custom-btn-red mt-2 mb-2" @click="routeToPage('/removeConstraint')">Удаление
           ограничений
         </b-button>
@@ -75,15 +75,7 @@ function routeToPage(page) {
         </b-row>
       </b-col>
       <b-col>
-        <div>
-          <button @click="createNewTimetable()">Создать новое расписание</button>
-        </div>
-        <div>
-          <button @click="createNewTimetable(true)">Создать новое расписание по тестовым данным</button>
-        </div>
-        <div>
-          <button @click="activateNewTimetable()">Активировать новое расписание</button>
-        </div>
+
       </b-col>
     </b-row>
   </div>

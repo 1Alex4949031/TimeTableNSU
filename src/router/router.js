@@ -18,6 +18,7 @@ import {isUserLogin} from "@/js/axios-auth-request";
 import GroupTimetablePage from "@/components/Group-Timetable-Page.vue";
 import TeachersListPage from "@/components/Teachers-List-Page.vue";
 import AllGroupsPage from "@/components/All-Groups-Page.vue";
+import CreatingTimetable from "@/components/admin-Page/Creating-Timetable.vue";
 
 const routes = [
     {
@@ -116,6 +117,11 @@ const routes = [
     {
         path: '/all_groups/:group/table',
         component: GroupTimetablePage
+    },
+    {
+        path: '/createTimetable',
+        component: CreatingTimetable,
+        meta: {requiresAuth: true}
     }
 ]
 
