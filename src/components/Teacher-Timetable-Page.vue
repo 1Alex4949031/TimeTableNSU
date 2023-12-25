@@ -24,16 +24,15 @@ const getSchedule = (dayName, pairNumber) => {
 </script>
 
 <template>
-  <b-row data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
-    <b-col md="6">
-      <b-col class="mt-4 ms-4 me-4">
-        <h1>Расписание преподавателя {{ teacherName }}</h1>
-      </b-col>
+  <b-col md="6" data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
+    <b-col class="mt-4 ms-4 me-4">
+      <h1>Расписание преподавателя {{ teacherName }}</h1>
     </b-col>
-  </b-row>
+  </b-col>
   <b-col class="schedule-container ms-4 me-4 mt-4 mb-4"
          data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
-    <table class="schedule-table">
+    <h4 class="mt-1" v-if="timetable.length === 0">Похоже, такого расписания не существует!</h4>
+    <table v-else class="schedule-table">
       <thead>
       <tr>
         <th>Время</th>
