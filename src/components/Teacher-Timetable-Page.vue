@@ -31,7 +31,7 @@ const getSchedule = (dayName, pairNumber) => {
   </b-col>
   <b-col class="schedule-container ms-4 me-4 mt-4 mb-4"
          data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
-    <h4 class="mt-1" v-if="timetable.length === 0">Похоже, такого расписания не существует!</h4>
+    <h4 class="mt-1" v-if="timetable.length === 0">Похоже, такого преподавателя не существует!</h4>
     <table v-else class="schedule-table">
       <thead>
       <tr>
@@ -51,6 +51,7 @@ const getSchedule = (dayName, pairNumber) => {
               <img class="lesson-svg" v-else :src="lecSvg" alt="Lec">
               <div class="class-cell-info">
                 {{ item.subjectName }} <br>
+                {{ item.groups }} <br>
                 {{ item.room }} <br>
                 {{ item.teacher }} <br>
                 {{ item.pairType }} <br>

@@ -6,6 +6,7 @@ import {days, pairTimes} from "@/js/data-for-show";
 import labSvg from '@/assets/images/lab.svg'
 import pracSvg from '@/assets/images/prac.svg'
 import lecSvg from '@/assets/images/lec.svg'
+import router from "@/router/router";
 
 const route = useRoute();
 const timetable = ref([]);
@@ -22,6 +23,10 @@ const getSchedule = (dayName, pairNumber) => {
   );
 };
 
+const goToTeacherTimetable = (teacher) => {
+  router.push({path: `/teachers/${teacher}/table`});
+};
+
 const getLessonImage = (item) => {
   switch (item.pairType) {
     case 'lab':
@@ -32,6 +37,8 @@ const getLessonImage = (item) => {
       return lecSvg;
   }
 };
+
+
 </script>
 
 <template>
@@ -61,7 +68,9 @@ const getLessonImage = (item) => {
                 <div class="subject-info">
                   {{ item.subjectName }} <br>
                   {{ item.room }} <br>
-                  {{ item.teacher }} <br>
+                  <span class="nav-teacher" @click="goToTeacherTimetable(item.teacher)">
+                    {{ item.teacher }}
+                  </span> <br>
                   {{ item.pairType }} <br>
                 </div>
               </div>
@@ -75,6 +84,10 @@ const getLessonImage = (item) => {
 </template>
 
 <style scoped>
+.nav-teacher {
+  cursor: pointer;
+}
+
 .class-cell-info.has-border {
   margin-top: 5px;
   margin-bottom: 5px;

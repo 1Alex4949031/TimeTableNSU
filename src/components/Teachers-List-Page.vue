@@ -9,7 +9,7 @@ const teachers = ref([]);
 onMounted(() =>
     getTeachers(teachers))
 
-const goToGroupTimetable = (teacher) => {
+const goToTeacherTimetable = (teacher) => {
   router.push({path: `/teachers/${teacher}/table`});
 };
 
@@ -28,7 +28,7 @@ const imageSrc = computed(() => {
         <h4 class="mt-4" v-if="teachers.length === 0">Похоже, список пуст!</h4>
         <ul v-else class="list-group list-group-flush" data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
           <li class="list-group-item" v-for="teacher in teachers" :key="teacher"
-              @click="goToGroupTimetable(teacher)">
+              @click="goToTeacherTimetable(teacher)">
             {{ teacher }}
           </li>
         </ul>
