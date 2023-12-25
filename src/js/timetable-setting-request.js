@@ -58,14 +58,22 @@ export async function checkNewTimetableStatus() {
     return await customInstance
         .get(
             "/timetable/potential/check_file",
-            {useToken: true, requestName: "Check New Timetable Status", toastSuccessText: "Статус обновлён!"}
+            {
+                useToken: true,
+                requestName: "Check New Timetable Status",
+                toastSuccessText: "Статус обновлён!",
+                successErrorOpportunity: true,
+                toastErrorDataText: "Ошибка при составлении расписания"
+            }
         )
         .then(response => {
             console.log(response.config["requestName"], "Done")
             return response.data.message
         })
-        .catch(consoleMessage => {
-            console.error(consoleMessage)
-            return "Ошибка!"
+        .catch(error => {
+            console.error(error)
+            if(error.message !== undefined)
+                return "Ошибка!"
+            return ["Ошибка при составлении расписания", error]
         });
 }
