@@ -14,7 +14,7 @@ const phone = ref("")
     <b-row>
       <b-col md="6">
         <b-col class="mt-4 ms-4 me-4">
-          <h2 class="modal-title mb-4">Управление учителями</h2>
+          <h2 class="modal-title mb-4">Добавление учителя</h2>
           <b-form>
             <b-form-group class="form-group" label="Email" label-for="input-teacher-email">
               <b-form-input class="custom-input" v-model="email" id="input-teacher-email"
@@ -49,6 +49,16 @@ const phone = ref("")
 </template>
 
 <style scoped>
+.custom-btn {
+  background-color: #fff;
+  color: black;
+  border: 1px solid #ced4da;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  width: 100%;
+  transition: background-color 0.5s ease;
+}
+
 .rounded-custom {
   border-radius: 130px;
 }

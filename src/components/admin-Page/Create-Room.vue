@@ -8,7 +8,7 @@ const name = ref("")
 const type = ref("")
 const cap = ref("")
 
-function addRooms(){
+function addRooms() {
   for (let x of name.value.split(";")) {
     addRoom(x, type.value, cap.value)
   }
@@ -20,7 +20,7 @@ function addRooms(){
     <b-row>
       <b-col md="6">
         <b-col class="mt-4 ms-4 me-4">
-          <h2 class="modal-title mb-4">Управление комнатами</h2>
+          <h2 class="modal-title mb-4">Добавление комнаты</h2>
           <b-form>
             <b-form-group class="form-group" label="Номер комнаты" label-for="input-room-name">
               <b-form-input class="custom-input" v-model="name" id="input-room-name"
@@ -50,8 +50,17 @@ function addRooms(){
 
   </div>
 </template>
-
 <style scoped>
+.custom-btn {
+  background-color: #fff;
+  color: black;
+  border: 1px solid #ced4da;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  width: 100%;
+  transition: background-color 0.5s ease;
+}
+
 .rounded-custom {
   border-radius: 130px;
 }

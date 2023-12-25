@@ -117,8 +117,8 @@ onMounted(async () => {
     <b-row>
       <b-col md="6">
         <b-col class="mt-4 ms-4 me-4">
-          <h2 class="modal-title mb-4">Удаление основных значений</h2>
-          <h6 class="modal-title mb-4">Удаление не приведёт к удалению из действующего расписания!</h6>
+          <h2 class="modal-title mb-4">Удаление основных параметров расписания</h2>
+          <h6 class="modal-title mb-4">Чтобы внести изменения в составленное расписание, удалите необходимые параметры и обратитесь к администратору!</h6>
           <b-form>
             <b-form-group class="form-group" label="Удаление" label-for="input-group-type">
               <b-form-select v-model="selectedRemoveType" :options="removeType" label="Выберите опцию"
@@ -192,5 +192,17 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.rounded-custom {
+  border-radius: 130px;
+}
 
+.custom-btn {
+  background-color: #fff;
+  color: black;
+  border: 1px solid #ced4da;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  width: 100%;
+  transition: background-color 0.5s ease;
+}
 </style>

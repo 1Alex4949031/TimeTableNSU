@@ -22,7 +22,9 @@ function routeToMain() {
     <b-navbar-brand>
       <b-row class="brand-row" @click="routeToMain">
         <img class="logo" :src=logo alt="Logo">
-        <b-col class="text">Главная</b-col>
+        <b-col>
+          <b-button class="text custom-btn">Главная</b-button>
+        </b-col>
       </b-row>
     </b-navbar-brand>
 
@@ -61,7 +63,7 @@ function routeToMain() {
 }
 
 .text {
-  font-weight: 600;
+  font-weight: 500;
   color: black;
 }
 

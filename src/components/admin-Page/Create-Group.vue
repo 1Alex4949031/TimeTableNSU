@@ -10,7 +10,7 @@ const facul = ref("")
 const studentCount = ref(15)
 const course = ref(1)
 
-function addGroups(){
+function addGroups() {
   for (let x of name.value.split(";")) {
     addGroup(x, facul.value, studentCount.value, course.value)
   }
@@ -22,8 +22,8 @@ function addGroups(){
   <div>
     <b-row>
       <b-col md="6">
-        <b-col class="mt-4 ms-4 me-4" >
-          <h2 class="modal-title mb-4">Управление Группами</h2>
+        <b-col class="mt-4 ms-4 me-4">
+          <h2 class="modal-title mb-4">Добавление Группы</h2>
           <b-form>
             <b-form-group class="form-group" label="Номер группы" label-for="input-group-name">
               <b-form-input class="custom-input" v-model="name" id="input-group-name"
@@ -44,7 +44,7 @@ function addGroups(){
                             placeholder="" type="number">
               </b-form-input>
             </b-form-group>
-            <b-button class="custom-btn"
+            <b-button class="custom-btn mt-4"
                       @click="addGroups">
               Создать группу
             </b-button>
@@ -61,6 +61,16 @@ function addGroups(){
 </template>
 
 <style scoped>
+.custom-btn {
+  background-color: #fff;
+  color: black;
+  border: 1px solid #ced4da;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  width: 100%;
+  transition: background-color 0.5s ease;
+}
+
 .rounded-custom {
   border-radius: 130px;
 }

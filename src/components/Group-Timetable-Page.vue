@@ -21,6 +21,17 @@ const getSchedule = (dayName, pairNumber) => {
       (item) => item.dayNumber === dayNumber && item.pairNumber === pairNumber
   );
 };
+
+const getLessonImage = (item) => {
+  switch (item.pairType) {
+    case 'lab':
+      return labSvg;
+    case 'prac':
+      return pracSvg;
+    default:
+      return lecSvg;
+  }
+};
 </script>
 
 <template>
@@ -46,15 +57,14 @@ const getSchedule = (dayName, pairNumber) => {
         <td v-for="day in days" :key="day">
           <div class="class-cell">
             <div v-for="item in getSchedule(day, pair)" :key="item.id">
-              <!--Можно будет упростить-->
-              <img class="lesson-svg" v-if="item.pairType === 'lab'" :src="labSvg" alt="Lab">
-              <img class="lesson-svg" v-else-if="item.pairType === 'prac'" :src="pracSvg" alt="Prac">
-              <img class="lesson-svg" v-else :src="lecSvg" alt="Lec">
-              <div class="class-cell-info">
-                {{ item.subjectName }} <br>
-                {{ item.room }} <br>
-                {{ item.teacher }} <br>
-                {{ item.pairType }} <br>
+              <div class="class-cell-info" :class="{ 'has-border': getSchedule(day, pair).length >= 2 }">
+                <img class="lesson-svg" :src="getLessonImage(item)" :alt="item.pairType">
+                <div class="subject-info">
+                  {{ item.subjectName }} <br>
+                  {{ item.room }} <br>
+                  {{ item.teacher }} <br>
+                  {{ item.pairType }} <br>
+                </div>
               </div>
             </div>
           </div>
@@ -66,12 +76,30 @@ const getSchedule = (dayName, pairNumber) => {
 </template>
 
 <style scoped>
+.class-cell-info.has-border {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #ddd; /* Граница между предметами */
+}
+
+.subject-info{
+  margin-right: 30px;
+}
+
 .lesson-svg {
   position: absolute;
   width: 25px;
   height: 25px;
   right: 0;
   top: 0;
+}
+
+.class-cell-info {
+  position: relative;
+}
+
+.class-cell {
+  min-height: 60px;
 }
 
 .schedule-container {
@@ -93,8 +121,4 @@ const getSchedule = (dayName, pairNumber) => {
   background-color: #f2f2f2;
 }
 
-.class-cell {
-  position: relative;
-  min-height: 60px;
-}
 </style>

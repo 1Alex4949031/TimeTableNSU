@@ -139,7 +139,8 @@ onMounted(async () => {
                 />
               </b-form-group>
               <b-form-group class="form-group" label="Нерабочий день" label-for="input-teacher-cap">
-                <b-form-select v-model="lockDay" :options="daysWithKey" label="Нерабочие дни" id="input-subject-teacher"/>
+                <b-form-select v-model="lockDay" :options="daysWithKey" label="Нерабочие дни"
+                               id="input-subject-teacher"/>
               </b-form-group>
             </div>
 
@@ -169,5 +170,17 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.rounded-custom {
+  border-radius: 130px;
+}
 
+.custom-btn {
+  background-color: #fff;
+  color: black;
+  border: 1px solid #ced4da;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  width: 100%;
+  transition: background-color 0.5s ease;
+}
 </style>
