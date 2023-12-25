@@ -14,7 +14,7 @@ function routeToPage(page) {
   <div v-if="isUserLogin === 'Admin'">
     <b-row>
       <b-col md="6" class="d-flex flex-column  align-items-center">
-        <h2 class="title mb-3 mt-3">Администратор</h2>
+        <h2 class="title mb-3 mt-4 ms-1 me-1">Панель Администратора</h2>
         <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newGroup')">Добавление группы</b-button>
         <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newTeacher')">Добавление учителя</b-button>
         <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newRoom')">Добавление комнаты</b-button>
@@ -31,7 +31,7 @@ function routeToPage(page) {
         <b-button class="custom-btn mt-2 mb-2" @click="logOut()">Выход</b-button>
       </b-col>
       <b-col md="6">
-        <b-col>
+        <b-col class="mt-3 me-3 ms-3">
           <b-img :src="imageModal" alt="Image" fluid class="rounded-custom"></b-img>
         </b-col>
       </b-col>
@@ -102,6 +102,7 @@ function routeToPage(page) {
 }
 
 .title {
+  text-align: center;
   font-weight: 700;
   font-size: 1.8rem;
 }

@@ -2,6 +2,7 @@
 import {ref} from "vue";
 import {closeModalAuth, isVisibleAuth} from "@/js/ModalLogic";
 import {auth} from "@/js/axios-auth-request";
+import closeSvg from "@/assets/images/close.svg"
 
 const email = ref('admin@gmail.com')
 const password = ref('admin')
@@ -13,7 +14,9 @@ const imageModal = require('@/assets/images/imageModal1.png')
   <transition enter-active-class="modal-enter-active"
               leave-active-class="modal-leave-active">
     <div class="fullscreen-modal" v-if="isVisibleAuth">
-      <button @click="closeModalAuth" class="close-button">Закрыть</button>
+      <b-button @click="closeModalAuth" class="close-button">
+        <b-img :src="closeSvg"></b-img>
+      </b-button>
       <b-container fluid="sm" class="my-4">
         <b-row>
           <b-col md="6" class="d-flex flex-column justify-content-center">
@@ -103,10 +106,21 @@ const imageModal = require('@/assets/images/imageModal1.png')
 }
 
 .close-button {
+  border: 1px solid #ced4da;
+  border-radius: 45%;
+  color: #ced4da;
+  background-color: #fff;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   position: absolute;
   top: 10px;
   right: 10px;
   cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #ced4da;
+  color: white;
+  border: 1px solid #fff;
 }
 
 .fullscreen-modal {
