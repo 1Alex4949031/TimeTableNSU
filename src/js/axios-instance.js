@@ -15,6 +15,7 @@ customInstance.defaults.toastWaitResponseText = "Запрос выполняет
 customInstance.defaults.toastSuccessText = "Успешно!"
 customInstance.defaults.toastErrorDataText = ""
 customInstance.defaults.toastId = ""
+customInstance.defaults.successErrorOpportunity = false
 customInstance.interceptors.request.use(
     config => {
         if (config.useToken) {
@@ -26,7 +27,6 @@ customInstance.interceptors.request.use(
             }
         }
         config.toastText = ref(config.toastWaitResponseText)
-
 
         if (config.showToast) {
             if (config.toastId === "") {
@@ -60,6 +60,11 @@ customInstance.interceptors.response.use(
         }
         if (error.config.showToast) {
             toast.dismiss(error.config.toastId)
+        }
+        if(error.config.successErrorOpportunity && error.response.status === 400){
+            toast.warning(error.config.toastErrorDataText, { timeout: 5000 })
+            console.log(consoleMessage)
+            return Promise.reject(error.response.data)
         }
         toast.error(error.config.toastText.value , { timeout: 5000 })
         return Promise.reject(consoleMessage);

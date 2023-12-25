@@ -10,8 +10,13 @@ import Multiselect from "@vueform/multiselect";
 
 const teachers = ref([])
 const teacher = ref("")
+const teacher1 = ref()
+const teacher2 = ref()
+
 const allGroups = ref([])
 const groups = ref()
+const group1 = ref()
+const group2 = ref()
 
 const maxDay = ref(7)
 
@@ -67,6 +72,26 @@ function addConstraints() {
             }
           }
         }
+      }
+      break;
+    }
+    case 'Перегруз учителей (?)' : {
+      if (teacher1.value !== teacher2.value) {
+        addConstraint({
+          constraintNameRu: selectedConstraint.value,
+          teacher2: teacher2.value,
+          teacher1: teacher1.value
+        })
+      }
+      break;
+    }
+    case 'Перегруз групп (??)' : {
+      if (group1.value !== group2.value) {
+        addConstraint({
+          constraintNameRu: selectedConstraint.value,
+          group2: group2.value,
+          group1: group1.value
+        })
       }
       break;
     }
@@ -151,6 +176,24 @@ onMounted(async () => {
               <b-form-group class="form-group" label="Нерабочий день" label-for="input-teacher-cap">
                 <b-form-input class="custom-input" v-model="lockDay" id="input-teacher-cap"
                               placeholder="" type="number"/>
+              </b-form-group>
+            </div>
+
+            <div v-if="selectedConstraint === 'Перегруз групп (??)'">
+              <b-form-group class="form-group" label="Первая группа" label-for="input-subject-teacher">
+                <b-form-select v-model="group1" :options="allGroups" label="Номер группы" id="input-subject-teacher"/>
+              </b-form-group>
+              <b-form-group class="form-group" label="Вторая группа" label-for="input-subject-teacher">
+                <b-form-select v-model="group2" :options="allGroups" label="Номер группы" id="input-subject-teacher"/>
+              </b-form-group>
+            </div>
+
+            <div v-if="selectedConstraint === 'Перегруз учителей (?)'">
+              <b-form-group class="form-group" label="Первый преподаватель" label-for="input-subject-teacher">
+                <b-form-select v-model="teacher1" :options="teachers" label="ФИО" id="input-subject-teacher"/>
+              </b-form-group>
+              <b-form-group class="form-group" label="Второй преподаватель" label-for="input-subject-teacher">
+                <b-form-select v-model="teacher2" :options="teachers" label="ФИО" id="input-subject-teacher"/>
               </b-form-group>
             </div>
 
