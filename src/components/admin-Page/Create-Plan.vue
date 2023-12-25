@@ -80,6 +80,7 @@ onMounted(async () => {
               </b-form-input>
             </b-form-group>
 
+
             <b-button class="custom-btn mt-4"
                       @click="addPlansLocal()">
               Добавить учебный план

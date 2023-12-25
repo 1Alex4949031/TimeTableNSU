@@ -17,6 +17,7 @@ function addSubjects() {
 <template>
   <div>
     <b-row>
+
       <b-col md="6">
         <b-col class="mt-4 ms-4 me-4">
           <h2 class="mb-4">Добавление предмета</h2>
