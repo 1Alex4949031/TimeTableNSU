@@ -6,7 +6,8 @@ import {faculties} from "@/js/data-for-show";
 
 const teachers = ref([]);
 
-onMounted(() => getTeachers(teachers))
+onMounted(() =>
+    getTeachers(teachers))
 
 const goToGroupTimetable = (teacher) => {
   router.push({path: `/teachers/${teacher}/table`});
@@ -22,11 +23,10 @@ const imageSrc = computed(() => {
 <template>
   <b-row>
     <b-col md="6">
-      <b-col class="mt-4 ms-4 me-4">
-        <h1 data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
-          Список учителей
-        </h1>
-        <ul class="list-group list-group-flush" data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
+      <b-col class="mt-4 ms-4 me-4" data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
+        <h1>Список учителей</h1>
+        <h4 class="mt-4" v-if="teachers.length === 0">Похоже, список пуст!</h4>
+        <ul v-else class="list-group list-group-flush" data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
           <li class="list-group-item" v-for="teacher in teachers" :key="teacher"
               @click="goToGroupTimetable(teacher)">
             {{ teacher }}

@@ -9,7 +9,9 @@ const route = useRoute();
 const facultyId = ref(route.params.facultyId);
 const groups = ref([]);
 
-onMounted(() => getFacultyGroups(facultyId.value, groups))
+onMounted(() =>
+    getFacultyGroups(facultyId.value, groups)
+)
 
 const goToGroupTimetable = (groupNumber) => {
   router.push({path: `/faculties/${facultyId.value}/${groupNumber}/table`});
@@ -24,12 +26,13 @@ const imageSrc = computed(() => {
 
 <template>
   <b-row>
-    <b-col md="6">
+    <b-col md="6" data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
       <b-col class="mt-4 ms-4 me-4">
-        <h1 data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
+        <h1>
           Группы факультета
         </h1>
-        <ul class="list-group list-group-flush" data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
+        <h4 class="mt-4" v-if="groups.length === 0">Похоже, список пуст!</h4>
+        <ul v-else class="list-group list-group-flush" data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
           <li class="list-group-item" v-for="group in groups" :key="group.id"
               @click="goToGroupTimetable(group.groupNumber)">
             {{ group.groupNumber }}

@@ -91,8 +91,10 @@ function processRoom(rawRoom) {
 
 function processPlan(rawPlan) {
   return rawPlan.map(plan => {
-    return {value: plan.id,
-      label: plan.teacher + " " + plan.subject + " Вместимость: " + plan.groups + " " + plan.subjectType + " " + plan.timesInAWeek};
+    return {
+      value: plan.id,
+      label: plan.teacher + " " + plan.subject + " Вместимость: " + plan.groups + " " + plan.subjectType + " " + plan.timesInAWeek
+    };
   });
 }
 
@@ -110,15 +112,14 @@ onMounted(async () => {
   allPlan.value = processPlan(rawPlan)
 })
 </script>
-
 <template>
-
   <div>
-    <b-row>
+    <b-row data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
       <b-col md="6">
         <b-col class="mt-4 ms-4 me-4">
           <h2 class="modal-title mb-4">Удаление основных параметров расписания</h2>
-          <h6 class="modal-title mb-4">Чтобы внести изменения в составленное расписание, удалите необходимые параметры и обратитесь к администратору!</h6>
+          <h6 class="modal-title mb-4">Чтобы внести изменения в составленное расписание, удалите необходимые параметры и
+            обратитесь к администратору!</h6>
           <b-form>
             <b-form-group class="form-group" label="Удаление" label-for="input-group-type">
               <b-form-select v-model="selectedRemoveType" :options="removeType" label="Выберите опцию"
@@ -136,7 +137,6 @@ onMounted(async () => {
                 />
               </b-form-group>
             </div>
-
             <div v-if="selectedRemoveType === 'Комнат'">
               <b-form-group class="form-group" label="Список комнат">
                 <Multiselect
@@ -149,7 +149,6 @@ onMounted(async () => {
                 />
               </b-form-group>
             </div>
-
             <div v-if="selectedRemoveType === 'Предметов'">
               <b-form-group class="form-group" label="Список предметов">
                 <Multiselect
@@ -162,7 +161,6 @@ onMounted(async () => {
                 />
               </b-form-group>
             </div>
-
             <div v-if="selectedRemoveType === 'Учебного плана'">
               <b-form-group class="form-group" label="Список предметов">
                 <Multiselect
@@ -175,7 +173,6 @@ onMounted(async () => {
                 />
               </b-form-group>
             </div>
-
             <b-button class="custom-btn" @click="remove">
               Удалить
             </b-button>

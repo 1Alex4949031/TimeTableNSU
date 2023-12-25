@@ -16,8 +16,7 @@ function addSubjects() {
 
 <template>
   <div>
-    <b-row>
-
+    <b-row data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
       <b-col md="6">
         <b-col class="mt-4 ms-4 me-4">
           <h2 class="mb-4">Добавление предмета</h2>

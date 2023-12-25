@@ -12,7 +12,7 @@ function routeToPage(page) {
 
 <template>
   <div v-if="isUserLogin === 'Admin'">
-    <b-row>
+    <b-row data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
       <b-col md="6" class="d-flex flex-column  align-items-center">
         <h2 class="title mb-3 mt-4 ms-1 me-1">Панель Администратора</h2>
         <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newGroup')">Добавление группы</b-button>

@@ -126,27 +126,23 @@ function toAllGroups() {
       <b-col md="4" class="mb-3">
         <b-img class="image-example" :src="exampleImg1" alt="Картинка 1"></b-img>
         <b-col>
-          <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et
-            dolore magna aliqua ut enim ad.</p>
+          <p class="description">Администратор регистрирует учителей в системе,
+            создав учебные планы по их предметам.</p>
         </b-col>
       </b-col>
 
       <b-col md="4" class="mb-3">
         <b-img class="image-example" :src="exampleImg2" alt="Картинка 2"></b-img>
         <b-col>
-          <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et
-            dolore magna aliqua ut enim ad.</p>
+          <p class="description">Учитель вносит предпочтения и ограничения для своего учебного плана.
+            Администратор создает расписание.</p>
         </b-col>
       </b-col>
 
       <b-col md="4" class="mb-3">
         <b-img class="image-example" :src="exampleImg3" alt="Картинка 3"></b-img>
         <b-col>
-          <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et
-            dolore magna aliqua ut enim ad.</p>
+          <p class="description">Любой пользователь системы может увидеть необходимое ему расписание!</p>
         </b-col>
       </b-col>
     </b-row>
