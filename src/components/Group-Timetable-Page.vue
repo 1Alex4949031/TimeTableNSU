@@ -44,7 +44,8 @@ const getLessonImage = (item) => {
   </b-row>
   <b-col class="schedule-container ms-4 me-4 mt-4 mb-4"
          data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
-    <table class="schedule-table">
+    <h4 class="mt-1" v-if="timetable === null">Похоже, такого расписания не существует!</h4>
+    <table v-else class="schedule-table">
       <thead>
       <tr>
         <th>Время</th>
