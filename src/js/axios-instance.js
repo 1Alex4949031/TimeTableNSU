@@ -50,7 +50,7 @@ customInstance.interceptors.response.use(
         let consoleMessage
         if (error.response) {
             consoleMessage = error.config.requestName + error.response.status + error.response.data + error.message;
-            error.config.toastText.value = error.message
+            error.config.toastText.value = error.response.data.message
         } else if (error.request) {
             consoleMessage = error.config.requestName + error.request
             error.config.toastText.value = "Нет соеденения с сервером!"

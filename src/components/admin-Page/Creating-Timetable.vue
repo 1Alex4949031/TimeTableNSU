@@ -105,46 +105,18 @@ onMounted(() => {
         <b-button @click="isVisibleInfoErrorModal = false" class="close-button">
           <b-img :src="closeSvg"></b-img>
         </b-button>
-        <b-container fluid="sm" class="my-4">
+        <div>Информация о генерации расписания</div>
+        <b-col md="6" class="justify-content-center" v-for="(item, index) in errorInfo" :key="index">
           <b-row>
-            <b-col md="6" class="d-flex flex-column justify-content-center">
-              <h2 class="modal-title mb-4">Информация о генерации расписания</h2>
-            </b-col>
-            <b-col v-for="(item, index) in errorInfo.value" :key="index">
-              {{item}}
-            </b-col>
+            {{ Object.entries(item).map(([key, value]) => `${key} - ${value}`).join(', ') }}
           </b-row>
-        </b-container>
+        </b-col>
       </div>
     </div>
   </transition>
 </template>
 
 <style scoped>
-.form-group {
-  letter-spacing: 3px;
-  font-weight: 500;
-}
-
-.custom-btn {
-  background-color: #fff;
-  color: black;
-  border: 1px solid #ced4da;
-  border-radius: 20px;
-  width: 100%;
-  font-size: 1.5rem;
-  transition: background-color 0.5s ease;
-}
-
-.custom-input {
-  border: 1px solid #ced4da;
-  border-radius: 20px;
-  font-size: 1.5rem;
-  line-height: 2;
-  color: #495057;
-  background-color: #fff;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
 
 .modal-title {
   font-size: 50px;
@@ -171,13 +143,6 @@ onMounted(() => {
   }
 }
 
-.modal-enter-active {
-  animation: slide-fade-in 0.5s ease;
-}
-
-.modal-leave-active {
-  animation: fade-out 0.3s ease;
-}
 
 .rounded-custom {
   border-radius: 130px;
@@ -189,7 +154,7 @@ onMounted(() => {
   color: #ced4da;
   background-color: #fff;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  position: absolute;
+  position: fixed;
   top: 10px;
   right: 10px;
   cursor: pointer;
@@ -207,23 +172,21 @@ onMounted(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.25);
-  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 3000;
   display: flex;
+  justify-content: center;
+  align-items: center;
   overflow-y: auto;
-  align-items: center; /* Выравнивание по вертикали */
-  justify-content: center; /* Выравнивание по горизонтали */
 }
 
 .screen-content-modal {
-  max-width: 600px;
-  max-height: 600px;
-  background: rgba(255, 255, 255, 1);
-  z-index: 1100;
-  display: flex;
-  overflow-y: auto;
-  align-items: center; /* Выравнивание по вертикали */
-  justify-content: center; /* Выравнивание по горизонтали */
-  transform: translate(-50%, -50%)
+  position: fixed;
+  animation: slideDown 0.3s ease;
+  width: 100%; /* Установите желаемую ширину */
+  max-width: 700px; /* Максимальная ширина, если нужна */
+  height: 95%;
+  background-color: rgba(255, 255, 255, 1);
 }
+
 </style>
