@@ -58,7 +58,7 @@ export async function checkNewTimetableStatus() {
     return await customInstance
         .get(
             "/timetable/potential/check_file",
-            {useToken: true, requestName: "Check New Timetable Status"}
+            {useToken: true, requestName: "Check New Timetable Status", toastSuccessText: "Статус обновлён!"}
         )
         .then(response => {
             console.log(response.config["requestName"], "Done")

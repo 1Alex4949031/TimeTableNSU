@@ -18,7 +18,7 @@ function addSubjects(){
   <div>
     <b-row>
       <b-col md="6" class="d-flex flex-column">
-        <h2 class="modal-title mb-4">Управление Группами</h2>
+        <h2 class="modal-title mb-4">Управление предметами</h2>
         <b-form>
           <b-form-group class="form-group" label="Название" label-for="input-subject-name">
             <b-form-input class="custom-input" v-model="name" id="input-subject-name"

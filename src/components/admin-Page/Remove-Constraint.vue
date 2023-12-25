@@ -23,7 +23,24 @@ function processConstraint(rawConstraint) {
         .join(","); // КОСТЫЛЬ незнаю как разбить на несколько строк...
 
     // Возвращаем объект для options с id и текстом
-    return { value: constraint.id, text: constraint.id + textValues };
+    switch (constraint.constraintNameRu) {
+      case 'Запрещенный день для преподавания для препода' : {
+        return { value: constraint.id, label: constraint.constraintNameRu + " " + constraint.teacher + " день - " + constraint.day};
+      }
+      case 'Запрещенный день для преподавания для группы' : {
+        return { value: constraint.id, label: constraint.constraintNameRu + " " + constraint.group + " день - " + constraint.day};
+      }
+      case 'Максимальное кол-во рабочих дней' : {
+        return { value: constraint.id, label: constraint.constraintNameRu + " для " + constraint.teacher + " - " + constraint.number};
+      }
+      case 'Запрещенный порядковый номер пары для препода в определённый день' : {
+        return { value: constraint.id, label: constraint.constraintNameRu + " учитель - " +constraint.teacher + " день - " + constraint.day + " пара - " + constraint.period };
+      }
+      case 'Запрещенные порядковый номер пары для групп в определённый день' : {
+        return { value: constraint.id, label: constraint.constraintNameRu + " группа - " + constraint.group + " день - " + constraint.day + " пара - " + constraint.period };
+      }
+    }
+    return { value: constraint.id, label: constraint.id + textValues };
   });
 }
 onMounted(async () => {

@@ -74,7 +74,9 @@ onMounted(async () => {
           </b-form-group>
           <b-form-group class="form-group" label="Раз в неделю" label-for="input-subject-times">
             <b-form-input class="custom-input" v-model="timeAWeek" id="input-subject-times"
-                          placeholder="" type="number">
+                          placeholder="" type="number"
+                          oninput="if (this.value > 4000) {this.value = 4000}; if (this.value < 0) this.value = 0"
+            >
             </b-form-input>
           </b-form-group>
 
