@@ -57,7 +57,7 @@ onMounted(() => {
     <b-row data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
       <b-col md="6">
         <b-col class="mt-4 ms-4 me-4">
-          <h2 class="mb-4">Управление расписанием</h2>
+          <h2 class="mb-4">Управление Расписанием</h2>
           <b-button @click="checkStatus" class="custom-btn-blue mt-2 mb-2">Проверить состояние</b-button>
           <h4 class="status-text mt-2 mb-2"> Текущий статус: {{ currentStatus }}</h4>
           <b-col>

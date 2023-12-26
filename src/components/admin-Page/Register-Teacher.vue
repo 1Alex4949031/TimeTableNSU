@@ -14,7 +14,7 @@ const phone = ref("")
     <b-row data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
       <b-col md="6">
         <b-col class="mt-4 ms-4 me-4">
-          <h2 class="modal-title mb-4">Добавление учителя</h2>
+          <h2 class="modal-title mb-4">Добавление Учителя</h2>
           <b-form>
             <b-form-group class="form-group" label="Email" label-for="input-teacher-email">
               <b-form-input class="custom-input" v-model="email" id="input-teacher-email"

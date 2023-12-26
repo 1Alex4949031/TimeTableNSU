@@ -52,7 +52,7 @@ onMounted(async () => {
     <b-row data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
       <b-col md="6">
         <b-col class="mt-4 ms-4 me-4">
-          <h2 class="modal-title mb-4">Добавление учебного плана</h2>
+          <h2 class="modal-title mb-4">Добавление Учебного плана</h2>
           <b-form>
             <b-form-group class="form-group" label="Преподователь" label-for="input-subject-teacher">
               <b-form-select v-model="teacher" :options="teachers" label="ФИО"

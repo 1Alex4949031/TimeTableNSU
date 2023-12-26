@@ -19,7 +19,7 @@ function addSubjects() {
     <b-row data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
       <b-col md="6">
         <b-col class="mt-4 ms-4 me-4">
-          <h2 class="mb-4">Добавление предмета</h2>
+          <h2 class="mb-4">Добавление Предмета</h2>
           <b-form>
             <b-form-group class="form-group" label="Название" label-for="input-subject-name">
               <b-form-input class="custom-input" v-model="name" id="input-subject-name"

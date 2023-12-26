@@ -72,7 +72,7 @@ onMounted(async () => {
   <b-row data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
     <b-col md="6">
       <b-col class="mt-4 ms-4 me-4 mb-4">
-        <h2 class="modal-title mb-4">Управление учебным планом</h2>
+        <h2 class="modal-title mb-4">Удаление Ограничений</h2>
         <b-form>
           <b-form-group class="form-group" label="Все ограничения" label-for="input-subject-groups">
             <Multiselect
