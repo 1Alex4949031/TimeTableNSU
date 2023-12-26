@@ -81,8 +81,8 @@ function toAllGroups() {
         <b-col class="d-flex justify-content-center align-content-between mt-2 mb-2 ms-5 me-5">
           <h4 v-if="isUserLogin === 'User'" class="text-for-teacher-description">Для того, чтобы добавлять предпочтения,
             пожалуйста, свяжитесь с администратором и войдите в систему!</h4>
-          <h4 v-else class="text-for-teacher-description">Вы успешно вошли в систему, теперь можно внести предпочтения
-            перейдя в соответствующий раздел!</h4>
+          <h4 v-else class="text-for-teacher-description">Вы успешно вошли в систему, теперь можно создать предпочтения.
+            Перейдите в соответствующий раздел!</h4>
         </b-col>
         <b-col class="nav-faculty mt-2 mb-2">
           <b-button v-if="isUserLogin === 'User'" class="custom-btn" @click="openModalAuth()">Войти в систему</b-button>
