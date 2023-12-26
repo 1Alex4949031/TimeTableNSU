@@ -19,7 +19,11 @@ async function checkStatus() {
   currentStatus.value = "Upload"
   currentStatus.value = await checkNewTimetableStatus()
   switch (currentStatus.value) {
-    case "Ошибка!" || "Расписание всё еще составляется" : {
+    case "Ошибка!" : {
+      buttonDisable.value = true
+      break;
+    }
+    case "Расписание всё еще составляется" : {
       buttonDisable.value = true
       break;
     }
@@ -57,33 +61,33 @@ onMounted(() => {
           <b-form>
 
             <div>
-              <button @click="checkStatus">Проверить состояние</button>
+              <button @click="checkStatus" class="custom-btn">Проверить состояние</button>
             </div>
             <b-row>
-              <b-col>Текущий статус: {{ currentStatus }}</b-col>
+              <b-col md="6"> Текущий статус: {{ currentStatus }}</b-col>
               <b-col>
-                <button v-if="buttonDisable" @click="buttonDisable = false">
+                <button v-if="buttonDisable" @click="buttonDisable = false" class="custom-btn">
                   Игнорировать
                 </button>
                 <button v-if="buttonDisable && currentStatus === 'Ошибка при составлении расписания'"
-                        @click="isVisibleInfoErrorModal = true">
+                        @click="isVisibleInfoErrorModal = true" class="custom-btn">
                   Подробнее
                 </button>
               </b-col>
             </b-row>
             <div>
-              <button @click="startCreatingNew()" :disabled="buttonDisable">
+              <button @click="startCreatingNew()" :disabled="buttonDisable" class="custom-btn">
                 Запустить создание нового расписания
               </button>
             </div>
             <div>
-              <button @click="startCreatingNew(true)" :disabled="buttonDisable">
+              <button @click="startCreatingNew(true)" :disabled="buttonDisable" class="custom-btn">
                 Запустить создание расписания по тестовым данным
               </button>
             </div>
 
             <div>
-              <button @click="activateNewTimetable()" :disabled="buttonDisable">Активировать новое расписание</button>
+              <button @click="activateNewTimetable()" :disabled="buttonDisable" class="custom-btn">Активировать новое расписание</button>
             </div>
 
           </b-form>
@@ -105,45 +109,43 @@ onMounted(() => {
         <b-button @click="isVisibleInfoErrorModal = false" class="close-button">
           <b-img :src="closeSvg"></b-img>
         </b-button>
-        <b-container fluid="sm" class="my-4">
-          <b-row>
-            <b-col md="6" class="d-flex flex-column justify-content-center">
-              <h2 class="modal-title mb-4">Информация о генерации расписания</h2>
-            </b-col>
-            <b-col v-for="(item, index) in errorInfo.value" :key="index">
-              {{item}}
-            </b-col>
-          </b-row>
-        </b-container>
+        <h2 class="title">Информация о генерации расписания</h2>
+        <div class="scrolling-list">
+          <div class="justify-content-center" v-for="(item, index) in errorInfo" :key="index">
+            <div class="list-item">
+              {{ Object.entries(item)
+                .filter(([key, value]) => value !== null && value !== undefined)
+                    .map(([key, value]) => `${key} - ${value}`).join(', ') }}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </transition>
+
 </template>
 
 <style scoped>
-.form-group {
-  letter-spacing: 3px;
-  font-weight: 500;
-}
 
 .custom-btn {
   background-color: #fff;
   color: black;
   border: 1px solid #ced4da;
-  border-radius: 20px;
-  width: 100%;
-  font-size: 1.5rem;
+  border-radius: 4px;
+  width: 70%;
   transition: background-color 0.5s ease;
 }
 
-.custom-input {
-  border: 1px solid #ced4da;
-  border-radius: 20px;
-  font-size: 1.5rem;
-  line-height: 2;
-  color: #495057;
-  background-color: #fff;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+.custom-btn:hover {
+  background-color: #e0e0e0; /* цвет фона при наведении */
+  cursor: pointer; /* изменяет курсор, чтобы показать, что кнопка интерактивна */
+}
+
+.custom-btn:disabled {
+  background-color: #f5f5f5; /* серый цвет для неактивной кнопки */
+  color: #ccc; /* цвет текста для неактивной кнопки */
+  border: 1px solid #ccc; /* цвет границы для неактивной кнопки */
+  cursor: default; /* обычный курсор для неактивной кнопки */
 }
 
 .modal-title {
@@ -171,25 +173,18 @@ onMounted(() => {
   }
 }
 
-.modal-enter-active {
-  animation: slide-fade-in 0.5s ease;
-}
-
-.modal-leave-active {
-  animation: fade-out 0.3s ease;
-}
 
 .rounded-custom {
   border-radius: 130px;
 }
 
 .close-button {
+  position: absolute;
   border: 1px solid #ced4da;
   border-radius: 45%;
   color: #ced4da;
   background-color: #fff;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  position: absolute;
   top: 10px;
   right: 10px;
   cursor: pointer;
@@ -207,23 +202,36 @@ onMounted(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.25);
-  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 3000;
   display: flex;
+  justify-content: center;
+  align-items: center;
   overflow-y: auto;
-  align-items: center; /* Выравнивание по вертикали */
-  justify-content: center; /* Выравнивание по горизонтали */
 }
 
 .screen-content-modal {
-  max-width: 600px;
-  max-height: 600px;
-  background: rgba(255, 255, 255, 1);
-  z-index: 1100;
-  display: flex;
+  border-radius: 10px;
+  position: relative;
+  animation: slideDown 0.3s ease;
+  width: 100%; /* Установите желаемую ширину */
+  max-width: 700px; /* Максимальная ширина, если нужна */
+  height: 95%;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.scrolling-list {
   overflow-y: auto;
-  align-items: center; /* Выравнивание по вертикали */
-  justify-content: center; /* Выравнивание по горизонтали */
-  transform: translate(-50%, -50%)
+  height: 85%;
+  max-width: 650px;
+  margin: 20px;
+}
+.list-item{
+  border-bottom: 1px solid #425e2b; /* цвет и стиль линии можно изменить */
+  margin-bottom: 10px; /* добавляет небольшой отступ после каждого элемента */
+  padding-bottom: 10px; /* добавляет небольшой отступ перед линией */
+}
+.title{
+  margin: 20px;
 }
 </style>
