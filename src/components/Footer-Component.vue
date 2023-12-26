@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <footer class="footer">
+  <footer class="footer" data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
     <div class="container">
       <p class="footer-text">2023. Не пропускайте важные пары.</p>
     </div>

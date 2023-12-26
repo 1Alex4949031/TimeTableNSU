@@ -42,7 +42,7 @@ function addRooms() {
         </b-col>
       </b-col>
       <b-col md="6">
-        <b-col class="mt-3 me-5 ms-5">
+        <b-col class="mt-3 me-5 ms-5 mb-1">
           <b-img :src=imageModal alt="Modal image" fluid class="rounded-custom"></b-img>
         </b-col>
       </b-col>

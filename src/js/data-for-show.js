@@ -71,10 +71,6 @@ export const faculties = {
     "ЭФ": {
         name: "Экономический факультет",
         imageSrc: require("@/assets/images/faculties/ef.png"),
-    },
-    "Все_группы": {
-        name: "Полный список групп",
-        imageSrc: require("@/assets/images/faculties/ef.png"),
     }
 }
 

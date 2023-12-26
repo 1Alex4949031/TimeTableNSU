@@ -14,14 +14,17 @@ function routeToPage(page) {
   <div v-if="isUserLogin === 'Admin'">
     <b-row data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
       <b-col md="6" class="d-flex flex-column  align-items-center">
-        <h2 class="title mb-3 mt-4 ms-1 me-1">Панель Администратора</h2>
+        <h2 class="title mb-3 mt-4 ms-1 me-1">Панель администратора</h2>
         <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newGroup')">Добавление группы</b-button>
         <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newTeacher')">Добавление учителя</b-button>
         <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newRoom')">Добавление комнаты</b-button>
         <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newSubj')">Добавление предмета</b-button>
-        <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newPlan')">Добавление учебного плана</b-button>
-        <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newConstraint')">Добавление ограничений</b-button>
-        <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/createTimetable')">Создание расписания</b-button>
+        <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newPlan')">Добавление учебного плана
+        </b-button>
+        <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newConstraint')">Добавление ограничений
+        </b-button>
+        <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/createTimetable')">Создание расписания
+        </b-button>
         <b-button class="custom-btn-red mt-2 mb-2" @click="routeToPage('/removeConstraint')">Удаление
           ограничений
         </b-button>
@@ -31,68 +34,29 @@ function routeToPage(page) {
         <b-button class="custom-btn mt-2 mb-2" @click="logOut()">Выход</b-button>
       </b-col>
       <b-col md="6">
-        <b-col class="mt-3 me-3 ms-3">
+        <b-col class="mt-3 me-3 ms-3 mb-1">
           <b-img :src="imageModal" alt="Image" fluid class="rounded-custom"></b-img>
         </b-col>
-      </b-col>
-    </b-row>
-
-
-    <b-row>
-      <b-col>
-        <b-row>
-          <b-col>
-            <div>
-              <router-link to="/newGroup">Group Control</router-link>
-            </div>
-            <div>
-              <router-link to="/newTeacher">Teacher Control</router-link>
-            </div>
-            <div>
-              <router-link to="/newRoom">Room Control</router-link>
-            </div>
-            <div>
-              <router-link to="/newSubj">Subject Control</router-link>
-            </div>
-            <div>
-              <router-link to="/removeBase">Remove base</router-link>
-            </div>
-            <div>
-              <router-link to="/" @click="logOut()">Logout</router-link>
-            </div>
-          </b-col>
-          <b-col>
-            <div>
-              <router-link to="/newPlan">Plane Control</router-link>
-            </div>
-            <div>
-              <router-link to="/newConstraint">Constraint add</router-link>
-            </div>
-            <div>
-              <router-link to="/removeConstraint">Constraint remove</router-link>
-            </div>
-          </b-col>
-        </b-row>
-      </b-col>
-      <b-col>
-
       </b-col>
     </b-row>
   </div>
 
   <div v-else>
-    <p>Teacher Page</p>
-    <div>
-      <div>
-        <router-link to="/newConstraint">Constraint add</router-link>
-      </div>
-      <div>
-        <router-link to="/removeConstraint">Constraint remove</router-link>
-      </div>
-      <div>
-        <router-link to="/" @click="logOut()">Logout</router-link>
-      </div>
-    </div>
+    <b-row data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
+        <b-col md="6" class="d-flex flex-column align-items-center">
+          <h2 class="title mb-3 mt-4 ms-1 me-1">Панель учителя</h2>
+          <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newConstraint')">Добавление ограничений
+          </b-button>
+          <b-button class="custom-btn-red mt-2 mb-2" @click="routeToPage('/removeConstraint')">Удаление ограничений
+          </b-button>
+          <b-button class="custom-btn mt-2 mb-2" @click="logOut()">Выход</b-button>
+        </b-col>
+        <b-col md="6">
+          <b-col class="mt-3 me-3 ms-3 mb-1">
+            <b-img :src="imageModal" alt="Image" fluid class="rounded-custom"></b-img>
+          </b-col>
+        </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -141,7 +105,7 @@ function routeToPage(page) {
 }
 
 
-.custom-btn{
+.custom-btn {
   background-color: #fff;
   color: black;
   border: 1px solid #ced4da;

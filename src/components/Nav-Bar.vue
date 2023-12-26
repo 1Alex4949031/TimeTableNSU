@@ -17,8 +17,7 @@ function routeToMain() {
 </script>
 
 <template>
-
-  <b-navbar toggleable="lg" type="dark" variant="light">
+  <b-navbar toggleable="lg" type="dark" variant="light" data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
     <b-navbar-brand>
       <b-row class="brand-row" @click="routeToMain">
         <img class="logo" :src=logo alt="Logo">

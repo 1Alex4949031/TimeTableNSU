@@ -1,5 +1,5 @@
 <script setup>
-import imageModal from "@/assets/images/imageModal1.png";
+import imageModal from "@/assets/images/imageModal4.png";
 import {onMounted, ref} from "vue";
 import {getGroups, getTeachers} from "@/js/add-get-request";
 import DayTimeSelectModal from "@/components/admin-Page/Day-Time-Select-Modal.vue";
@@ -203,7 +203,7 @@ onMounted(async () => {
         </b-col>
       </b-col>
       <b-col md="6">
-        <b-col class="mt-3 me-5 ms-5">
+        <b-col class="mt-3 me-5 ms-5 mb-1">
           <b-img :src=imageModal alt="Modal image" fluid class="rounded-custom"></b-img>
         </b-col>
       </b-col>

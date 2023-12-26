@@ -3,6 +3,7 @@
 import {onMounted, ref} from "vue";
 import {getConstraint, removeConstraint} from "@/js/constraint-requests";
 import Multiselect from "@vueform/multiselect";
+import imageModal from "@/assets/images/imageModal2.png";
 
 const allConstraints = ref([])
 const constraint = ref()
@@ -68,26 +69,45 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
-    <h2 class="modal-title mb-4">Управление учебным планом</h2>
-    <b-form>
-      <b-form-group class="form-group" label="Все ограничения" label-for="input-subject-groups">
-        <Multiselect
-            v-model="constraint"
-            mode="tags"
-            :close-on-select="false"
-            :searchable="true"
-            :create-option="true"
-            :options="allConstraints"/>
-      </b-form-group>
-      <b-button class="custom-btn mt-4" @click="remove">
-        Удалить выбранные ограничения
-      </b-button>
-    </b-form>
-  </div>
+  <b-row data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
+    <b-col md="6">
+      <b-col class="mt-4 ms-4 me-4 mb-4">
+        <h2 class="modal-title mb-4">Управление учебным планом</h2>
+        <b-form>
+          <b-form-group class="form-group" label="Все ограничения" label-for="input-subject-groups">
+            <Multiselect
+                v-model="constraint"
+                mode="tags"
+                :close-on-select="false"
+                :searchable="true"
+                :create-option="true"
+                :options="allConstraints"/>
+          </b-form-group>
+          <b-button class="custom-btn mt-4" @click="remove">
+            Удалить выбранные ограничения
+          </b-button>
+        </b-form>
+      </b-col>
+    </b-col>
+    <b-col md="6">
+      <b-col class="mt-3 me-5 ms-5 mb-1">
+        <b-img :src=imageModal alt="Modal image" fluid class="rounded-custom"></b-img>
+      </b-col>
+    </b-col>
+  </b-row>
 </template>
 
 <style scoped>
-
-
+.rounded-custom{
+  border-radius: 130px;
+}
+.custom-btn {
+  background-color: #fff;
+  color: black;
+  border: 1px solid #ced4da;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  width: 100%;
+  transition: background-color 0.5s ease;
+}
 </style>

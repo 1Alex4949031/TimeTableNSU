@@ -12,7 +12,7 @@ import {
 } from "@/js/add-get-request";
 import Multiselect from '@vueform/multiselect'
 import "@vueform/multiselect/themes/default.css"
-import imageModal from "@/assets/images/imageModal1.png";
+import imageModal from "@/assets/images/imageModal4.png";
 
 const removeType = ["Групп", "Комнат", "Предметов", "Учебного плана"]
 const selectedRemoveType = ref()
@@ -180,7 +180,7 @@ onMounted(async () => {
         </b-col>
       </b-col>
       <b-col md="6">
-        <b-col class="mt-3 me-5 ms-5">
+        <b-col class="mt-3 me-5 ms-5 mb-1">
           <b-img :src=imageModal alt="Modal image" fluid class="rounded-custom"></b-img>
         </b-col>
       </b-col>

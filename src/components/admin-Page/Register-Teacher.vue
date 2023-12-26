@@ -18,7 +18,7 @@ const phone = ref("")
           <b-form>
             <b-form-group class="form-group" label="Email" label-for="input-teacher-email">
               <b-form-input class="custom-input" v-model="email" id="input-teacher-email"
-                            placeholder="XXX@g.nsu.ru" type="email">
+                            placeholder="nsu@g.nsu.ru" type="email">
               </b-form-input>
             </b-form-group>
             <b-form-group class="form-group" label="ФИО" label-for="input-teacher-name">
@@ -29,7 +29,7 @@ const phone = ref("")
 
             <b-form-group class="form-group" label="Телефон" label-for="input-teacher-phone">
               <b-form-input class="custom-input" v-model="phone" id="input-teacher-phone"
-                            placeholder="+7(999)999 99 99" type="number">
+                            placeholder="7 (913) 913-91-91" type="tel">
               </b-form-input>
             </b-form-group>
             <b-button class="custom-btn mt-4" @click="regTeacher(email.valueOf(), name.valueOf(), phone.valueOf())">
@@ -39,7 +39,7 @@ const phone = ref("")
         </b-col>
       </b-col>
       <b-col md="6">
-        <b-col class="mt-3 me-5 ms-5">
+        <b-col class="mt-3 me-5 ms-5 mb-1">
           <b-img :src=imageModal alt="Modal image" fluid class="rounded-custom"></b-img>
         </b-col>
       </b-col>

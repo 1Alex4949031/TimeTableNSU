@@ -1,6 +1,6 @@
 <script setup>
 
-import imageModal from "@/assets/images/imageModal1.png";
+import imageModal from "@/assets/images/imageModal3.png";
 import {
   activateNewTimetable,
   checkNewTimetableStatus,
@@ -27,7 +27,7 @@ async function checkStatus() {
       buttonDisable.value = true
       break;
     }
-    case "Потенциальное расписание успешно создано": {
+    case "Расписание успешно составлено и есть в потенциальном": {
       buttonDisable.value = false
       break;
     }

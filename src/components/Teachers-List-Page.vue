@@ -1,8 +1,8 @@
 <script setup>
-import {ref, onMounted, computed} from 'vue';
+import {ref, onMounted} from 'vue';
 import {getTeachers} from "@/js/add-get-request";
 import router from "@/router/router";
-import {faculties} from "@/js/data-for-show";
+import teacherImg from "@/assets/images/teachers.png"
 
 const teachers = ref([]);
 
@@ -12,10 +12,6 @@ onMounted(() =>
 const goToTeacherTimetable = (teacher) => {
   router.push({path: `/teachers/${teacher}/table`});
 };
-
-const imageSrc = computed(() => {
-  return faculties["ФФ"]?.imageSrc;
-});
 
 
 </script>
@@ -36,7 +32,7 @@ const imageSrc = computed(() => {
     </b-col>
     <b-col md="6" data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
       <b-col class="mt-3 me-5 ms-5">
-        <b-img :src=imageSrc alt="Faculty image" fluid class="rounded-custom"/>
+        <b-img :src=teacherImg alt="Faculty image" fluid class="rounded-custom"/>
       </b-col>
     </b-col>
   </b-row>

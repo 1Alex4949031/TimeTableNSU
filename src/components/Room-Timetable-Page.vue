@@ -8,12 +8,14 @@ import pracSvg from '@/assets/images/prac.svg'
 import lecSvg from '@/assets/images/lec.svg'
 import router from "@/router/router";
 
+const isLoaded = ref(false);
 const route = useRoute();
 const timetable = ref([]);
 const roomNumber = route.params.room;
 
 onMounted(async () => {
   timetable.value = await getRoomTimetable(roomNumber);
+  isLoaded.value = true;
 })
 
 const getSchedule = (dayName, pairNumber) => {
@@ -44,14 +46,15 @@ const goToGroupTimetable = (groupNumber) => {
 </script>
 
 <template>
-  <b-col md="6" data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
+  <b-col md="6" data-aos="fade-in" data-aos-duration="1800" data-aos-once="true">
     <b-col class="mt-4 ms-4 me-4">
       <h1>Расписание для комнаты {{ roomNumber }}</h1>
     </b-col>
   </b-col>
   <b-col class="schedule-container ms-4 me-4 mt-4 mb-4"
-         data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
-    <h4 class="mt-1" v-if="timetable == null">Похоже, такой комнаты не существует!</h4>
+         data-aos="fade-in" data-aos-duration="1800" data-aos-once="true">
+    <h4 class="mt-1" v-if="!isLoaded">Загрузка...</h4>
+    <h4 class="mt-1" v-else-if="timetable == null">Похоже, такой комнаты не существует!</h4>
     <table v-else class="schedule-table">
       <thead>
       <tr>
