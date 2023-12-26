@@ -1,7 +1,7 @@
 <script setup>
 import {useRoute} from 'vue-router';
 import {onMounted, ref} from "vue";
-import {getGroupTimetable} from "@/js/get-timetable";
+import {getRoomTimetable} from "@/js/get-timetable";
 import {days, pairTimes} from "@/js/data-for-show";
 import labSvg from '@/assets/images/lab.svg'
 import pracSvg from '@/assets/images/prac.svg'
@@ -10,10 +10,10 @@ import router from "@/router/router";
 
 const route = useRoute();
 const timetable = ref([]);
-const groupNumber = route.params.group;
+const roomNumber = route.params.room;
 
 onMounted(async () => {
-  timetable.value = await getGroupTimetable(groupNumber);
+  timetable.value = await getRoomTimetable(roomNumber);
 })
 
 const getSchedule = (dayName, pairNumber) => {
@@ -27,10 +27,6 @@ const goToTeacherTimetable = (teacher) => {
   router.push({path: `/teachers/${teacher}/table`});
 };
 
-const goToRoomTimetable = (roomNumber) => {
-  router.push({path: `/rooms/${roomNumber}/table`});
-};
-
 const getLessonImage = (item) => {
   switch (item.pairType) {
     case 'lab':
@@ -42,17 +38,20 @@ const getLessonImage = (item) => {
   }
 };
 
+const goToGroupTimetable = (groupNumber) => {
+  router.push({path: `/${groupNumber}/table`});
+};
 </script>
 
 <template>
   <b-col md="6" data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
     <b-col class="mt-4 ms-4 me-4">
-      <h1>Расписание группы {{ groupNumber }}</h1>
+      <h1>Расписание для комнаты {{ roomNumber }}</h1>
     </b-col>
   </b-col>
   <b-col class="schedule-container ms-4 me-4 mt-4 mb-4"
          data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
-    <h4 class="mt-1" v-if="timetable === null">Похоже, такого расписания не существует!</h4>
+    <h4 class="mt-1" v-if="timetable == null">Похоже, такой комнаты не существует!</h4>
     <table v-else class="schedule-table">
       <thead>
       <tr>
@@ -70,12 +69,13 @@ const getLessonImage = (item) => {
                 <img class="lesson-svg" :src="getLessonImage(item)" :alt="item.pairType">
                 <div class="subject-info">
                   {{ item.subjectName }} <br>
-                  <span class="nav-room" @click="goToRoomTimetable(item.room)">
-                    {{ item.room }}
-                  </span> <br>
+                  <span v-for="group in item.groups.split(',')"
+                        :key="group"
+                        @click="goToGroupTimetable(group)"
+                        class="group-link">
+                  {{ group }} </span> <br>
                   <span class="nav-teacher" @click="goToTeacherTimetable(item.teacher)">
-                    {{ item.teacher }}
-                  </span> <br>
+                    {{ item.teacher }} </span> <br>
                 </div>
               </div>
             </div>
@@ -88,7 +88,8 @@ const getLessonImage = (item) => {
 </template>
 
 <style scoped>
-.nav-room {
+.group-link {
+  margin-right: 10px;
   cursor: pointer;
 }
 
@@ -99,7 +100,7 @@ const getLessonImage = (item) => {
 .class-cell-info.has-border {
   margin-top: 5px;
   margin-bottom: 5px;
-  border-bottom: 1px solid #ddd; /* Граница между предметами */
+  border-bottom: 1px solid #ddd;
 }
 
 .subject-info {

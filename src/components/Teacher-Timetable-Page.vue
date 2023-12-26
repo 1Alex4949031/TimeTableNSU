@@ -1,4 +1,5 @@
 <script setup>
+import router from "@/router/router";
 import {useRoute} from 'vue-router';
 import {onMounted, ref} from "vue";
 import {getTeacherTimetable} from "@/js/get-timetable";
@@ -20,6 +21,25 @@ const getSchedule = (dayName, pairNumber) => {
   return timetable.value.filter(
       (item) => item.dayNumber === dayNumber && item.pairNumber === pairNumber
   );
+};
+
+const getLessonImage = (item) => {
+  switch (item.pairType) {
+    case 'lab':
+      return labSvg;
+    case 'prac':
+      return pracSvg;
+    default:
+      return lecSvg;
+  }
+};
+
+const goToGroupTimetable = (groupNumber) => {
+  router.push({path: `/${groupNumber}/table`});
+};
+
+const goToRoomTimetable = (roomNumber) => {
+  router.push({path: `/rooms/${roomNumber}/table`});
 };
 </script>
 
@@ -45,16 +65,18 @@ const getSchedule = (dayName, pairNumber) => {
         <td v-for="day in days" :key="day">
           <div class="class-cell">
             <div v-for="item in getSchedule(day, pair)" :key="item.id">
-              <!--Можно будет упростить-->
-              <img class="lesson-svg" v-if="item.pairType === 'lab'" :src="labSvg" alt="Lab">
-              <img class="lesson-svg" v-else-if="item.pairType === 'prac'" :src="pracSvg" alt="Prac">
-              <img class="lesson-svg" v-else :src="lecSvg" alt="Lec">
+              <img class="lesson-svg" :src="getLessonImage(item)" :alt="item.pairType">
               <div class="class-cell-info">
                 {{ item.subjectName }} <br>
-                {{ item.groups }} <br>
-                {{ item.room }} <br>
-                {{ item.teacher }} <br>
-                {{ item.pairType }} <br>
+                <span v-for="group in item.groups.split(',')"
+                      :key="group"
+                      @click="goToGroupTimetable(group)"
+                      class="group-link">
+                  {{ group }}
+                </span> <br>
+                <span class="nav-room" @click="goToRoomTimetable(item.room)">
+                    {{ item.room }}
+                  </span> <br>
               </div>
             </div>
           </div>
@@ -66,6 +88,15 @@ const getSchedule = (dayName, pairNumber) => {
 </template>
 
 <style scoped>
+.nav-room {
+  cursor: pointer;
+}
+
+.group-link {
+  cursor: pointer;
+  margin-right: 10px;
+}
+
 .lesson-svg {
   position: absolute;
   width: 25px;

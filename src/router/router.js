@@ -19,6 +19,7 @@ import GroupTimetablePage from "@/components/Group-Timetable-Page.vue";
 import TeachersListPage from "@/components/Teachers-List-Page.vue";
 import AllGroupsPage from "@/components/All-Groups-Page.vue";
 import CreatingTimetable from "@/components/admin-Page/Creating-Timetable.vue";
+import RoomTimetablePage from "@/components/Room-Timetable-Page.vue";
 
 const routes = [
     {
@@ -82,6 +83,14 @@ const routes = [
     {
         path: '/faculties/:facultyId/:group/table',
         component: GroupTimetablePage
+    },
+    {
+        path: '/:group/table',
+        component: GroupTimetablePage,
+    },
+    {
+        path: '/rooms/:room/table',
+        component: RoomTimetablePage
     },
     {
         path: '/time-table-example',
