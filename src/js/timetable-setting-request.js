@@ -68,7 +68,9 @@ export async function checkNewTimetableStatus() {
         )
         .then(response => {
             console.log(response.config["requestName"], "Done")
-            return response.data.message
+            const ans = response.data.message
+            console.log(ans)
+            return ans
         })
         .catch(error => {
             console.error(error)

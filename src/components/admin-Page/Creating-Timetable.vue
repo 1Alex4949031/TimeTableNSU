@@ -19,7 +19,11 @@ async function checkStatus() {
   currentStatus.value = "Upload"
   currentStatus.value = await checkNewTimetableStatus()
   switch (currentStatus.value) {
-    case "Ошибка!" || "Расписание всё еще составляется" : {
+    case "Ошибка!" : {
+      buttonDisable.value = true
+      break;
+    }
+    case "Расписание всё еще составляется" : {
       buttonDisable.value = true
       break;
     }
@@ -57,33 +61,33 @@ onMounted(() => {
           <b-form>
 
             <div>
-              <button @click="checkStatus">Проверить состояние</button>
+              <button @click="checkStatus" class="custom-btn">Проверить состояние</button>
             </div>
             <b-row>
-              <b-col>Текущий статус: {{ currentStatus }}</b-col>
+              <b-col md="6"> Текущий статус: {{ currentStatus }}</b-col>
               <b-col>
-                <button v-if="buttonDisable" @click="buttonDisable = false">
+                <button v-if="buttonDisable" @click="buttonDisable = false" class="custom-btn">
                   Игнорировать
                 </button>
                 <button v-if="buttonDisable && currentStatus === 'Ошибка при составлении расписания'"
-                        @click="isVisibleInfoErrorModal = true">
+                        @click="isVisibleInfoErrorModal = true" class="custom-btn">
                   Подробнее
                 </button>
               </b-col>
             </b-row>
             <div>
-              <button @click="startCreatingNew()" :disabled="buttonDisable">
+              <button @click="startCreatingNew()" :disabled="buttonDisable" class="custom-btn">
                 Запустить создание нового расписания
               </button>
             </div>
             <div>
-              <button @click="startCreatingNew(true)" :disabled="buttonDisable">
+              <button @click="startCreatingNew(true)" :disabled="buttonDisable" class="custom-btn">
                 Запустить создание расписания по тестовым данным
               </button>
             </div>
 
             <div>
-              <button @click="activateNewTimetable()" :disabled="buttonDisable">Активировать новое расписание</button>
+              <button @click="activateNewTimetable()" :disabled="buttonDisable" class="custom-btn">Активировать новое расписание</button>
             </div>
 
           </b-form>
@@ -105,18 +109,44 @@ onMounted(() => {
         <b-button @click="isVisibleInfoErrorModal = false" class="close-button">
           <b-img :src="closeSvg"></b-img>
         </b-button>
-        <div>Информация о генерации расписания</div>
-        <b-col md="6" class="justify-content-center" v-for="(item, index) in errorInfo" :key="index">
-          <b-row>
-            {{ Object.entries(item).map(([key, value]) => `${key} - ${value}`).join(', ') }}
-          </b-row>
-        </b-col>
+        <h2 class="title">Информация о генерации расписания</h2>
+        <div class="scrolling-list">
+          <div class="justify-content-center" v-for="(item, index) in errorInfo" :key="index">
+            <div class="list-item">
+              {{ Object.entries(item)
+                .filter(([key, value]) => value !== null && value !== undefined)
+                    .map(([key, value]) => `${key} - ${value}`).join(', ') }}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </transition>
+
 </template>
 
 <style scoped>
+
+.custom-btn {
+  background-color: #fff;
+  color: black;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  width: 70%;
+  transition: background-color 0.5s ease;
+}
+
+.custom-btn:hover {
+  background-color: #e0e0e0; /* цвет фона при наведении */
+  cursor: pointer; /* изменяет курсор, чтобы показать, что кнопка интерактивна */
+}
+
+.custom-btn:disabled {
+  background-color: #f5f5f5; /* серый цвет для неактивной кнопки */
+  color: #ccc; /* цвет текста для неактивной кнопки */
+  border: 1px solid #ccc; /* цвет границы для неактивной кнопки */
+  cursor: default; /* обычный курсор для неактивной кнопки */
+}
 
 .modal-title {
   font-size: 50px;
@@ -149,12 +179,12 @@ onMounted(() => {
 }
 
 .close-button {
+  position: absolute;
   border: 1px solid #ced4da;
   border-radius: 45%;
   color: #ced4da;
   background-color: #fff;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  position: fixed;
   top: 10px;
   right: 10px;
   cursor: pointer;
@@ -181,7 +211,8 @@ onMounted(() => {
 }
 
 .screen-content-modal {
-  position: fixed;
+  border-radius: 10px;
+  position: relative;
   animation: slideDown 0.3s ease;
   width: 100%; /* Установите желаемую ширину */
   max-width: 700px; /* Максимальная ширина, если нужна */
@@ -189,4 +220,18 @@ onMounted(() => {
   background-color: rgba(255, 255, 255, 1);
 }
 
+.scrolling-list {
+  overflow-y: auto;
+  height: 85%;
+  max-width: 650px;
+  margin: 20px;
+}
+.list-item{
+  border-bottom: 1px solid #425e2b; /* цвет и стиль линии можно изменить */
+  margin-bottom: 10px; /* добавляет небольшой отступ после каждого элемента */
+  padding-bottom: 10px; /* добавляет небольшой отступ перед линией */
+}
+.title{
+  margin: 20px;
+}
 </style>
