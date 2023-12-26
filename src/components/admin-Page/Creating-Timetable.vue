@@ -57,44 +57,28 @@ onMounted(() => {
     <b-row data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
       <b-col md="6">
         <b-col class="mt-4 ms-4 me-4">
-          <h2 class="modal-title mb-4">Управление Расписанием</h2>
-          <b-form>
-
-            <div>
-              <button @click="checkStatus" class="custom-btn">Проверить состояние</button>
-            </div>
-            <b-row>
-              <b-col md="6"> Текущий статус: {{ currentStatus }}</b-col>
-              <b-col>
-                <button v-if="buttonDisable" @click="buttonDisable = false" class="custom-btn">
-                  Игнорировать
-                </button>
-                <button v-if="buttonDisable && currentStatus === 'Ошибка при составлении расписания'"
-                        @click="isVisibleInfoErrorModal = true" class="custom-btn">
-                  Подробнее
-                </button>
-              </b-col>
-            </b-row>
-            <div>
-              <button @click="startCreatingNew()" :disabled="buttonDisable" class="custom-btn">
-                Запустить создание нового расписания
-              </button>
-            </div>
-            <div>
-              <button @click="startCreatingNew(true)" :disabled="buttonDisable" class="custom-btn">
-                Запустить создание расписания по тестовым данным
-              </button>
-            </div>
-
-            <div>
-              <button @click="activateNewTimetable()" :disabled="buttonDisable" class="custom-btn">Активировать новое расписание</button>
-            </div>
-
-          </b-form>
+          <h2 class="mb-4">Управление расписанием</h2>
+          <b-button @click="checkStatus" class="custom-btn-blue mt-2 mb-2">Проверить состояние</b-button>
+          <h4 class="status-text mt-2 mb-2"> Текущий статус: {{ currentStatus }}</h4>
+          <b-col>
+            <b-button v-if="buttonDisable" @click="buttonDisable = false" class="custom-btn-blue mt-2 mb-2">Игнорировать</b-button>
+            <b-button v-if="buttonDisable && currentStatus === 'Ошибка при составлении расписания'"
+                      @click="isVisibleInfoErrorModal = true" class="custom-btn-blue mt-2 mb-2">Подробнее
+            </b-button>
+          </b-col>
+          <b-button @click="startCreatingNew()" :disabled="buttonDisable" class="custom-btn-blue mt-2 mb-2">
+            Запустить создание нового расписания
+          </b-button>
+          <b-button @click="startCreatingNew(true)" :disabled="buttonDisable" class="custom-btn-blue mt-2 mb-2">
+            Запустить создание расписания по тестовым данным
+          </b-button>
+          <b-button @click="activateNewTimetable()" :disabled="buttonDisable" class="custom-btn-blue mt-2 mb-2">Активировать новое
+            расписание
+          </b-button>
         </b-col>
       </b-col>
       <b-col md="6">
-        <b-col class="mt-3 me-5 ms-5">
+        <b-col class="mt-3 me-5 ms-5 mb-1">
           <b-img :src=imageModal alt="Modal image" fluid class="rounded-custom"></b-img>
         </b-col>
       </b-col>
@@ -113,9 +97,11 @@ onMounted(() => {
         <div class="scrolling-list">
           <div class="justify-content-center" v-for="(item, index) in errorInfo" :key="index">
             <div class="list-item">
-              {{ Object.entries(item)
-                .filter(([key, value]) => value !== null && value !== undefined)
-                    .map(([key, value]) => `${key} - ${value}`).join(', ') }}
+              {{
+                Object.entries(item)
+                    .filter(([key, value]) => value !== null && value !== undefined)
+                    .map(([key, value]) => `${key} - ${value}`).join(', ')
+              }}
             </div>
           </div>
         </div>
@@ -126,30 +112,31 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.status-text{
+  text-align: center;
+}
 
-.custom-btn {
+.custom-btn-blue {
   background-color: #fff;
   color: black;
   border: 1px solid #ced4da;
-  border-radius: 4px;
-  width: 70%;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  width: 100%;
   transition: background-color 0.5s ease;
 }
 
-.custom-btn:hover {
-  background-color: #e0e0e0; /* цвет фона при наведении */
-  cursor: pointer; /* изменяет курсор, чтобы показать, что кнопка интерактивна */
+.custom-btn-blue:hover {
+  background-color: #6398FF;
+  cursor: pointer;
+  border: 1px solid #fff;
 }
 
-.custom-btn:disabled {
-  background-color: #f5f5f5; /* серый цвет для неактивной кнопки */
-  color: #ccc; /* цвет текста для неактивной кнопки */
-  border: 1px solid #ccc; /* цвет границы для неактивной кнопки */
-  cursor: default; /* обычный курсор для неактивной кнопки */
-}
-
-.modal-title {
-  font-size: 50px;
+.custom-btn-blue:disabled {
+  background-color: #f5f5f5;
+  color: #ccc;
+  border: 1px solid #ccc;
+  cursor: default;
 }
 
 @keyframes slide-fade-in {
