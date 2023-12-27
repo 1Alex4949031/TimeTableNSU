@@ -60,8 +60,8 @@ async function remove() {
       break;
     }
     case 'Учебного плана': {
-      for (let x in plan.value) {
-        removePlan(allPlan.value[x].value)
+      for (let x of plan.value) {
+        removePlan(x)
       }
       const rawPlan = await getPlan()
       allPlan.value = processPlan(rawPlan)

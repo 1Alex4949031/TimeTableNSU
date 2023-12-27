@@ -16,7 +16,7 @@ const errorInfo = ref()
 const isVisibleInfoErrorModal = ref(false)
 
 async function checkStatus() {
-  currentStatus.value = "Upload"
+  currentStatus.value = "Получаю информацию..."
   currentStatus.value = await checkNewTimetableStatus()
   switch (currentStatus.value) {
     case "Ошибка!" : {
@@ -41,7 +41,7 @@ async function checkStatus() {
 }
 
 async function startCreatingNew(useTestingParam = false) {
-  currentStatus.value = "Upload"
+  currentStatus.value = "Получаю информацию..."
   buttonDisable.value = true
   await startCreatingNewTimetable(useTestingParam)
   await checkStatus()

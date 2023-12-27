@@ -75,20 +75,20 @@ function addConstraints() {
       }
       break;
     }
-    case 'Перегруз учителей (?)' : {
+    case  'Недопустимые пересечения учителей': {
       if (teacher1.value !== teacher2.value) {
         addConstraint({
-          constraintNameRu: selectedConstraint.value,
+          constraintNameRu: 'Перегруз учителей (?)',
           teacher2: teacher2.value,
           teacher1: teacher1.value
         })
       }
       break;
     }
-    case 'Перегруз групп (??)' : {
+    case  'Недопустимые пересечения групп': {
       if (group1.value !== group2.value) {
         addConstraint({
-          constraintNameRu: selectedConstraint.value,
+          constraintNameRu: 'Перегруз групп (??)',
           group2: group2.value,
           group1: group1.value
         })
@@ -173,12 +173,12 @@ onMounted(async () => {
                 <b-form-select v-model="teacher" :options="teachers" label="ФИО" id="input-subject-teacher"/>
               </b-form-group>
               <b-form-group class="form-group" label="Нерабочий день" label-for="input-teacher-cap">
-                <b-form-input class="custom-input" v-model="lockDay" id="input-teacher-cap"
-                              placeholder="" type="number"/>
+                <b-form-select v-model="lockDay" :options="daysWithKey" label="Нерабочие дни"
+                               id="input-subject-teacher"/>
               </b-form-group>
             </div>
 
-            <div v-if="selectedConstraint === 'Перегруз групп (??)'">
+            <div v-if="selectedConstraint === 'Недопустимые пересечения групп'">
               <b-form-group class="form-group" label="Первая группа" label-for="input-subject-teacher">
                 <b-form-select v-model="group1" :options="allGroups" label="Номер группы" id="input-subject-teacher"/>
               </b-form-group>
@@ -187,7 +187,7 @@ onMounted(async () => {
               </b-form-group>
             </div>
 
-            <div v-if="selectedConstraint === 'Перегруз учителей (?)'">
+            <div v-if="selectedConstraint === 'Недопустимые пересечения учителей'">
               <b-form-group class="form-group" label="Первый преподаватель" label-for="input-subject-teacher">
                 <b-form-select v-model="teacher1" :options="teachers" label="ФИО" id="input-subject-teacher"/>
               </b-form-group>
