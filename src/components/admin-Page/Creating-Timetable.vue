@@ -8,12 +8,43 @@ import {
 } from "@/js/timetable-setting-request";
 import {onMounted, ref} from "vue";
 import closeSvg from "@/assets/images/close.svg";
+import {getAllTimetable} from "@/js/get-timetable";
+import {days, pairTimes} from "@/js/data-for-show";
+import labSvg from "@/assets/images/lab.svg";
+import pracSvg from "@/assets/images/prac.svg";
+import lecSvg from "@/assets/images/lec.svg";
 
 const currentStatus = ref("")
 const buttonDisable = ref(false)
 const errorInfo = ref()
 
 const isVisibleInfoErrorModal = ref(false)
+
+const timetable = ref([]);
+const isLoaded = ref(false);
+
+onMounted(async () => {
+  timetable.value = await getAllTimetable(true);
+  isLoaded.value = true
+})
+
+const getSchedule = (dayName, pairNumber) => {
+  const dayNumber = days.indexOf(dayName) + 1;
+  return timetable.value.filter(
+      (item) => item.dayNumber === dayNumber && item.pairNumber === pairNumber
+  );
+};
+
+const getLessonImage = (item) => {
+  switch (item.pairType) {
+    case 'lab':
+      return labSvg;
+    case 'prac':
+      return pracSvg;
+    default:
+      return lecSvg;
+  }
+};
 
 async function checkStatus() {
   currentStatus.value = "Получаю информацию..."
@@ -68,7 +99,9 @@ onMounted(() => {
           <b-button @click="checkStatus" class="custom-btn-blue mt-2 mb-2">Проверить состояние</b-button>
           <h4 class="status-text mt-2 mb-2"> Текущий статус: {{ currentStatus }}</h4>
           <b-col>
-            <b-button v-if="buttonDisable" @click="buttonDisable = false" class="custom-btn-blue mt-2 mb-2">Игнорировать</b-button>
+            <b-button v-if="buttonDisable" @click="buttonDisable = false" class="custom-btn-blue mt-2 mb-2">
+              Игнорировать
+            </b-button>
             <b-button v-if="buttonDisable && currentStatus === 'Ошибка при составлении расписания'"
                       @click="isVisibleInfoErrorModal = true" class="custom-btn-blue mt-2 mb-2">Подробнее
             </b-button>
@@ -79,7 +112,8 @@ onMounted(() => {
           <b-button @click="startCreatingNew(true)" :disabled="buttonDisable" class="custom-btn-blue mt-2 mb-2">
             Запустить создание расписания по тестовым данным
           </b-button>
-          <b-button @click="activateNewTimetable()" :disabled="buttonDisable" class="custom-btn-blue mt-2 mb-2">Активировать новое
+          <b-button @click="activateNewTimetable()" :disabled="buttonDisable" class="custom-btn-blue mt-2 mb-2">
+            Активировать новое
             расписание
           </b-button>
         </b-col>
@@ -106,7 +140,7 @@ onMounted(() => {
             <div class="list-item">
               {{
                 Object.entries(item)
-                    .filter(([key, value]) => value !== null && value !== undefined)
+                    .filter(([_, value]) => value !== null && value !== undefined)
                     .map(([key, value]) => `${key} - ${value}`).join(', ')
               }}
             </div>
@@ -116,10 +150,52 @@ onMounted(() => {
     </div>
   </transition>
 
+  <b-col md="6" data-aos="fade-in" data-aos-duration="1800" data-aos-once="true">
+    <b-col class="mt-4 ms-4 me-4">
+      <h1>Потенциальное расписание {{ groupNumber }}</h1>
+    </b-col>
+  </b-col>
+  <b-col class="schedule-container ms-4 me-4 mt-4 mb-4"
+         data-aos="fade-in" data-aos-duration="1800" data-aos-once="true">
+    <h4 class="mt-1" v-if="!isLoaded">Загрузка...</h4>
+    <h4 class="mt-1" v-else-if="timetable === null">Похоже, такого расписания не существует!</h4>
+    <table v-else class="schedule-table">
+      <thead>
+      <tr>
+        <th>Время</th>
+        <th v-for="day in days" :key="day">{{ day }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="pair in Object.keys(pairTimes).length" :key="pair">
+        <td>{{ pairTimes[pair] }}</td>
+        <td v-for="day in days" :key="day">
+          <div class="class-cell">
+            <div v-for="item in getSchedule(day, pair)" :key="item.id">
+              <div class="class-cell-info" :class="{ 'has-border': getSchedule(day, pair).length >= 2 }">
+                <img class="lesson-svg" :src="getLessonImage(item)" :alt="item.pairType">
+                <div class="subject-info">
+                  {{ item.subjectName }} <br>
+                  <span class="nav-room">
+                    {{ item.room }}
+                  </span> <br>
+                  <span class="nav-teacher">
+                    {{ item.teacher }}
+                  </span> <br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </b-col>
+
 </template>
 
 <style scoped>
-.status-text{
+.status-text {
   text-align: center;
 }
 
@@ -181,7 +257,6 @@ onMounted(() => {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   top: 10px;
   right: 10px;
-  cursor: pointer;
 }
 
 .close-button:hover {
@@ -220,12 +295,60 @@ onMounted(() => {
   max-width: 650px;
   margin: 20px;
 }
-.list-item{
+
+.list-item {
   border-bottom: 1px solid #425e2b; /* цвет и стиль линии можно изменить */
   margin-bottom: 10px; /* добавляет небольшой отступ после каждого элемента */
   padding-bottom: 10px; /* добавляет небольшой отступ перед линией */
 }
-.title{
+
+.title {
   margin: 20px;
+}
+
+
+.class-cell-info.has-border {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #ddd; /* Граница между предметами */
+}
+
+.subject-info {
+  margin-right: 30px;
+}
+
+.lesson-svg {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: 0;
+  top: 0;
+}
+
+.class-cell-info {
+  position: relative;
+}
+
+.class-cell {
+  min-height: 60px;
+}
+
+.schedule-container {
+  overflow-x: auto;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.schedule-table th,
+.schedule-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.schedule-table thead th {
+  background-color: #f2f2f2;
 }
 </style>
