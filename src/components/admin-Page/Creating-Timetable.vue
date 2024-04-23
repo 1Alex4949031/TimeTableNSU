@@ -46,6 +46,17 @@ const getLessonImage = (item) => {
   }
 };
 
+const getBackgroundClass = (item) => {
+  switch (item.pairType) {
+    case 'lab':
+      return 'lab-background';
+    case 'prac':
+      return 'prac-background';
+    default:
+      return 'lec-background';
+  }
+};
+
 async function checkStatus() {
   currentStatus.value = "Получаю информацию..."
   currentStatus.value = await checkNewTimetableStatus()
@@ -174,13 +185,13 @@ onMounted(() => {
             <div v-for="item in getSchedule(day, pair)" :key="item.id">
               <div class="class-cell-info" :class="{ 'has-border': getSchedule(day, pair).length >= 2 }">
                 <img class="lesson-svg" :src="getLessonImage(item)" :alt="item.pairType">
-                <div class="subject-info">
+                <div class="subject-info" :class="getBackgroundClass(item)">
                   {{ item.subjectName }} <br>
-                  <span class="nav-room">
-                    {{ item.room }}
-                  </span> <br>
                   <span class="nav-teacher">
                     {{ item.teacher }}
+                  </span> <br>
+                  <span class="nav-room">
+                    {{ item.room }}
                   </span> <br>
                 </div>
               </div>
@@ -195,6 +206,18 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.lab-background {
+  background-color: rgba(255, 168, 0, 0.2);
+}
+
+.prac-background {
+  background-color: rgba(0, 117, 255, 0.2);
+}
+
+.lec-background {
+  background-color: rgba(144, 238, 144, 0.2);
+}
+
 .status-text {
   text-align: center;
 }
@@ -313,16 +336,13 @@ onMounted(() => {
   border-bottom: 1px solid #ddd; /* Граница между предметами */
 }
 
-.subject-info {
-  margin-right: 30px;
-}
 
 .lesson-svg {
   position: absolute;
   width: 25px;
   height: 25px;
-  right: 0;
-  top: 0;
+  right: -8px;
+  top: -8px;
 }
 
 .class-cell-info {
@@ -351,4 +371,25 @@ onMounted(() => {
 .schedule-table thead th {
   background-color: #f2f2f2;
 }
+
+.subject-info {
+  border-radius: 10px;
+  padding: 10px;
+  color: rgba(0, 0, 0, 0.91);
+  font-size: 19px;
+  text-align: left;
+  margin: 10px auto;
+  font-weight: 600;
+}
+
+.nav-room {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.nav-teacher {
+  font-weight: 400;
+  font-size: 18px;
+}
+
 </style>
