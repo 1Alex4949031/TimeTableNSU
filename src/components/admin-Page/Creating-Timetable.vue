@@ -27,14 +27,21 @@ async function checkStatus() {
       buttonDisable.value = true
       break;
     }
-    case "Расписание успешно составлено и есть в потенциальном": {
+    case "Расписание успешно составлено": {
       buttonDisable.value = false
       break;
+    }
+    case "Неизвестное состояние": {
+      buttonDisable.value = false
+      break;
+    }
+    case "Алгоритм для составления расписания еще никогда не запускался": {
+      buttonDisable.value = false
+      break
     }
     default: {
       buttonDisable.value = true
       errorInfo.value = currentStatus.value[1]
-      currentStatus.value = currentStatus.value[0]
       //Массив ошибок
     }
   }
