@@ -163,7 +163,7 @@ onMounted(() => {
 
   <b-col md="6" data-aos="fade-in" data-aos-duration="1800" data-aos-once="true">
     <b-col class="mt-4 ms-4 me-4">
-      <h1>Потенциальное расписание {{ groupNumber }}</h1>
+      <h1>Потенциальное расписание</h1>
     </b-col>
   </b-col>
   <b-col class="schedule-container ms-4 me-4 mt-4 mb-4"
@@ -193,6 +193,11 @@ onMounted(() => {
                   <span class="nav-room">
                     {{ item.room }}
                   </span> <br>
+                  <!--                  <span v-for="group in item.groups.split(',')"-->
+                  <!--                        :key="group"-->
+                  <!--                        class="group-link">-->
+                  <!--                  {{ group }}-->
+                  <!--                </span> <br>-->
                 </div>
               </div>
             </div>
@@ -390,6 +395,12 @@ onMounted(() => {
 .nav-teacher {
   font-weight: 400;
   font-size: 18px;
+}
+
+.group-link {
+  margin-right: 10px;
+  font-weight: 500;
+  font-size: 12px;
 }
 
 </style>
