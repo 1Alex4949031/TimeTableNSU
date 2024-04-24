@@ -1,5 +1,4 @@
 <script setup>
-
 import {ref} from "vue";
 
 const daysOfWeek = ref(['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']);
@@ -44,7 +43,7 @@ const getClassInfo = (day, time) => {
 </script>
 
 <template>
-  <b-col class="schedule-container ms-4 me-4 mt-4 mb-4" >
+  <b-col class="schedule-container ms-4 me-4 mt-4 mb-4">
     <table class="schedule-table">
       <thead>
       <tr>
@@ -91,6 +90,6 @@ const getClassInfo = (day, time) => {
 }
 
 .class-cell {
-  min-height: 60px; /* Adjust as necessary */
+  min-height: 60px;
 }
 </style>
