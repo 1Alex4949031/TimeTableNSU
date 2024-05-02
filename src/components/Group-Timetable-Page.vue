@@ -7,15 +7,17 @@ import labSvg from '@/assets/images/lab.svg'
 import pracSvg from '@/assets/images/prac.svg'
 import lecSvg from '@/assets/images/lec.svg'
 import router from "@/router/router";
+import {selectedGroup} from "@/js/edit-timetable";
 
 
 const isLoaded = ref(false);
 const route = useRoute();
 const timetable = ref([]);
 const groupNumber = route.params.group;
+const isPotential = route.params.potential !== "faculties"
 
 onMounted(async () => {
-  timetable.value = await getGroupTimetable(groupNumber);
+  timetable.value = await getGroupTimetable(groupNumber, isPotential);
   isLoaded.value = true
 })
 
@@ -80,6 +82,9 @@ const getLessonImage = (item) => {
                   <span class="nav-teacher" @click="goToTeacherTimetable(item.teacher)">
                     {{ item.teacher }}
                   </span> <br>
+                  <button v-if="isPotential" @click="selectedGroup[item.id] = item; console.log(Object.keys(selectedGroup).length, 'qweq')">
+                    Выбрать
+                  </button>
                 </div>
               </div>
             </div>

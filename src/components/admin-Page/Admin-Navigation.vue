@@ -19,16 +19,16 @@ function routeToPage(page) {
         <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newTeacher')">Добавление учителя</b-button>
         <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newRoom')">Добавление комнаты</b-button>
         <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newSubj')">Добавление предмета</b-button>
-        <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newPlan')">Добавление учебного плана
-        </b-button>
-        <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newConstraint')">Добавление ограничений
-        </b-button>
-        <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/createTimetable')">Создание расписания
-        </b-button>
+        <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newPlan')">Добавление учебного плана</b-button>
+        <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/newConstraint')">Добавление ограничений</b-button>
+        <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/createTimetable')">Создание расписания</b-button>
         <b-button class="custom-btn-red mt-2 mb-2" @click="routeToPage('/removeConstraint')">Удаление
           ограничений
         </b-button>
         <b-button class="custom-btn-red mt-2 mb-2" @click="routeToPage('/removeBase')">Удаление параметров
+          расписания
+        </b-button>
+        <b-button class="custom-btn-red mt-2 mb-2" @click="routeToPage('/potential')">Изменение потенциального расписания
           расписания
         </b-button>
         <b-button class="custom-btn mt-2 mb-2" @click="logOut()">Выход</b-button>
