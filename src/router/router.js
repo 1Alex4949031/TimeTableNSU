@@ -21,6 +21,7 @@ import AllGroupsPage from "@/components/All-Groups-Page.vue";
 import CreatingTimetable from "@/components/admin-Page/Creating-Timetable.vue";
 import RoomTimetablePage from "@/components/Room-Timetable-Page.vue";
 import PotentialGroups from "@/components/admin-Page/Potential-Groups.vue";
+import TimeTableEdit from "@/components/admin-Page/TimeTable-Edit.vue";
 
 const routes = [
     {
@@ -99,7 +100,7 @@ const routes = [
     },
     {
         path: '/time-table-edit',
-        component: TimeTableExample
+        component: TimeTableEdit
     },
     {
         path: '/newConstraint',
