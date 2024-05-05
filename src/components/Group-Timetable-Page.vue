@@ -7,7 +7,7 @@ import labSvg from '@/assets/images/lab.svg'
 import pracSvg from '@/assets/images/prac.svg'
 import lecSvg from '@/assets/images/lec.svg'
 import router from "@/router/router";
-import {selectedSub} from "@/js/edit-timetable";
+import {selectedSubjects} from "@/js/edit-timetable";
 
 
 const isLoaded = ref(false);
@@ -82,7 +82,7 @@ const getLessonImage = (item) => {
                   <span class="nav-teacher" @click="goToTeacherTimetable(item.teacher)">
                     {{ item.teacher }}
                   </span> <br>
-                  <button v-if="isPotential" @click="selectedSub[item.id] = item; console.log(Object.keys(selectedSub).length, 'qweq')">
+                  <button v-if="isPotential" @click="selectedSubjects[item.id] = item; console.log(Object.keys(selectedSubjects).length, item.id)">
                     Выбрать
                   </button>
                 </div>

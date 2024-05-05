@@ -3,7 +3,7 @@ import {ref, onMounted} from 'vue';
 import {getGroups} from "@/js/add-get-request";
 import router from "@/router/router";
 import allGroupsImage from "@/assets/images/all_groups.png";
-import {selectedSub} from "@/js/edit-timetable";
+import {selectedSubjects} from "@/js/edit-timetable";
 
 //const route = useRoute();
 const facultyId = "ФИТ"//ref(route.params.facultyId);
@@ -40,7 +40,7 @@ onMounted(async () => {
             {{ group.groupNumber }}
           </li>
         </ul>
-        <b-button class="custom-btn mt-2 mb-2">Выбранно пар: {{ Object.keys(selectedSub).length }}</b-button>
+        <b-button class="custom-btn mt-2 mb-2">Выбранно пар: {{ Object.keys(selectedSubjects).length }}</b-button>
         <b-button class="custom-btn mt-2 mb-2"  @click=" router.push('/time-table-edit')">Перейти к редактированию</b-button>
       </b-col>
     </b-col>
