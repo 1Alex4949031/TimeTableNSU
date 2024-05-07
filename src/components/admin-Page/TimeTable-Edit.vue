@@ -1,12 +1,29 @@
 <script setup>
 
-import {onMounted, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import {allSub, checkAllowed, selectedSubjects} from "@/js/edit-timetable";
 import {getAllTimetable} from "@/js/get-timetable";
+import closeSvg from "@/assets/images/close.svg";
+import {getGroups, getRoom, getSubject, getTeachers} from "@/js/add-get-request";
+import Multiselect from "@vueform/multiselect";
+import {processRoom} from "@/js/process-select";
+
+const isEditOpen = ref(false);
+const selectedLesson = ref()
+
+const teachers = ref([])
+const teacher = ref("")
+const allGroups = ref([])
+const group = ref()
+const allSubject = ref([])
+const subject = ref("")
+const allRooms = ref([])
+const room = ref("")
+
 
 const daysOfWeek = ref(['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']);
 const timeSlots = ref(['9:00', '10:50', '12:40', '14:30', '16:20', '18:10', '20:00']);
-const schedule = ref({
+const schedule = reactive({
   'Понедельник': {},
   'Вторник': {},
   'Среда': {},
@@ -16,22 +33,20 @@ const schedule = ref({
 });
 const onMove = ref(false)
 const allowedArr = ref([
-    [false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false],
-    [false, true, false, false, false, false, false],
-    [false, false, false, false, false, false, false],
-    [false, false, false, false, false, true, false],
-    [false, false, false, false, false, false, false]
+  [false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false],
+  [false, true, false, false, false, false, false],
+  [false, false, false, false, false, false, false],
+  [false, false, false, false, false, true, false],
+  [false, false, false, false, false, false, false]
 ])//[day] [slot]
 const getClassInfo = (day, time) => {
-  return schedule.value[day]?.[time] || [];
+  return schedule[day]?.[time] || [];
 };
-
 const handleDragOver = event => {
   event.preventDefault();
   event.dataTransfer.dropEffect = 'move';
 };
-
 const handleDragStart = (event, day, timeSlot, lesson) => {
   onMove.value = true
   checkAllowed(lesson.id, allowedArr)
@@ -40,7 +55,6 @@ const handleDragStart = (event, day, timeSlot, lesson) => {
   event.dataTransfer.setData('text/plain', JSON.stringify(dragData));
   event.dataTransfer.effectAllowed = 'move';
 };
-
 const handleDrop = (event, day, timeSlot) => {
   onMove.value = false
   const data = JSON.parse(event.dataTransfer.getData('text/plain'));
@@ -48,32 +62,69 @@ const handleDrop = (event, day, timeSlot) => {
     moveClass(data.day, data.timeSlot, day, timeSlot, data.lesson);
   }
 };
-
 const moveClass = (fromDay, fromTimeSlot, toDay, toTimeSlot, lesson) => {
-  if (!schedule.value[toDay]) {
-    schedule.value[toDay] = {};
+  if (!schedule[toDay]) {
+    schedule[toDay] = {};
   }
-  if (!schedule.value[toDay][toTimeSlot]) {
-    schedule.value[toDay][toTimeSlot] = [];
+  if (!schedule[toDay][toTimeSlot]) {
+    schedule[toDay][toTimeSlot] = [];
   }
   if (lesson) {
-    schedule.value[toDay][toTimeSlot].push(lesson);
-    const fromLessons = schedule.value[fromDay][fromTimeSlot];
-    const lessonIndex = fromLessons.findIndex(l => l.subject === lesson.subject && l.classroom === lesson.classroom && l.id === lesson.id);
+    schedule[toDay][toTimeSlot].push(lesson);
+    const fromLessons = schedule[fromDay][fromTimeSlot];
+    const lessonIndex = fromLessons.findIndex(l =>
+        l.id === lesson.id && l.teacher === lesson.teacher && l.room === lesson.room &&
+        l.subject === lesson.subject && l.classroom === lesson.classroom &&l.actual === lesson.actual);
     if (lessonIndex > -1) {
       fromLessons.splice(lessonIndex, 1);
     }
   }
 };
 
+function editLesson(lesson) {
+  selectedLesson.value = lesson
+  isEditOpen.value = true;
+
+  teacher.value = lesson.teacher
+  room.value = lesson.classroom
+  subject.value = lesson.subject
+  group.value = lesson.group
+
+}
+
+function saveEdit() {
+  isEditOpen.value = false;
+  selectedLesson.value.teacher = teacher.value
+  selectedLesson.value.classroom = room.value
+  selectedLesson.value.subject = subject.value
+  selectedLesson.value.group = group.value
+}
+
 onMounted(async () => {
+  getTeachers(teachers)
+  allSubject.value = await getSubject()
+  const rawRoom = await getRoom()
+  allRooms.value = processRoom(rawRoom)
+
+  const rawGroup = await getGroups()
+  for (let x of rawGroup) {
+    allGroups.value.push(x.groupNumber)
+  }
+
   for (const sub of Object.values(selectedSubjects.value)) {
+    console.log(sub.groups)
+    const newSub = {subject: sub.subjectName, classroom: sub.room, id: sub.id, teacher: sub.teacher, group: sub.groups,actual: true}
+    const subMirror = {subject: sub.subjectName, classroom: sub.room, id: sub.id, teacher: sub.teacher, group: sub.groups, actual: false}
     try {
-      schedule.value[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber-1]]
-          .push({subject: sub.subjectName, classroom: sub.room, id: sub.id, teacher: sub.teacher})
+      schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]]
+          .push(newSub)
+      schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]]
+          .push(subMirror)
     } catch (E) {
-      schedule.value[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber-1]] =
-          [{subject: sub.subjectName, classroom: sub.room, id: sub.id, teacher: sub.teacher}]
+      schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]] =
+          [newSub]
+      schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]]
+          .push(subMirror)
     }
   }
 
@@ -101,12 +152,21 @@ onMounted(async () => {
             @dragover.prevent="handleDragOver"
             @drop.prevent="handleDrop($event, day, timeSlot)">
           <div class="class-cell" :class="{allowed: onMove && allowedArr[indexDay][indexSlot]}">
-            <div v-for="lesson in getClassInfo(day, timeSlot)" :key="lesson.subject"
-                 class="lesson"
-                 :draggable="true"
-                 @dragstart="handleDragStart($event, day, timeSlot, lesson)">
-              <span>{{ lesson.subject }}</span><span>{{ lesson.teacher }}</span><br>
-              <span>{{ lesson.classroom }}</span><span> {{ lesson.id }}</span>
+            <div v-for="lesson in getClassInfo(day, timeSlot)" :key="lesson.subject">
+              <div v-if="lesson.actual"
+                   class="lesson actual"
+                   :draggable="true"
+                   @dragstart="handleDragStart($event, day, timeSlot, lesson)">
+                <span>{{ lesson.subject }} </span><span>{{ lesson.teacher }}</span><br>
+                <span>{{ lesson.classroom }} </span><span> {{ lesson.id }} {{ lesson.actual }}</span>
+                <button @click="editLesson(lesson)">edit</button>
+              </div>
+              <div
+                  v-else-if="getClassInfo(day,timeSlot).find(l => l.id === lesson.id && l.actual === true) === undefined"
+                  class="lesson previous">
+                <span>{{ lesson.subject }} </span><span>{{ lesson.teacher }}</span><br>
+                <span>{{ lesson.classroom }} </span><span> {{ lesson.id }} {{ lesson.actual }}</span>
+              </div>
             </div>
           </div>
         </td>
@@ -114,6 +174,45 @@ onMounted(async () => {
       </tbody>
     </table>
   </b-col>
+  <transition enter-active-class="modal-enter-active"
+              leave-active-class="modal-leave-active">
+    <div class="edit-modal" v-if="isEditOpen">
+      <b-button @click="isEditOpen = false" class="close-button">
+        <b-img :src="closeSvg"></b-img>
+      </b-button>
+      <b-container fluid="sm" class="my-4">
+        <b-row>
+          <b-col md="6" class="d-flex flex-column justify-content-center">
+            <h2 class="modal-title mb-4">Изменение пары</h2>
+            <b-form>
+              <b-form-group class="form-group" label="Преподователь" label-for="input-subject-teacher">
+                <b-form-select v-model="teacher" :options="teachers" label="ФИО"
+                               id="input-subject-teacher"></b-form-select>
+              </b-form-group>
+              <b-form-group class="form-group" label="Группы" label-for="input-subject-groups">
+                <Multiselect
+                    v-model="group"
+                    :options="allGroups"
+                />
+              </b-form-group>
+              <b-form-group class="form-group" label="Предмет" label-for="input-subject-groups">
+                <b-form-select v-model="subject" :options="allSubject" id="input-subject-groups"></b-form-select>
+              </b-form-group>
+              <b-form-group class="form-group" label="Список комнат">
+                <Multiselect
+                    v-model="room"
+                    :options="allRooms"
+                />
+              </b-form-group>
+            </b-form>
+          </b-col>
+        </b-row>
+      </b-container>
+      <b-button @click="saveEdit()" class="allowed">
+        <b-img :src="closeSvg"></b-img>
+      </b-button>
+    </div>
+  </transition>
 </template>
 
 <style scoped>
@@ -150,5 +249,28 @@ onMounted(async () => {
 
 .allowed {
   background-color: #8aee34;
+}
+
+.actual {
+  background-color: #ffffff;
+}
+
+.previous {
+  background-color: #a4a4a4;
+}
+
+.edit-modal {
+  position: fixed;
+  top: 50px;
+  left: 60px;
+  width: 80%;
+  height: 80%;
+  background: rgba(255, 255, 255, 1);
+  z-index: 1000;
+  display: flex;
+  align-content: start;
+  overflow-y: auto;
+  border: 3px solid #4b4f54;
+  border-radius: 10px;
 }
 </style>

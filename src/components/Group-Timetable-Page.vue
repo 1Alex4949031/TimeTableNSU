@@ -14,7 +14,7 @@ const isLoaded = ref(false);
 const route = useRoute();
 const timetable = ref([]);
 const groupNumber = route.params.group;
-const isPotential = route.params.potential !== "faculties"
+const isPotential = route.params.potential === "potential"
 
 onMounted(async () => {
   timetable.value = await getGroupTimetable(groupNumber, isPotential);
@@ -82,7 +82,7 @@ const getLessonImage = (item) => {
                   <span class="nav-teacher" @click="goToTeacherTimetable(item.teacher)">
                     {{ item.teacher }}
                   </span> <br>
-                  <button v-if="isPotential" @click="selectedSubjects[item.id] = item; console.log(Object.keys(selectedSubjects).length, item.id)">
+                  <button v-if="isPotential" @click="selectedSubjects[item.id] = item">
                     Выбрать
                   </button>
                 </div>
