@@ -149,6 +149,6 @@ onMounted(async () => {
 }
 
 .allowed {
-  background-color: #425e2b;
+  background-color: #8aee34;
 }
 </style>
