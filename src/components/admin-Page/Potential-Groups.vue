@@ -40,8 +40,8 @@ onMounted(async () => {
             {{ group.groupNumber }}
           </li>
         </ul>
-        <b-button class="custom-btn mt-2 mb-2">Выбранно пар: {{ Object.keys(selectedSubjects).length }}</b-button>
-        <b-button class="custom-btn mt-2 mb-2"  @click=" router.push('/time-table-edit')">Перейти к редактированию</b-button>
+<!--        <b-button class="custom-btn mt-2 mb-2">Выбранно пар: {{ Object.keys(selectedSubjects).length }}</b-button>-->
+<!--        <b-button class="custom-btn mt-2 mb-2"  @click=" router.push('/time-table-edit')">Перейти к редактированию</b-button>-->
       </b-col>
     </b-col>
     <b-col md="6" data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">

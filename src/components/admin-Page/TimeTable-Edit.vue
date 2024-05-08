@@ -1,16 +1,15 @@
 <script setup>
 
 import {onMounted, reactive, ref} from "vue";
-import {allSub, checkAllowed, selectedSubjects} from "@/js/edit-timetable";
-import {getAllTimetable} from "@/js/get-timetable";
+import {checkAllowed, selectedSubjects} from "@/js/edit-timetable";
 import closeSvg from "@/assets/images/close.svg";
-import {getGroups, getRoom, getSubject, getTeachers} from "@/js/add-get-request";
 import Multiselect from "@vueform/multiselect";
-import {processRoom} from "@/js/process-select";
+import {getAllowedOption} from "@/js/edit-implementing";
 
 const isEditOpen = ref(false);
 const selectedLesson = ref()
 
+const allowedOptions = ref([])
 const teachers = ref([])
 const teacher = ref("")
 const allGroups = ref([])
@@ -49,7 +48,6 @@ const handleDragOver = event => {
 };
 const handleDragStart = (event, day, timeSlot, lesson) => {
   onMove.value = true
-  checkAllowed(lesson.id, allowedArr)
 
   const dragData = {day, timeSlot, lesson};
   event.dataTransfer.setData('text/plain', JSON.stringify(dragData));
@@ -74,7 +72,7 @@ const moveClass = (fromDay, fromTimeSlot, toDay, toTimeSlot, lesson) => {
     const fromLessons = schedule[fromDay][fromTimeSlot];
     const lessonIndex = fromLessons.findIndex(l =>
         l.id === lesson.id && l.teacher === lesson.teacher && l.room === lesson.room &&
-        l.subject === lesson.subject && l.classroom === lesson.classroom &&l.actual === lesson.actual);
+        l.subject === lesson.subject && l.classroom === lesson.classroom && l.actual === lesson.actual);
     if (lessonIndex > -1) {
       fromLessons.splice(lessonIndex, 1);
     }
@@ -100,39 +98,69 @@ function saveEdit() {
   selectedLesson.value.group = group.value
 }
 
-onMounted(async () => {
-  getTeachers(teachers)
-  allSubject.value = await getSubject()
-  const rawRoom = await getRoom()
-  allRooms.value = processRoom(rawRoom)
-
-  const rawGroup = await getGroups()
-  for (let x of rawGroup) {
-    allGroups.value.push(x.groupNumber)
-  }
-
-  for (const sub of Object.values(selectedSubjects.value)) {
-    console.log(sub.groups)
-    const newSub = {subject: sub.subjectName, classroom: sub.room, id: sub.id, teacher: sub.teacher, group: sub.groups,actual: true}
-    const subMirror = {subject: sub.subjectName, classroom: sub.room, id: sub.id, teacher: sub.teacher, group: sub.groups, actual: false}
-    try {
-      schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]]
-          .push(newSub)
-      schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]]
-          .push(subMirror)
-    } catch (E) {
-      schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]] =
-          [newSub]
-      schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]]
-          .push(subMirror)
+function saveEditServer() {
+  console.log("save")
+  for (const day of daysOfWeek.value) {
+    for (const slot of timeSlots.value) {
+      console.log(day, slot, schedule[day].value ? [slot] : 1)
     }
   }
+}
 
-  const subjects = await getAllTimetable(true)
-  allSub.value = {}
-  for (const sub of subjects) {
-    allSub.value[sub.id] = sub;
+onMounted(async () => {
+  // getTeachers(teachers)
+  // allSubject.value = await getSubject()
+  // const rawRoom = await getRoom()
+  // allRooms.value = processRoom(rawRoom)
+  // const rawGroup = await getGroups()
+  // for (let x of rawGroup) {
+  //   allGroups.value.push(x.groupNumber)
+  // }
+  allowedOptions.value = await getAllowedOption(selectedSubjects.value.id)
+  console.log("allowed get", selectedSubjects.value, allowedOptions.value)
+
+  const sub = selectedSubjects.value
+  console.log(sub.groups)
+
+  const newSub = {
+    subject: sub.subjectName,
+    classroom: sub.room,
+    id: sub.id,
+    teacher: sub.teacher,
+    group: sub.groups,
+    actual: true
   }
+  const subMirror = {
+    subject: sub.subjectName,
+    classroom: sub.room,
+    id: sub.id,
+    teacher: sub.teacher,
+    group: sub.groups,
+    actual: false
+  }
+  try {
+    schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]]
+        .push(newSub)
+    schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]]
+        .push(subMirror)
+  } catch (E) {
+    schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]] =
+        [newSub]
+    schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]]
+        .push(subMirror)
+  }
+
+  console.log("allowed chechk")
+  checkAllowed(selectedSubjects.value, allowedOptions, allowedArr, allRooms, teachers)
+
+  //for (const sub of Object.values(selectedSubjects.value)) {
+
+
+  // const subjects = await getAllTimetable(true)
+  // allSub.value = {}
+  // for (const sub of subjects) {
+  //   allSub.value[sub.id] = sub;
+  // }
 })
 </script>
 
@@ -172,6 +200,7 @@ onMounted(async () => {
         </td>
       </tr>
       </tbody>
+      <b-button @click="saveEditServer()">Save</b-button>
     </table>
   </b-col>
   <transition enter-active-class="modal-enter-active"
@@ -186,8 +215,10 @@ onMounted(async () => {
             <h2 class="modal-title mb-4">Изменение пары</h2>
             <b-form>
               <b-form-group class="form-group" label="Преподователь" label-for="input-subject-teacher">
-                <b-form-select v-model="teacher" :options="teachers" label="ФИО"
-                               id="input-subject-teacher"></b-form-select>
+                <Multiselect
+                  v-model="teacher"
+                  :options="teachers"
+              />
               </b-form-group>
               <b-form-group class="form-group" label="Группы" label-for="input-subject-groups">
                 <Multiselect

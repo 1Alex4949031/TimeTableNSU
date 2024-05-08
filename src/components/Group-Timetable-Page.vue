@@ -82,7 +82,7 @@ const getLessonImage = (item) => {
                   <span class="nav-teacher" @click="goToTeacherTimetable(item.teacher)">
                     {{ item.teacher }}
                   </span> <br>
-                  <button v-if="isPotential" @click="selectedSubjects[item.id] = item">
+                  <button v-if="isPotential" @click="selectedSubjects = item;router.push('/time-table-edit')">
                     Выбрать
                   </button>
                 </div>
