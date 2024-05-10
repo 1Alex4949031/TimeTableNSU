@@ -1,10 +1,20 @@
 import {customInstance} from "@/js/axios-instance";
-
-export async function saveEdit(ArrSubject)  {
+import {selectedSubjects} from "@/js/edit-timetable";
+export async function saveEditRequest(ArrSubject) {
+    let url = "/timetable/potential/change"
+    if (ArrSubject['newTeacherFullName'] !== selectedSubjects.value['teacher']) {
+        url += "/teacher"
+    } else {
+        url += "/day_and_pair_number_and_room"
+    }
     return await customInstance
-        .get(
-            "/timetable/potential/change" + "/room",
-            {useToken: false, requestName: "Update potential timetable"}
+        .post(
+            url,
+            ArrSubject,
+            {
+                useToken: false,
+                requestName: "Update potential timetable"
+            }
         )
         .then(response => {
             return response.data
@@ -15,7 +25,7 @@ export async function saveEdit(ArrSubject)  {
         });
 }
 
-export async function getAllowedOption(id)  {
+export async function getAllowedOption(id) {
     return await customInstance
         .post(
             "/timetable/potential/change/pair_variants",

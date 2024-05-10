@@ -5,7 +5,7 @@ export const selectedSubjects = ref()
 export const allSub = ref({})
 
 export function checkAllowed(sub, options, allowedArr, allowedRoom, allowedTeacher) {
-
+        let isAllowedMove = false
         console.log(allowedArr.value)
         for (let i = 0; i < 6; i++) {
             for (let j = 0; j < 7; j++) {
@@ -24,10 +24,18 @@ export function checkAllowed(sub, options, allowedArr, allowedRoom, allowedTeach
             }
             if (allowedSub.teacher === sub.teacher && allowedSub.dayNumber === sub.dayNumber && allowedSub.pairNumber === sub.pairNumber)
                 allowedRoom.value.push(allowedSub.room)
+            if (allowedSub.room === sub.room &&
+                allowedSub.dayNumber === sub.dayNumber &&
+                allowedSub.pairNumber === sub.pairNumber &&
+                allowedSub.teacher === sub.teacher
+            ) {
+                isAllowedMove = true
+            }
         }
         console.log(allowedTeacher.value, allowedRoom.value)
         console.log(options.value[0].dayNumber, sub.dayNumber)
 
+    return isAllowedMove
     // for (let i = 0; i < 6; i++) {
     //     for (let j = 0; j < 7; j++) {
     //         allowedArr.value[i][j] = true;

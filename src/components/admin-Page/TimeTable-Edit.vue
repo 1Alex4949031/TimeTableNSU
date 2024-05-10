@@ -4,11 +4,12 @@ import {onMounted, reactive, ref} from "vue";
 import {checkAllowed, selectedSubjects} from "@/js/edit-timetable";
 import closeSvg from "@/assets/images/close.svg";
 import Multiselect from "@vueform/multiselect";
-import {getAllowedOption} from "@/js/edit-implementing";
+import {getAllowedOption, saveEditRequest} from "@/js/edit-implementing";
 
 const isEditOpen = ref(false);
 const selectedLesson = ref()
 
+const editPosition = ref({day: '', slot: ''})
 const allowedOptions = ref([])
 const teachers = ref([])
 const teacher = ref("")
@@ -18,7 +19,7 @@ const allSubject = ref([])
 const subject = ref("")
 const allRooms = ref([])
 const room = ref("")
-
+const isAllowedMove = ref(true)
 
 const daysOfWeek = ref(['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']);
 const timeSlots = ref(['9:00', '10:50', '12:40', '14:30', '16:20', '18:10', '20:00']);
@@ -68,6 +69,8 @@ const moveClass = (fromDay, fromTimeSlot, toDay, toTimeSlot, lesson) => {
     schedule[toDay][toTimeSlot] = [];
   }
   if (lesson) {
+    editPosition.value["day"] = toDay
+    editPosition.value["slot"] = toTimeSlot
     schedule[toDay][toTimeSlot].push(lesson);
     const fromLessons = schedule[fromDay][fromTimeSlot];
     const lessonIndex = fromLessons.findIndex(l =>
@@ -77,6 +80,7 @@ const moveClass = (fromDay, fromTimeSlot, toDay, toTimeSlot, lesson) => {
       fromLessons.splice(lessonIndex, 1);
     }
   }
+  isAllowedMove.value = checkAllowed(getEditSubject(), allowedOptions, allowedArr, allRooms, teachers)
 };
 
 function editLesson(lesson) {
@@ -100,11 +104,27 @@ function saveEdit() {
 
 function saveEditServer() {
   console.log("save")
-  for (const day of daysOfWeek.value) {
-    for (const slot of timeSlots.value) {
-      console.log(day, slot, schedule[day].value ? [slot] : 1)
-    }
-  }
+  console.log(selectedSubjects.value)
+  console.log(schedule[editPosition.value['day']][editPosition.value["slot"]].find(l => l.actual === true), editPosition.value)
+  const newPairData = schedule[editPosition.value['day']][editPosition.value["slot"]].find(l => l.actual === true);
+  saveEditRequest({
+    subjectId: newPairData['id'],
+    newRoom: newPairData["classroom"],
+    newTeacherFullName: newPairData['teacher'],
+    newDayNumber: daysOfWeek.value.indexOf(editPosition.value['day']) + 1,
+    newPairNumber: timeSlots.value.indexOf(editPosition.value['slot']) + 1
+  })
+  // for (const day of daysOfWeek.value) {
+  //   for (const slot of timeSlots.value) {
+  //     console.log(day, slot, schedule[day].value ? [slot] : 1)
+  //   }
+  // }
+}
+function getEditSubject() {
+  const newPairData = schedule[editPosition.value['day']][editPosition.value["slot"]].find(l => l.actual === true);
+  newPairData["dayNumber"] = daysOfWeek.value.indexOf(editPosition.value['day']) + 1
+  newPairData["pairNumber"] = timeSlots.value.indexOf(editPosition.value['slot']) + 1
+  return newPairData
 }
 
 onMounted(async () => {
@@ -139,6 +159,8 @@ onMounted(async () => {
     actual: false
   }
   try {
+    editPosition.value["day"] = daysOfWeek.value[sub.dayNumber - 1]
+    editPosition.value["slot"] = timeSlots.value[sub.pairNumber - 1]
     schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]]
         .push(newSub)
     schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]]
@@ -183,17 +205,18 @@ onMounted(async () => {
             <div v-for="lesson in getClassInfo(day, timeSlot)" :key="lesson.subject">
               <div v-if="lesson.actual"
                    class="lesson actual"
+                   :class="{invalid : !isAllowedMove}"
                    :draggable="true"
                    @dragstart="handleDragStart($event, day, timeSlot, lesson)">
                 <span>{{ lesson.subject }} </span><span>{{ lesson.teacher }}</span><br>
-                <span>{{ lesson.classroom }} </span><span> {{ lesson.id }} {{ lesson.actual }}</span>
+                <span>{{ lesson.classroom }} </span><span> {{ lesson.id }}</span>
                 <button @click="editLesson(lesson)">edit</button>
               </div>
               <div
                   v-else-if="getClassInfo(day,timeSlot).find(l => l.id === lesson.id && l.actual === true) === undefined"
                   class="lesson previous">
                 <span>{{ lesson.subject }} </span><span>{{ lesson.teacher }}</span><br>
-                <span>{{ lesson.classroom }} </span><span> {{ lesson.id }} {{ lesson.actual }}</span>
+                <span>{{ lesson.classroom }} </span><span> {{ lesson.id }}</span>
               </div>
             </div>
           </div>
@@ -281,7 +304,9 @@ onMounted(async () => {
 .allowed {
   background-color: #8aee34;
 }
-
+.invalid {
+  background-color: #f15555;
+}
 .actual {
   background-color: #ffffff;
 }
