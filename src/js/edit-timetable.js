@@ -15,21 +15,26 @@ export function checkAllowed(sub, options, allowedArr, allowedRoom, allowedTeach
         allowedRoom.value = []
 
         for (const allowedSub of options.value) {
-            if (allowedSub.room === sub.room && allowedSub.teacher === sub.teacher)
+            if (allowedSub.room === sub.room && allowedSub.teacher === sub.teacher) {
                 allowedArr.value[allowedSub.dayNumber - 1][allowedSub.pairNumber - 1] = true
+            }
             if (allowedSub.room === sub.room && allowedSub.dayNumber === sub.dayNumber && allowedSub.pairNumber === sub.pairNumber) {
                 allowedTeacher.value.push(allowedSub.teacher)
                 console.log(allowedSub.teacher)
             }
-            if (allowedSub.teacher === sub.teacher && allowedSub.dayNumber === sub.dayNumber && allowedSub.pairNumber === sub.pairNumber)
+            if (allowedSub.teacher === sub.teacher && allowedSub.dayNumber === sub.dayNumber && allowedSub.pairNumber === sub.pairNumber) {
                 allowedRoom.value.push(allowedSub.room)
+            }
             if (allowedSub.room === sub.room &&
                 allowedSub.dayNumber === sub.dayNumber &&
                 allowedSub.pairNumber === sub.pairNumber &&
                 allowedSub.teacher === sub.teacher
             ) {
                 isAllowedMove = true
+                console.log("ALLOW")
             }
+            console.log("--", allowedSub.room, allowedSub.dayNumber, allowedSub.pairNumber, allowedSub.teacher)
+            console.log(sub.room, sub.dayNumber, sub.pairNumber, sub.teacher)
         }
 
     return isAllowedMove

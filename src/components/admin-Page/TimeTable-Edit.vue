@@ -75,7 +75,7 @@ const moveClass = (fromDay, fromTimeSlot, toDay, toTimeSlot, lesson) => {
     const fromLessons = schedule[fromDay][fromTimeSlot];
     const lessonIndex = fromLessons.findIndex(l =>
         l.id === lesson.id && l.teacher === lesson.teacher && l.room === lesson.room &&
-        l.subject === lesson.subject && l.classroom === lesson.classroom && l.actual === lesson.actual);
+        l.subject === lesson.subject && l.room === lesson.room && l.actual === lesson.actual);
     if (lessonIndex > -1) {
       fromLessons.splice(lessonIndex, 1);
     }
@@ -88,7 +88,7 @@ function editLesson(lesson) {
   isEditOpen.value = true;
 
   teacher.value = lesson.teacher
-  room.value = lesson.classroom
+  room.value = lesson.room
   subject.value = lesson.subject
   group.value = lesson.group
 
@@ -97,9 +97,10 @@ function editLesson(lesson) {
 function saveEdit() {
   isEditOpen.value = false;
   selectedLesson.value.teacher = teacher.value
-  selectedLesson.value.classroom = room.value
+  selectedLesson.value.room = room.value
   selectedLesson.value.subject = subject.value
   selectedLesson.value.group = group.value
+  isAllowedMove.value = checkAllowed(getEditSubject(), allowedOptions, allowedArr, allRooms, teachers)
 }
 
 function saveEditServer() {
@@ -109,7 +110,7 @@ function saveEditServer() {
   const newPairData = schedule[editPosition.value['day']][editPosition.value["slot"]].find(l => l.actual === true);
   saveEditRequest({
     subjectId: newPairData['id'],
-    newRoom: newPairData["classroom"],
+    newRoom: newPairData["room"],
     newTeacherFullName: newPairData['teacher'],
     newDayNumber: daysOfWeek.value.indexOf(editPosition.value['day']) + 1,
     newPairNumber: timeSlots.value.indexOf(editPosition.value['slot']) + 1
@@ -143,7 +144,7 @@ onMounted(async () => {
 
   const newSub = {
     subject: sub.subjectName,
-    classroom: sub.room,
+    room: sub.room,
     id: sub.id,
     teacher: sub.teacher,
     group: sub.groups,
@@ -151,7 +152,7 @@ onMounted(async () => {
   }
   const subMirror = {
     subject: sub.subjectName,
-    classroom: sub.room,
+    room: sub.room,
     id: sub.id,
     teacher: sub.teacher,
     group: sub.groups,
@@ -208,14 +209,14 @@ onMounted(async () => {
                    :draggable="true"
                    @dragstart="handleDragStart($event, day, timeSlot, lesson)">
                 <span>{{ lesson.subject }} </span><span>{{ lesson.teacher }}</span><br>
-                <span>{{ lesson.classroom }} </span><span> {{ lesson.id }}</span>
+                <span>{{ lesson.room }} </span><span> {{ lesson.id }}</span>
                 <button @click="editLesson(lesson)">edit</button>
               </div>
               <div
                   v-else-if="getClassInfo(day,timeSlot).find(l => l.id === lesson.id && l.actual === true) === undefined"
                   class="lesson previous">
                 <span>{{ lesson.subject }} </span><span>{{ lesson.teacher }}</span><br>
-                <span>{{ lesson.classroom }} </span><span> {{ lesson.id }}</span>
+                <span>{{ lesson.room }} </span><span> {{ lesson.id }}</span>
               </div>
             </div>
           </div>
