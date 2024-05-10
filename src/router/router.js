@@ -22,6 +22,7 @@ import CreatingTimetable from "@/components/admin-Page/Creating-Timetable.vue";
 import RoomTimetablePage from "@/components/Room-Timetable-Page.vue";
 import PotentialGroups from "@/components/admin-Page/Potential-Groups.vue";
 import TimeTableEdit from "@/components/admin-Page/TimeTable-Edit.vue";
+import NewChanges from "@/components/admin-Page/New-Changes.vue";
 
 const routes = [
     {
@@ -141,6 +142,11 @@ const routes = [
     {
         path: '/potential',
         component: PotentialGroups,
+        meta: {requiresAuth: true}
+    },
+    {
+        path: '/changes_log',
+        component: NewChanges,
         meta: {requiresAuth: true}
     }
 ]

@@ -140,7 +140,6 @@ onMounted(async () => {
   console.log("allowed get", selectedSubjects.value, allowedOptions.value)
 
   const sub = selectedSubjects.value
-  console.log(sub.groups)
 
   const newSub = {
     subject: sub.subjectName,
@@ -305,7 +304,7 @@ onMounted(async () => {
   background-color: #8aee34;
 }
 .invalid {
-  background-color: #f15555;
+  background-color: #f15555 !important;
 }
 .actual {
   background-color: #ffffff;

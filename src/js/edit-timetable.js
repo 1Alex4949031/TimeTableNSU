@@ -6,7 +6,6 @@ export const allSub = ref({})
 
 export function checkAllowed(sub, options, allowedArr, allowedRoom, allowedTeacher) {
         let isAllowedMove = false
-        console.log(allowedArr.value)
         for (let i = 0; i < 6; i++) {
             for (let j = 0; j < 7; j++) {
                 allowedArr.value[i][j] = false;
@@ -32,8 +31,6 @@ export function checkAllowed(sub, options, allowedArr, allowedRoom, allowedTeach
                 isAllowedMove = true
             }
         }
-        console.log(allowedTeacher.value, allowedRoom.value)
-        console.log(options.value[0].dayNumber, sub.dayNumber)
 
     return isAllowedMove
     // for (let i = 0; i < 6; i++) {
