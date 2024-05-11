@@ -2,10 +2,10 @@
 import {ref, onMounted} from 'vue';
 import {getChanges} from "@/js/add-get-request";
 import allGroupsImage from "@/assets/images/all_groups.png";
+import {format, parseISO} from 'date-fns';
 
 
 const changes = ref()
-
 const isLoaded = ref(false);
 
 onMounted(async () => {
@@ -13,8 +13,9 @@ onMounted(async () => {
       isLoaded.value = true
     }
 )
-
-
+const formatDate = (dateString) => {
+  return format(parseISO(dateString), 'dd.MM.yyyy');
+}
 
 </script>
 
@@ -22,12 +23,14 @@ onMounted(async () => {
   <b-row>
     <b-col md="6">
       <b-col class="mt-4 ms-4 me-4">
-        <h1 data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">Все группы</h1>
-        <h4 data-aos="fade-in" data-aos-duration="1300" data-aos-once="true" class="mt-1" v-if="!isLoaded">Загрузка...</h4>
-        <h4 data-aos="fade-in" data-aos-duration="1300" data-aos-once="true" class="mt-2" v-else-if="changes.length === 0">Похоже, список пуст!</h4>
+        <h1 data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">Изменения в расписании</h1>
+        <h4 data-aos="fade-in" data-aos-duration="1300" data-aos-once="true" class="mt-1" v-if="!isLoaded">
+          Загрузка...</h4>
+        <h4 data-aos="fade-in" data-aos-duration="1300" data-aos-once="true" class="mt-2"
+            v-else-if="changes.length === 0">Похоже, список пуст!</h4>
         <ul class="list-group list-group-flush" data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
-          <li class="list-group-item" v-for="chang in changes" :key="chang.id">
-            {{ chang }}
+          <li class="list-group-item" v-for="(change, index) in changes" :key="change.id">
+            {{ index + 1 }}) {{ formatDate(change.dateOfCreation) }} <br> {{ change.description }}
           </li>
         </ul>
       </b-col>
@@ -43,7 +46,6 @@ onMounted(async () => {
 <style scoped>
 .list-group-item {
   font-size: 1.2em;
-  cursor: pointer;
 }
 
 .rounded-custom {
