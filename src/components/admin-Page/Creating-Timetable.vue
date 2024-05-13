@@ -58,8 +58,8 @@ const getBackgroundClass = (item) => {
 };
 
 async function checkStatus() {
-  currentStatus.value = "Получаю информацию..."
-  currentStatus.value = await checkNewTimetableStatus()
+  currentStatus.value = "Получаю информацию...";
+  [currentStatus.value, errorInfo.value] = await checkNewTimetableStatus()
   switch (currentStatus.value) {
     case "Ошибка!" : {
       buttonDisable.value = true
@@ -83,7 +83,6 @@ async function checkStatus() {
     }
     default: {
       buttonDisable.value = true
-      errorInfo.value = currentStatus.value[1]
       //Массив ошибок
     }
   }

@@ -70,7 +70,7 @@ export async function checkNewTimetableStatus() {
             console.log(response.config["requestName"], "Done")
             const ans = response.data.message
             console.log(ans)
-            return ans
+            return [ans,0]
         })
         .catch(error => {
             console.error(error)
