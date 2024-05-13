@@ -5,7 +5,7 @@ import router from "@/router/router";
 import allGroupsImage from "@/assets/images/all_groups.png";
 
 //const route = useRoute();
-const facultyId = "ФИТ"//ref(route.params.facultyId);
+
 const groups = ref([]);
 
 onMounted(async () =>
@@ -13,7 +13,7 @@ onMounted(async () =>
 )
 
 const goToGroupTimetable = (groupNumber) => {
-  router.push({path: `/potential/${facultyId.value}/${groupNumber}/table`});
+  router.push({path: `/potential/group/${groupNumber}/table`});
 };
 
 const isLoaded = ref(false);
