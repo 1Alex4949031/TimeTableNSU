@@ -8,7 +8,7 @@
     justify-items: end;
     aspect-ratio: 3;
     overflow: hidden;
-    /*--_m: linear-gradient(90deg,#0000,#000 15px calc(100% - 15px),#0000);*/
+    --_m: linear-gradient(90deg,#0000,#000 15px calc(100% - 15px),#0000);
     -webkit-mask: var(--_m);
     mask: var(--_m);
 }
