@@ -3,6 +3,7 @@
 import {isUserLogin, logOut} from "@/js/axios-auth-request";
 import imageModal from "@/assets/images/imageModal1.png";
 import router from "@/router/router";
+import {logs} from "@/js/socket";
 
 function routeToPage(page) {
   router.push(page)
@@ -35,7 +36,11 @@ function routeToPage(page) {
       </b-col>
       <b-col md="6">
         <b-col class="mt-3 me-3 ms-3 mb-1">
-          <b-img :src="imageModal" alt="Image" fluid class="rounded-custom"></b-img>
+          <h4 class="mb-3 mt-4 ms-1 me-1">
+            Список недавних изменений
+          </h4>
+<!--          <b-img :src="imageModal" alt="Image" fluid class="rounded-custom"></b-img>-->
+          <div v-for="log in logs" :key = "log">{{ log.description || log}}</div>
         </b-col>
       </b-col>
     </b-row>
