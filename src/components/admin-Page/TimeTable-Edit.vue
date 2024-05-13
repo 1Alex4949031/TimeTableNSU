@@ -1,7 +1,7 @@
 <script setup>
 
 import {onMounted, reactive, ref} from "vue";
-import {checkAllowed, selectedSubjects} from "@/js/edit-timetable";
+import {checkAllowed, getSelectedSub} from "@/js/edit-timetable";
 import closeSvg from "@/assets/images/close.svg";
 import Multiselect from "@vueform/multiselect";
 import {getAllowedOption, saveEditRequest} from "@/js/edit-implementing";
@@ -20,6 +20,7 @@ const subject = ref("")
 const allRooms = ref([])
 const room = ref("")
 const isAllowedMove = ref(true)
+const errorStatus = ref(false)
 
 const daysOfWeek = ref(['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']);
 const timeSlots = ref(['9:00', '10:50', '12:40', '14:30', '16:20', '18:10', '20:00']);
@@ -104,9 +105,6 @@ function saveEdit() {
 }
 
 function saveEditServer() {
-  console.log("save")
-  console.log(selectedSubjects.value)
-  console.log(schedule[editPosition.value['day']][editPosition.value["slot"]].find(l => l.actual === true), editPosition.value)
   const newPairData = schedule[editPosition.value['day']][editPosition.value["slot"]].find(l => l.actual === true);
   saveEditRequest({
     subjectId: newPairData['id'],
@@ -130,61 +128,55 @@ function getEditSubject() {
 }
 
 onMounted(async () => {
-  // getTeachers(teachers)
-  // allSubject.value = await getSubject()
-  // const rawRoom = await getRoom()
-  // allRooms.value = processRoom(rawRoom)
-  // const rawGroup = await getGroups()
-  // for (let x of rawGroup) {
-  //   allGroups.value.push(x.groupNumber)
-  // }
-  allowedOptions.value = await getAllowedOption(selectedSubjects.value.id)
-  console.log("allowed get", selectedSubjects.value, allowedOptions.value)
 
-  const sub = selectedSubjects.value
+      allowedOptions.value = await getAllowedOption(getSelectedSub().id)
+      if (allowedOptions.value === null) {
+        errorStatus.value = true
+      } else {
+        const sub = getSelectedSub()
 
-  const newSub = {
-    subject: sub.subjectName,
-    room: sub.room,
-    id: sub.id,
-    teacher: sub.teacher,
-    group: sub.groups,
-    actual: true
-  }
-  const subMirror = {
-    subject: sub.subjectName,
-    room: sub.room,
-    id: sub.id,
-    teacher: sub.teacher,
-    group: sub.groups,
-    actual: false
-  }
-  try {
-    editPosition.value["day"] = daysOfWeek.value[sub.dayNumber - 1]
-    editPosition.value["slot"] = timeSlots.value[sub.pairNumber - 1]
-    schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]]
-        .push(newSub)
-    schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]]
-        .push(subMirror)
-  } catch (E) {
-    schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]] =
-        [newSub]
-    schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]]
-        .push(subMirror)
-  }
+        const newSub = {
+          subject: sub.subjectName,
+          room: sub.room,
+          id: sub.id,
+          teacher: sub.teacher,
+          group: sub.groups,
+          actual: true
+        }
+        const subMirror = {
+          subject: sub.subjectName,
+          room: sub.room,
+          id: sub.id,
+          teacher: sub.teacher,
+          group: sub.groups,
+          actual: false
+        }
+        try {
+          editPosition.value["day"] = daysOfWeek.value[sub.dayNumber - 1]
+          editPosition.value["slot"] = timeSlots.value[sub.pairNumber - 1]
+          schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]]
+              .push(newSub)
+          schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]]
+              .push(subMirror)
+        } catch (E) {
+          schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]] =
+              [newSub]
+          schedule[daysOfWeek.value[sub.dayNumber - 1]][timeSlots.value[sub.pairNumber - 1]]
+              .push(subMirror)
+        }
+        checkAllowed(sub, allowedOptions, allowedArr, allRooms, teachers)
 
-  console.log("allowed chechk")
-  checkAllowed(selectedSubjects.value, allowedOptions, allowedArr, allRooms, teachers)
-
-  //for (const sub of Object.values(selectedSubjects.value)) {
+      }
+      //for (const sub of Object.values(selectedSubjects.value)) {
 
 
-  // const subjects = await getAllTimetable(true)
-  // allSub.value = {}
-  // for (const sub of subjects) {
-  //   allSub.value[sub.id] = sub;
-  // }
-})
+      // const subjects = await getAllTimetable(true)
+      // allSub.value = {}
+      // for (const sub of subjects) {
+      //   allSub.value[sub.id] = sub;
+      // }
+    }
+)
 </script>
 
 <template>

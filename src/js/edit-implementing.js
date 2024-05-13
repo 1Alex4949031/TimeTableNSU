@@ -1,8 +1,8 @@
 import {customInstance} from "@/js/axios-instance";
-import {selectedSubjects} from "@/js/edit-timetable";
+import {getSelectedSub} from "@/js/edit-timetable";
 export async function saveEditRequest(ArrSubject) {
     let url = "/timetable/potential/change"
-    if (ArrSubject['newTeacherFullName'] !== selectedSubjects.value['teacher']) {
+    if (ArrSubject['newTeacherFullName'] !== getSelectedSub()['teacher']) {
         url += "/teacher"
     } else {
         url += "/day_and_pair_number_and_room"
@@ -35,7 +35,7 @@ export async function getAllowedOption(id) {
             {
                 useToken: false,
                 requestName: "Get Allowed Option",
-                timeout: 70000
+                timeout: 240000
             }
         )
         .then(response => {

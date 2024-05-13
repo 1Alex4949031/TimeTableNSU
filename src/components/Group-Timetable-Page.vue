@@ -7,7 +7,7 @@ import labSvg from '@/assets/images/lab.svg'
 import pracSvg from '@/assets/images/prac.svg'
 import lecSvg from '@/assets/images/lec.svg'
 import router from "@/router/router";
-import {selectedSubjects} from "@/js/edit-timetable";
+import {setSelectedSub} from "@/js/edit-timetable";
 import editSvg from '@/assets/images/edit.svg'
 
 
@@ -84,7 +84,7 @@ const getLessonImage = (item) => {
                     {{ item.teacher }}
                   </span> <br>
                   <img v-if="isPotential"
-                       @click="selectedSubjects = item;router.push('/time-table-edit')"
+                       @click="setSelectedSub(item);router.push('/time-table-edit')"
                        class="edit-icon"
                        :src="editSvg" alt="Edit"/>
                 </div>
