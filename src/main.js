@@ -8,16 +8,13 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 // AOS для
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-
 AOS.init()
+
 //Montserrat
 import './css/font.css'
-//Loader 3d
-import './css/loaders/loader-3d.css'
 //Toast
 import Toast, {POSITION} from "vue-toastification";
-
-const options = {position: POSITION.BOTTOM_RIGHT};
+const options = { position: POSITION.BOTTOM_RIGHT};
 
 createApp(App)
     .use(BootstrapVue3)

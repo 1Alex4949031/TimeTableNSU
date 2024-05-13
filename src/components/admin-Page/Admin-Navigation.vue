@@ -31,7 +31,7 @@ function routeToPage(page) {
         <b-button class="custom-btn-red mt-2 mb-2" @click="routeToPage('/potential')">Изменение потенциального расписания
           расписания
         </b-button>
-        <b-button class="custom-btn-blue mt-2 mb-2" @click="routeToPage('/changes_log')">Лог изменений</b-button>
+        <b-button class="custom-btn-red mt-2 mb-2" @click="routeToPage('/changes_log')">Лог изменений</b-button>
         <b-button class="custom-btn mt-2 mb-2" @click="logOut()">Выход</b-button>
       </b-col>
       <b-col md="6">

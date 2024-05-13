@@ -8,7 +8,6 @@ import pracSvg from '@/assets/images/prac.svg'
 import lecSvg from '@/assets/images/lec.svg'
 import router from "@/router/router";
 import {selectedSubjects} from "@/js/edit-timetable";
-import editSvg from '@/assets/images/edit.svg'
 
 
 const isLoaded = ref(false);
@@ -83,10 +82,9 @@ const getLessonImage = (item) => {
                   <span class="nav-teacher" @click="goToTeacherTimetable(item.teacher)">
                     {{ item.teacher }}
                   </span> <br>
-                  <img v-if="isPotential"
-                       @click="selectedSubjects = item;router.push('/time-table-edit')"
-                       class="edit-icon"
-                       :src="editSvg" alt="Edit"/>
+                  <button v-if="isPotential" @click="selectedSubjects = item;router.push('/time-table-edit')">
+                    Выбрать
+                  </button>
                 </div>
               </div>
             </div>
@@ -150,18 +148,6 @@ const getLessonImage = (item) => {
 
 .schedule-table thead th {
   background-color: #f2f2f2;
-}
-
-.edit-icon {
-  font-size: 16px;
-  visibility: hidden;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-}
-
-.class-cell-info:hover .edit-icon {
-  visibility: visible;
 }
 
 </style>

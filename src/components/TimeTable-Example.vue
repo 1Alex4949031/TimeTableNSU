@@ -1,7 +1,6 @@
 <script setup>
 
 import {ref} from "vue";
-import Loader3d from "@/components/loaders/Loader-3d.vue";
 
 const daysOfWeek = ref(['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']);
 const timeSlots = ref(['9:00', '10:50', '12:40', '14:30', '16:20', '18:10', '20:00']);
@@ -107,7 +106,6 @@ const moveClass = (fromDay, fromTimeSlot, toDay, toTimeSlot, lesson) => {
       </tbody>
     </table>
   </b-col>
-  <Loader3d/>
 </template>
 
 <style scoped>

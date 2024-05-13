@@ -121,7 +121,6 @@ function saveEditServer() {
   //   }
   // }
 }
-
 function getEditSubject() {
   const newPairData = schedule[editPosition.value['day']][editPosition.value["slot"]].find(l => l.actual === true);
   newPairData["dayNumber"] = daysOfWeek.value.indexOf(editPosition.value['day']) + 1
@@ -189,45 +188,43 @@ onMounted(async () => {
 
 <template>
   <b-col class="schedule-container ms-4 me-4 mt-4 mb-4">
-    <b-col class="mb-4">
-      <table class="schedule-table">
-        <thead>
-        <tr>
-          <th>Время</th>
-          <th v-for="day in daysOfWeek" :key="day">{{ day }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(timeSlot, indexSlot) in timeSlots" :key="indexSlot">
-          <th>{{ timeSlot }}</th>
-          <td v-for="(day, indexDay) in daysOfWeek" :key="indexDay"
-              @dragover.prevent="handleDragOver"
-              @drop.prevent="handleDrop($event, day, timeSlot)">
-            <div class="class-cell" :class="{allowed: onMove && allowedArr[indexDay][indexSlot]}">
-              <div v-for="lesson in getClassInfo(day, timeSlot)" :key="lesson.subject">
-                <div v-if="lesson.actual"
-                     class="lesson actual"
-                     :class="{invalid : !isAllowedMove}"
-                     :draggable="true"
-                     @dragstart="handleDragStart($event, day, timeSlot, lesson)">
-                  <span>{{ lesson.subject }} </span><span>{{ lesson.teacher }}</span><br>
-                  <span>{{ lesson.room }} </span><span> {{ lesson.id }}</span>
-                  <button @click="editLesson(lesson)">edit</button>
-                </div>
-                <div
-                    v-else-if="getClassInfo(day,timeSlot).find(l => l.id === lesson.id && l.actual === true) === undefined"
-                    class="lesson previous">
-                  <span>{{ lesson.subject }} </span><span>{{ lesson.teacher }}</span><br>
-                  <span>{{ lesson.room }} </span><span> {{ lesson.id }}</span>
-                </div>
+    <table class="schedule-table">
+      <thead>
+      <tr>
+        <th>Время</th>
+        <th v-for="day in daysOfWeek" :key="day">{{ day }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="(timeSlot, indexSlot) in timeSlots" :key="indexSlot">
+        <th>{{ timeSlot }}</th>
+        <td v-for="(day, indexDay) in daysOfWeek" :key="indexDay"
+            @dragover.prevent="handleDragOver"
+            @drop.prevent="handleDrop($event, day, timeSlot)">
+          <div class="class-cell" :class="{allowed: onMove && allowedArr[indexDay][indexSlot]}">
+            <div v-for="lesson in getClassInfo(day, timeSlot)" :key="lesson.subject">
+              <div v-if="lesson.actual"
+                   class="lesson actual"
+                   :class="{invalid : !isAllowedMove}"
+                   :draggable="true"
+                   @dragstart="handleDragStart($event, day, timeSlot, lesson)">
+                <span>{{ lesson.subject }} </span><span>{{ lesson.teacher }}</span><br>
+                <span>{{ lesson.room }} </span><span> {{ lesson.id }}</span>
+                <button @click="editLesson(lesson)">edit</button>
+              </div>
+              <div
+                  v-else-if="getClassInfo(day,timeSlot).find(l => l.id === lesson.id && l.actual === true) === undefined"
+                  class="lesson previous">
+                <span>{{ lesson.subject }} </span><span>{{ lesson.teacher }}</span><br>
+                <span>{{ lesson.room }} </span><span> {{ lesson.id }}</span>
               </div>
             </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </b-col>
-    <b-button class="custom-btn-red" @click="saveEditServer()">Сохранить</b-button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+      <b-button @click="saveEditServer()">Save</b-button>
+    </table>
   </b-col>
   <transition enter-active-class="modal-enter-active"
               leave-active-class="modal-leave-active">
@@ -242,9 +239,9 @@ onMounted(async () => {
             <b-form>
               <b-form-group class="form-group" label="Преподователь" label-for="input-subject-teacher">
                 <Multiselect
-                    v-model="teacher"
-                    :options="teachers"
-                />
+                  v-model="teacher"
+                  :options="teachers"
+              />
               </b-form-group>
               <b-form-group class="form-group" label="Группы" label-for="input-subject-groups">
                 <Multiselect
@@ -273,22 +270,6 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.custom-btn-red {
-  background-color: #fff;
-  color: black;
-  border: 1px solid #ced4da;
-  border-radius: 20px;
-  font-size: 1rem;
-  width: 15%;
-  transition: background-color 0.5s ease;
-}
-
-.custom-btn-red:hover {
-  background-color: #FF5656;
-  color: white;
-  border: 1px solid #fff;
-}
-
 .schedule-container {
   overflow-x: auto;
 }
@@ -323,11 +304,9 @@ onMounted(async () => {
 .allowed {
   background-color: #8aee34;
 }
-
 .invalid {
   background-color: #f15555 !important;
 }
-
 .actual {
   background-color: #ffffff;
 }
