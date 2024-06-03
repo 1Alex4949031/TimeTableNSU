@@ -13,6 +13,7 @@ import {
 import Multiselect from '@vueform/multiselect'
 import "@vueform/multiselect/themes/default.css"
 import imageModal from "@/assets/images/imageModal4.png";
+import {processGroup, processPlan, processRoom, processSubject} from "@/js/process-select";
 
 const removeType = ["Групп", "Комнат", "Предметов", "Учебного плана"]
 const selectedRemoveType = ref()
@@ -69,33 +70,6 @@ async function remove() {
       break;
     }
   }
-}
-
-function processGroup(rawGroup) {
-  return rawGroup.map(group => {
-    return {value: group.groupNumber, label: group.groupNumber + " " + group.faculty};
-  });
-}
-
-function processSubject(rawSubject) {
-  return rawSubject.map(subject => {
-    return {value: subject, label: subject};
-  });
-}
-
-function processRoom(rawRoom) {
-  return rawRoom.map(room => {
-    return {value: room.name, label: room.name + " " + room.type + " Вместимость: " + room.capacity};
-  });
-}
-
-function processPlan(rawPlan) {
-  return rawPlan.map(plan => {
-    return {
-      value: plan.id,
-      label: plan.teacher + " " + plan.subject + " Вместимость: " + plan.groups + " " + plan.subjectType + " " + plan.timesInAWeek
-    };
-  });
 }
 
 onMounted(async () => {

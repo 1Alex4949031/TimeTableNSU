@@ -7,15 +7,18 @@ import labSvg from '@/assets/images/lab.svg'
 import pracSvg from '@/assets/images/prac.svg'
 import lecSvg from '@/assets/images/lec.svg'
 import router from "@/router/router";
+import {setSelectedSub} from "@/js/edit-timetable";
+import editSvg from '@/assets/images/edit.svg'
 
 
 const isLoaded = ref(false);
 const route = useRoute();
 const timetable = ref([]);
 const groupNumber = route.params.group;
+const isPotential = route.params.potential === "potential"
 
 onMounted(async () => {
-  timetable.value = await getGroupTimetable(groupNumber);
+  timetable.value = await getGroupTimetable(groupNumber, isPotential);
   isLoaded.value = true
 })
 
@@ -80,6 +83,10 @@ const getLessonImage = (item) => {
                   <span class="nav-teacher" @click="goToTeacherTimetable(item.teacher)">
                     {{ item.teacher }}
                   </span> <br>
+                  <img v-if="isPotential"
+                       @click="setSelectedSub(item);router.push('/time-table-edit')"
+                       class="edit-icon"
+                       :src="editSvg" alt="Edit"/>
                 </div>
               </div>
             </div>
@@ -143,6 +150,18 @@ const getLessonImage = (item) => {
 
 .schedule-table thead th {
   background-color: #f2f2f2;
+}
+
+.edit-icon {
+  font-size: 16px;
+  visibility: hidden;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.class-cell-info:hover .edit-icon {
+  visibility: visible;
 }
 
 </style>
