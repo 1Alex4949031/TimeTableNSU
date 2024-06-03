@@ -1,5 +1,6 @@
 <script setup>
 import {ref} from "vue";
+import Loader3d from "@/components/loaders/Loader-3d.vue";
 
 const daysOfWeek = ref(['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']);
 const timeSlots = ref(['9:00', '10:50', '12:40', '14:30', '16:20', '18:10', '20:00']);
@@ -33,6 +34,7 @@ const schedule = ref({
     '14:30': [{subject: 'Английский', classroom: '4412', teacher: 'Саня Лапушинский'}],
     '16:20': [{subject: 'История', classroom: 'На улице', teacher: 'Саня Лапушинский'}],
     '18:10': [{subject: 'Физика', classroom: '5012', teacher: 'Саня Лапушинский'}],
+
   }
 });
 const getClassInfo = (day, time) => {
@@ -114,6 +116,7 @@ const moveClass = (fromDay, fromTimeSlot, toDay, toTimeSlot, lesson) => {
       </tbody>
     </table>
   </b-col>
+  <Loader3d/>
 </template>
 
 <style scoped>
@@ -181,4 +184,16 @@ const moveClass = (fromDay, fromTimeSlot, toDay, toTimeSlot, lesson) => {
 .schedule-table thead th {
   background-color: #f2f2f2;
 }
+
+.lesson {
+  border: 1px solid #ced4da;
+  margin-bottom: 5px;
+}
+
+.class-cell {
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+}
+
 </style>

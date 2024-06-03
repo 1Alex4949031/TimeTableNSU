@@ -258,3 +258,18 @@ export function removePlan(id) {
             console.error(consoleMessage)
         });
 }
+
+export async function getChanges() {
+    return customInstance
+        .get(
+            '/api/admin/get_logs/all',
+            {useToken: false, requestName: "Get all change", showToast: false}
+        )
+        .then(response => {
+            console.log(response.config["requestName"], "Done")
+            return response.data
+        })
+        .catch(consoleMessage => {
+            console.error(consoleMessage)
+        });
+}
