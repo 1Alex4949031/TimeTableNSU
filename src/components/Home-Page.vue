@@ -1,5 +1,5 @@
 <script setup>
-import {ref, onMounted} from 'vue';
+import {onMounted, ref} from 'vue';
 import router from "@/router/router";
 
 import exampleImg1 from '@/assets/images/example1.png'
@@ -75,10 +75,13 @@ function toAllGroups() {
           <h1 class="text-for-teacher">Для учителей</h1>
         </b-col>
         <b-col class="d-flex justify-content-center align-content-between mt-2 mb-2 ms-5 me-5">
-          <h4 v-if="isUserLogin === 'User'" class="text-for-teacher-description">Для того, чтобы добавлять предпочтения,
-            пожалуйста, свяжитесь с администратором и войдите в систему!</h4>
-          <h4 v-else class="text-for-teacher-description">Вы успешно вошли в систему, теперь можно создать предпочтения.
-            Перейдите в соответствующий раздел!</h4>
+          <h4 v-if="isUserLogin === 'User'" class="text-for-teacher-description">Для того, чтобы <span
+              class="bold-text">добавлять предпочтения</span>,
+            пожалуйста, <span class="bold-text">свяжитесь с администратором</span> и <span class="bold-text">войдите в систему</span>!
+          </h4>
+          <h4 v-else class="text-for-teacher-description">Вы <span class="bold-text">успешно вошли в систему</span>,
+            теперь можно <span class="bold-text">создать предпочтения</span>.
+            Перейдите в соответствующий <span class="bold-text">раздел</span>!</h4>
         </b-col>
         <b-col class="nav-faculty mt-2 mb-2">
           <b-button v-if="isUserLogin === 'User'" class="custom-btn" @click="openModalAuth()">Войти в систему</b-button>
