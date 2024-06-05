@@ -54,10 +54,6 @@ function toAllGroups() {
     <b-row class="flex-grow-1">
       <b-col cols="12" class="p-0">
         <div class="background-image"></div>
-        <!--        <div class="background-image"-->
-        <!--             :style="{backgroundImage: `url(${currentImage})`}"-->
-        <!--             :key="currentImage.value">-->
-        <!--        </div>-->
       </b-col>
     </b-row>
 
@@ -126,23 +122,25 @@ function toAllGroups() {
       <b-col md="4" class="mb-3">
         <b-img class="image-example" :src="exampleImg1" alt="Картинка 1"></b-img>
         <b-col>
-          <p class="description">Администратор регистрирует учителей в системе,
-            создав учебные планы по их предметам.</p>
+          <p class="description">Администратор <span class="bold-text">регистрирует учителей</span> в системе,
+            <span class="bold-text">создав учебные планы</span> по их предметам.</p>
         </b-col>
       </b-col>
 
       <b-col md="4" class="mb-3">
         <b-img class="image-example" :src="exampleImg2" alt="Картинка 2"></b-img>
         <b-col>
-          <p class="description">Учитель вносит предпочтения и ограничения для своего учебного плана.
-            Администратор создает расписание.</p>
+          <p class="description">Учитель <span class="bold-text">вносит предпочтения и ограничения</span> для своего
+            учебного плана.
+            Администратор <span class="bold-text">создает расписание</span>.</p>
         </b-col>
       </b-col>
 
       <b-col md="4" class="mb-3">
         <b-img class="image-example" :src="exampleImg3" alt="Картинка 3"></b-img>
         <b-col>
-          <p class="description">Любой пользователь системы может увидеть необходимое ему расписание!</p>
+          <p class="description">Любой пользователь системы может <span class="bold-text">посмотреть интересующее расписание!</span>
+          </p>
         </b-col>
       </b-col>
     </b-row>
@@ -150,6 +148,11 @@ function toAllGroups() {
 </template>
 
 <style scoped>
+.bold-text {
+  font-weight: bold;
+}
+
+
 .transparent-line {
   width: 100%;
   border-top: 2px solid #EAEAEA;
