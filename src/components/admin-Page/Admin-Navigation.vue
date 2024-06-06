@@ -27,8 +27,8 @@ function routeToPage(page) {
   <div v-if="isUserLogin === 'Admin'">
     <b-row data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
       <b-col md="7">
-        <h2 class="title mb-3 mt-4 ms-1 me-1">Панель администратора</h2>
-        <h2 class="title ms-1 me-1">Добавление</h2>
+        <h2 class="title mb-3 mt-4">Панель администратора</h2>
+        <h3 class="subtitle mt-2">Добавление</h3>
         <b-row class="mt-1 mx-1 mb-1">
           <b-col md="4" class="navigate-image mb-3">
             <b-img class="nav-img image-example" @click="routeToPage('/newGroup')" :src="groupPng"
@@ -66,7 +66,7 @@ function routeToPage(page) {
             <h3 class="centered-text">Ограничения</h3>
           </b-col>
         </b-row>
-        <h2 class="title ms-1 me-1">Взаимодействие с расписанием</h2>
+        <h3 class="subtitle mt-2">Взаимодействие с расписанием</h3>
         <b-row class="mt-1 mx-1 mb-1">
           <b-col md="6" class="navigate-image mb-3">
             <b-img class="nav-img image-example" @click="routeToPage('/createTimetable')" :src="tablePng"
@@ -81,7 +81,7 @@ function routeToPage(page) {
           </b-col>
         </b-row>
 
-        <h2 class="title ms-1 me-1">Удаление</h2>
+        <h3 class="subtitle mt-2">Удаление</h3>
         <b-row class="mt-1 mx-1 mb-1">
           <b-col md="6" class="navigate-image mb-3">
             <b-img class="nav-img image-example" @click="routeToPage('/removeBase')" :src="potentialTablePng2"
@@ -96,7 +96,7 @@ function routeToPage(page) {
           </b-col>
         </b-row>
 
-        <h2 class="title ms-1 me-1">Дополнительно</h2>
+        <h3 class="subtitle mt-2">Дополнительно</h3>
         <b-row class="mt-1 mx-1 mb-1">
           <b-col md="6" class="navigate-image mb-3">
             <b-img class="nav-img image-example" @click="routeToPage('/changes_log')" :src="changesPng"
@@ -198,6 +198,12 @@ function routeToPage(page) {
 
 .rounded-custom {
   border-radius: 130px;
+}
+
+.subtitle {
+  text-align: center;
+  font-weight: lighter;
+  font-size: 1.7rem;
 }
 
 .title {
