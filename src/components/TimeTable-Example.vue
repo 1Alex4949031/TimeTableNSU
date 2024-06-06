@@ -1,5 +1,4 @@
 <script setup>
-
 import {ref} from "vue";
 import LoaderCommon from "@/components/loaders/Loader-Common.vue";
 
@@ -7,34 +6,35 @@ const daysOfWeek = ref(['Понедельник', 'Вторник', 'Среда'
 const timeSlots = ref(['9:00', '10:50', '12:40', '14:30', '16:20', '18:10', '20:00']);
 const schedule = ref({
   'Понедельник': {
-    '9:00': [{subject: 'Математика', classroom: '5050'}],
-    '10:50': [{subject: 'Физика', classroom: '5012'}],
-    '12:40': [{subject: 'Физ-ра', classroom: 'Спортзал'}],
-    '14:30': [{subject: 'Английский', classroom: '4412'}],
-    '16:20': [{subject: 'История', classroom: 'На улице'}],
-    '18:10': [{subject: 'Физика', classroom: '5012'}],
+    '9:00': [{subject: 'Математика', classroom: '5050', teacher: 'Саня Лапушинский'}],
+    '10:50': [{subject: 'Физика', classroom: '5012', teacher: 'Саня Лапушинский'}],
+    '12:40': [{subject: 'Физ-ра', classroom: 'Спортзал', teacher: 'Саня Лапушинский'}],
+    '14:30': [{subject: 'Английский', classroom: '4412', teacher: 'Саня Лапушинский'}],
+    '16:20': [{subject: 'История', classroom: 'На улице', teacher: 'Саня Лапушинский'}],
+    '18:10': [{subject: 'Физика', classroom: '5012', teacher: 'Саня Лапушинский'}],
   },
   'Вторник': {
-    '14:30': [{subject: 'Английский', classroom: '4412'}],
-    '16:20': [{subject: 'История', classroom: 'На улице'}],
-    '18:10': [{subject: 'Физика', classroom: '5012'}],
+    '14:30': [{subject: 'Английский', classroom: '4412', teacher: 'Саня Лапушинский'}],
+    '16:20': [{subject: 'История', classroom: 'На улице', teacher: 'Саня Лапушинский'}],
+    '18:10': [{subject: 'Физика', classroom: '5012', teacher: 'Саня Лапушинский'}],
   },
   'Среда': {
-    '10:50': [{subject: 'Физика', classroom: '5012'}],
-    '12:40': [{subject: 'Физ-ра', classroom: 'Спортзал'}],
-    '14:30': [{subject: 'Английский', classroom: '4412'}],
+    '10:50': [{subject: 'Физика', classroom: '5012', teacher: 'Саня Лапушинский'}],
+    '12:40': [{subject: 'Физ-ра', classroom: 'Спортзал', teacher: 'Саня Лапушинский'}],
+    '14:30': [{subject: 'Английский', classroom: '4412', teacher: 'Саня Лапушинский'}],
   },
   'Четверг': {
-    '16:20': [{subject: 'История', classroom: 'На улице'}],
-    '18:10': [{subject: 'Физика', classroom: '5012'}],
+    '16:20': [{subject: 'История', classroom: 'На улице', teacher: 'Саня Лапушинский'}],
+    '18:10': [{subject: 'Физика', classroom: '5012', teacher: 'Саня Лапушинский'}],
   },
   'Пятница': {
-    '9:00': [{subject: 'Математика', classroom: '5050'}],
-    '10:50': [{subject: 'Физика', classroom: '5012'}],
-    '12:40': [{subject: 'Физ-ра', classroom: 'Спортзал'}],
-    '14:30': [{subject: 'Английский', classroom: '4412'}],
-    '16:20': [{subject: 'История', classroom: 'На улице'}],
-    '18:10': [{subject: 'Физика', classroom: '5012'}],
+    '9:00': [{subject: 'Математика', classroom: '5050', teacher: 'Саня Лапушинский'}],
+    '10:50': [{subject: 'Физика', classroom: '5012', teacher: 'Саня Лапушинский'}],
+    '12:40': [{subject: 'Физ-ра', classroom: 'Спортзал', teacher: 'Саня Лапушинский'}],
+    '14:30': [{subject: 'Английский', classroom: '4412', teacher: 'Саня Лапушинский'}],
+    '16:20': [{subject: 'История', classroom: 'На улице', teacher: 'Саня Лапушинский'}],
+    '18:10': [{subject: 'Физика', classroom: '5012', teacher: 'Саня Лапушинский'}],
+
   }
 });
 const getClassInfo = (day, time) => {
@@ -95,11 +95,20 @@ const moveClass = (fromDay, fromTimeSlot, toDay, toTimeSlot, lesson) => {
             @drop.prevent="handleDrop($event, day, timeSlot)">
           <div class="class-cell">
             <div v-for="lesson in getClassInfo(day, timeSlot)" :key="lesson.subject"
-                 class="lesson"
                  :draggable="true"
                  @dragstart="handleDragStart($event, day, timeSlot, lesson)">
-              <span>{{ lesson.subject }}</span><br>
-              <span>{{ lesson.classroom }}</span>
+              <div class="class-cell-info">
+                <div class="lesson-img"/>
+                <div class="subject-info lec-background">
+                  {{ lesson.subject }} <br>
+                  <span class="nav-teacher">
+                     {{ lesson.teacher }}
+                  </span> <br>
+                  <span class="nav-room">
+                    {{ lesson.classroom }}
+                  </span> <br>
+                </div>
+              </div>
             </div>
           </div>
         </td>
@@ -113,6 +122,51 @@ const moveClass = (fromDay, fromTimeSlot, toDay, toTimeSlot, lesson) => {
 </template>
 
 <style scoped>
+
+.lesson-img {
+  background-color: rgba(144, 238, 144, 0.8);
+  border-radius: 50px;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: -8px;
+  top: -8px;
+}
+
+.lec-background {
+  background-color: rgba(144, 238, 144, 0.2);
+}
+
+.subject-info {
+  border-radius: 10px;
+  padding: 10px;
+  color: rgba(0, 0, 0, 0.91);
+  font-size: 19px;
+  text-align: left;
+  margin: 10px auto;
+  font-weight: 600;
+}
+
+.nav-room {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.nav-teacher {
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.class-cell-info {
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.class-cell {
+  min-height: 60px;
+}
+
+
 .schedule-container {
   overflow-x: auto;
 }
