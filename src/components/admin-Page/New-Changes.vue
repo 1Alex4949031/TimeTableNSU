@@ -30,7 +30,8 @@ const formatDate = (dateString) => {
             v-else-if="changes.length === 0">Похоже, список пуст!</h4>
         <ul class="list-group list-group-flush" data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
           <li class="list-group-item" v-for="(change, index) in changes" :key="change.id">
-            {{ index + 1 }}) {{ formatDate(change.dateOfCreation) }} <br> {{ change.description }}
+            {{ index + 1 }}) <span class="bold-text">{{ formatDate(change.dateOfCreation) }}</span> <br>
+            {{ change.description }}
           </li>
         </ul>
       </b-col>
@@ -44,6 +45,10 @@ const formatDate = (dateString) => {
 </template>
 
 <style scoped>
+.bold-text {
+  font-weight: bold;
+}
+
 .list-group-item {
   font-size: 1.2em;
 }
