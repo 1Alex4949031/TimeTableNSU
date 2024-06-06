@@ -10,10 +10,8 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 AOS.init()
-//Montserrat
+//Font
 import './css/font.css'
-//Loader 3d
-import './css/loaders/loader-3d.css'
 //Toast
 import Toast, {POSITION} from "vue-toastification";
 
