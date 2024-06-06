@@ -28,6 +28,7 @@ function routeToPage(page) {
     <b-row data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
       <b-col md="7">
         <h2 class="title mb-3 mt-4">Панель администратора</h2>
+        <b-col class="transparent-line mx-2 my-2"></b-col>
         <h3 class="subtitle mt-2">Добавление</h3>
         <b-row class="mt-1 mx-1 mb-1">
           <b-col md="4" class="navigate-image mb-3">
@@ -66,6 +67,7 @@ function routeToPage(page) {
             <h3 class="centered-text">Ограничения</h3>
           </b-col>
         </b-row>
+        <b-col class="transparent-line mx-2 my-2"></b-col>
         <h3 class="subtitle mt-2">Взаимодействие с расписанием</h3>
         <b-row class="mt-1 mx-1 mb-1">
           <b-col md="6" class="navigate-image mb-3">
@@ -81,6 +83,7 @@ function routeToPage(page) {
           </b-col>
         </b-row>
 
+        <b-col class="transparent-line mx-2 my-2"></b-col>
         <h3 class="subtitle mt-2">Удаление</h3>
         <b-row class="mt-1 mx-1 mb-1">
           <b-col md="6" class="navigate-image mb-3">
@@ -96,7 +99,9 @@ function routeToPage(page) {
           </b-col>
         </b-row>
 
+        <b-col class="transparent-line mx-2 my-2"></b-col>
         <h3 class="subtitle mt-2">Дополнительно</h3>
+
         <b-row class="mt-1 mx-1 mb-1">
           <b-col md="6" class="navigate-image mb-3">
             <b-img class="nav-img image-example" @click="routeToPage('/changes_log')" :src="changesPng"
@@ -151,6 +156,11 @@ function routeToPage(page) {
 </template>
 
 <style scoped>
+.transparent-line {
+  width: 100%;
+  border-top: 2px solid #EAEAEA;
+}
+
 .centered-text {
   position: absolute;
   top: 50%;
