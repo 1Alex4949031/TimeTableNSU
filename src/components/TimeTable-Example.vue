@@ -79,7 +79,11 @@ const moveClass = (fromDay, fromTimeSlot, toDay, toTimeSlot, lesson) => {
 </script>
 
 <template>
-  <b-col class="schedule-container ms-4 me-4 mt-4 mb-4">
+  <div class="loader-container">
+    <LoaderCommon class="loader-common"/>
+  </div>
+
+  <b-col class="schedule-container ms-4 me-4 mt-4 mb-4 position-relative">
     <table class="schedule-table">
       <thead>
       <tr>
@@ -115,13 +119,22 @@ const moveClass = (fromDay, fromTimeSlot, toDay, toTimeSlot, lesson) => {
       </tr>
       </tbody>
     </table>
-
-
   </b-col>
-  <LoaderCommon/>
 </template>
 
 <style scoped>
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 1000;
+}
 
 .lesson-img {
   background-color: rgba(144, 238, 144, 0.8);
