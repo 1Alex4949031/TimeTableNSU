@@ -40,6 +40,17 @@ const getLessonImage = (item) => {
   }
 };
 
+const getBackgroundClass = (item) => {
+  switch (item.pairType) {
+    case 'lab':
+      return 'lab-background';
+    case 'prac':
+      return 'prac-background';
+    default:
+      return 'lec-background';
+  }
+};
+
 const goToGroupTimetable = (groupNumber) => {
   router.push({path: `/${groupNumber}/table`});
 };
@@ -70,15 +81,15 @@ const goToGroupTimetable = (groupNumber) => {
             <div v-for="item in getSchedule(day, pair)" :key="item.id">
               <div class="class-cell-info" :class="{ 'has-border': getSchedule(day, pair).length >= 2 }">
                 <img class="lesson-svg" :src="getLessonImage(item)" :alt="item.pairType">
-                <div class="subject-info">
+                <div class="subject-info" :class="getBackgroundClass(item)">
                   {{ item.subjectName }} <br>
+                  <span class="nav-teacher" @click="goToTeacherTimetable(item.teacher)">
+                    {{ item.teacher }} </span> <br>
                   <span v-for="group in item.groups.split(',')"
                         :key="group"
                         @click="goToGroupTimetable(group)"
-                        class="group-link">
+                        class="nav-group">
                   {{ group }} </span> <br>
-                  <span class="nav-teacher" @click="goToTeacherTimetable(item.teacher)">
-                    {{ item.teacher }} </span> <br>
                 </div>
               </div>
             </div>
@@ -91,14 +102,18 @@ const goToGroupTimetable = (groupNumber) => {
 </template>
 
 <style scoped>
-.group-link {
-  margin-right: 10px;
-  cursor: pointer;
+.lab-background {
+  background-color: rgba(255, 168, 0, 0.2);
 }
 
-.nav-teacher {
-  cursor: pointer;
+.prac-background {
+  background-color: rgba(0, 117, 255, 0.2);
 }
+
+.lec-background {
+  background-color: rgba(144, 238, 144, 0.2);
+}
+
 
 .class-cell-info.has-border {
   margin-top: 5px;
@@ -106,16 +121,13 @@ const goToGroupTimetable = (groupNumber) => {
   border-bottom: 1px solid #ddd;
 }
 
-.subject-info {
-  margin-right: 30px;
-}
 
 .lesson-svg {
   position: absolute;
   width: 25px;
   height: 25px;
-  right: 0;
-  top: 0;
+  right: -8px;
+  top: -8px;
 }
 
 .class-cell-info {
@@ -145,4 +157,26 @@ const goToGroupTimetable = (groupNumber) => {
   background-color: #f2f2f2;
 }
 
+.subject-info {
+  border-radius: 10px;
+  padding: 10px;
+  color: rgba(0, 0, 0, 0.91);
+  font-size: 19px;
+  text-align: left;
+  margin: 10px auto;
+  font-weight: 600;
+}
+
+.nav-teacher {
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.nav-group {
+  cursor: pointer;
+  margin-right: 10px;
+  font-weight: 500;
+  font-size: 15px;
+}
 </style>

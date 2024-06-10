@@ -36,6 +36,17 @@ const getLessonImage = (item) => {
   }
 };
 
+const getBackgroundClass = (item) => {
+  switch (item.pairType) {
+    case 'lab':
+      return 'lab-background';
+    case 'prac':
+      return 'prac-background';
+    default:
+      return 'lec-background';
+  }
+};
+
 const goToGroupTimetable = (groupNumber) => {
   router.push({path: `/${groupNumber}/table`});
 };
@@ -68,18 +79,20 @@ const goToRoomTimetable = (roomNumber) => {
         <td v-for="day in days" :key="day">
           <div class="class-cell">
             <div v-for="item in getSchedule(day, pair)" :key="item.id">
-              <img class="lesson-svg" :src="getLessonImage(item)" :alt="item.pairType">
-              <div class="class-cell-info">
-                {{ item.subjectName }} <br>
-                <span v-for="group in item.groups.split(',')"
-                      :key="group"
-                      @click="goToGroupTimetable(group)"
-                      class="group-link">
+              <div class="class-cell-info" :class="{ 'has-border': getSchedule(day, pair).length >= 2 }">
+                <img class="lesson-svg" :src="getLessonImage(item)" :alt="item.pairType">
+                <div class="subject-info" :class="getBackgroundClass(item)">
+                  {{ item.subjectName }} <br>
+                  <span v-for="group in item.groups.split(',')"
+                        :key="group"
+                        @click="goToGroupTimetable(group)"
+                        class="nav-group">
                   {{ group }}
                 </span> <br>
-                <span class="nav-room" @click="goToRoomTimetable(item.room)">
+                  <span class="nav-room" @click="goToRoomTimetable(item.room)">
                     {{ item.room }}
                   </span> <br>
+                </div>
               </div>
             </div>
           </div>
@@ -91,21 +104,40 @@ const goToRoomTimetable = (roomNumber) => {
 </template>
 
 <style scoped>
-.nav-room {
-  cursor: pointer;
+.lab-background {
+  background-color: rgba(255, 168, 0, 0.2);
 }
 
-.group-link {
-  cursor: pointer;
-  margin-right: 10px;
+.prac-background {
+  background-color: rgba(0, 117, 255, 0.2);
 }
+
+.lec-background {
+  background-color: rgba(144, 238, 144, 0.2);
+}
+
+
+.class-cell-info.has-border {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
 
 .lesson-svg {
   position: absolute;
   width: 25px;
   height: 25px;
-  right: 0;
-  top: 0;
+  right: -8px;
+  top: -8px;
+}
+
+.class-cell-info {
+  position: relative;
+}
+
+.class-cell {
+  min-height: 60px;
 }
 
 .schedule-container {
@@ -127,8 +159,26 @@ const goToRoomTimetable = (roomNumber) => {
   background-color: #f2f2f2;
 }
 
-.class-cell {
-  position: relative;
-  min-height: 60px;
+.subject-info {
+  border-radius: 10px;
+  padding: 10px;
+  color: rgba(0, 0, 0, 0.91);
+  font-size: 19px;
+  text-align: left;
+  margin: 10px auto;
+  font-weight: 600;
+}
+
+.nav-room {
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.nav-group {
+  cursor: pointer;
+  margin-right: 10px;
+  font-weight: 400;
+  font-size: 18px;
 }
 </style>
