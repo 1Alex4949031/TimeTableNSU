@@ -24,8 +24,7 @@
 
 <style scoped>
 .loader {
-  --path: #2F3545;
-  --dot: rgba(0, 113, 255, 0.5);
+  --dot: rgb(0, 113, 255);
   --duration: 3s;
   width: 44px;
   height: 44px;
@@ -52,7 +51,7 @@
 }
 .loader svg rect{
   fill: none;
-  stroke: var(--path);
+  stroke: rgba(144, 238, 144, 0.8);
   stroke-width: 10px;
   stroke-linejoin: round;
   stroke-linecap: round;
@@ -60,7 +59,7 @@
 
 .loader svg polygon{
   fill: none;
-  stroke: var(--path);
+  stroke: rgba(0, 117, 255, 0.8);
   stroke-width: 10px;
   stroke-linejoin: round;
   stroke-linecap: round;
@@ -68,7 +67,7 @@
 
 .loader svg circle {
   fill: none;
-  stroke: var(--path);
+  stroke: rgba(255, 168, 0, 0.8);
   stroke-width: 10px;
   stroke-linejoin: round;
   stroke-linecap: round;
