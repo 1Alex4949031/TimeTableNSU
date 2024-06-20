@@ -75,7 +75,7 @@ const goToRoomTimetable = (roomNumber) => {
       </thead>
       <tbody>
       <tr v-for="pair in Object.keys(pairTimes).length" :key="pair">
-        <td>{{ pairTimes[pair] }}</td>
+        <th>{{ pairTimes[pair] }}</th>
         <td v-for="day in days" :key="day">
           <div class="class-cell">
             <div v-for="item in getSchedule(day, pair)" :key="item.id">
@@ -153,10 +153,11 @@ const goToRoomTimetable = (roomNumber) => {
 .schedule-table td {
   border: 1px solid #ddd;
   padding: 8px;
+  text-align: center;
 }
 
 .schedule-table thead th {
-  background-color: #f2f2f2;
+  background-color: rgba(242, 242, 242, 0.5);
 }
 
 .subject-info {
