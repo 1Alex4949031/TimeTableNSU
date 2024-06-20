@@ -29,38 +29,38 @@ function routeToPage(page) {
       <b-col class="transparent-line my-2"></b-col>
       <h3 class="subtitle mt-2">Добавление</h3>
       <b-row class="mt-1 mx-5 mb-1">
-        <b-col md="4" class="navigate-image mb-3">
-          <b-img class="nav-img image-example" @click="routeToPage('/newGroup')" :src="groupPng"
+        <b-col md="4" class="navigate-image mb-3" @click="routeToPage('/newGroup')">
+          <b-img class="nav-img image-example" :src="groupPng"
                  alt="Группа"></b-img>
           <h3 class="centered-text">Группа</h3>
         </b-col>
 
-        <b-col md="4" class="navigate-image mb-3">
-          <b-img class="nav-img image-example" @click="routeToPage('/newTeacher')" :src="teacherPng"
+        <b-col md="4" class="navigate-image mb-3" @click="routeToPage('/newTeacher')">
+          <b-img class="nav-img image-example" :src="teacherPng"
                  alt="Учитель"></b-img>
           <h3 class="centered-text">Учитель</h3>
         </b-col>
 
-        <b-col md="4" class="navigate-image mb-3">
-          <b-img class="nav-img image-example" @click="routeToPage('/newRoom')" :src="roomPng"
+        <b-col md="4" class="navigate-image mb-3" @click="routeToPage('/newRoom')">
+          <b-img class="nav-img image-example" :src="roomPng"
                  alt="Комната"></b-img>
           <h3 class="centered-text">Комната</h3>
         </b-col>
 
-        <b-col md="4" class="navigate-image mb-3">
-          <b-img class="nav-img image-example" @click="routeToPage('/newSubj')" :src="subjectPng"
+        <b-col md="4" class="navigate-image mb-3" @click="routeToPage('/newSubj')">
+          <b-img class="nav-img image-example" :src="subjectPng"
                  alt="Предмет"></b-img>
           <h3 class="centered-text">Предмет</h3>
         </b-col>
 
-        <b-col md="4" class="navigate-image mb-3">
-          <b-img class="nav-img image-example" @click="routeToPage('/newPlan')" :src="planPng"
+        <b-col md="4" class="navigate-image mb-3" @click="routeToPage('/newPlan')">
+          <b-img class="nav-img image-example" :src="planPng"
                  alt="Учебный план"></b-img>
           <h3 class="centered-text">Учебный план</h3>
         </b-col>
 
-        <b-col md="4" class="navigate-image mb-3">
-          <b-img class="nav-img image-example" @click="routeToPage('/newConstraint')" :src="constraintPng1"
+        <b-col md="4" class="navigate-image mb-3" @click="routeToPage('/newConstraint')">
+          <b-img class="nav-img image-example" :src="constraintPng1"
                  alt="Ограничения"></b-img>
           <h3 class="centered-text">Ограничения</h3>
         </b-col>
@@ -68,14 +68,14 @@ function routeToPage(page) {
       <b-col class="transparent-line my-2"></b-col>
       <h3 class="subtitle mt-2">Взаимодействие с расписанием</h3>
       <b-row class="mt-1 mx-5 mb-1">
-        <b-col md="6" class="navigate-image mb-3">
-          <b-img class="nav-img image-example" @click="routeToPage('/createTimetable')" :src="tablePng"
+        <b-col md="6" class="navigate-image mb-3" @click="routeToPage('/createTimetable')">
+          <b-img class="nav-img image-example" :src="tablePng"
                  alt="Расписание"></b-img>
           <h3 class="centered-text">Расписание</h3>
         </b-col>
 
-        <b-col md="6" class="navigate-image mb-3">
-          <b-img class="nav-img image-example" @click="routeToPage('/potential')" :src="potentialTablePng1"
+        <b-col md="6" class="navigate-image mb-3" @click="routeToPage('/potential')">
+          <b-img class="nav-img image-example" :src="potentialTablePng1"
                  alt="Потенциальное расписание"></b-img>
           <h3 class="centered-text">Потенциальное расписание</h3>
         </b-col>
@@ -84,14 +84,14 @@ function routeToPage(page) {
       <b-col class="transparent-line my-2"></b-col>
       <h3 class="subtitle mt-2">Удаление</h3>
       <b-row class="mt-1 mx-5 mb-1">
-        <b-col md="6" class="navigate-image mb-3">
-          <b-img class="nav-img image-example" @click="routeToPage('/removeBase')" :src="potentialTablePng2"
+        <b-col md="6" class="navigate-image mb-3" @click="routeToPage('/removeBase')">
+          <b-img class="nav-img image-example" :src="potentialTablePng2"
                  alt="Параметры расписания"></b-img>
           <h3 class="centered-text">Параметры расписания</h3>
         </b-col>
 
-        <b-col md="6" class="navigate-image mb-3">
-          <b-img class="nav-img image-example" @click="routeToPage('/removeConstraint')" :src="constraintPng2"
+        <b-col md="6" class="navigate-image mb-3" @click="routeToPage('/removeConstraint')">
+          <b-img class="nav-img image-example" :src="constraintPng2"
                  alt="Ограничения"></b-img>
           <h3 class="centered-text">Ограничения</h3>
         </b-col>
@@ -101,14 +101,14 @@ function routeToPage(page) {
       <h3 class="subtitle mt-2">Дополнительно</h3>
 
       <b-row class="mt-1 mx-5 mb-1">
-        <b-col md="6" class="navigate-image mb-3">
-          <b-img class="nav-img image-example" @click="routeToPage('/changes_log')" :src="changesPng"
+        <b-col md="6" class="navigate-image mb-3" @click="routeToPage('/changes_log')">
+          <b-img class="nav-img image-example" :src="changesPng"
                  alt="Изменения"></b-img>
           <h3 class="centered-text">Изменения</h3>
         </b-col>
 
-        <b-col md="6" class="navigate-image mb-3">
-          <b-img class="nav-img image-example" @click="logOut()" :src="logoutPng"
+        <b-col md="6" class="navigate-image mb-3" @click="logOut()">
+          <b-img class="nav-img image-example" :src="logoutPng"
                  alt="Выход"></b-img>
           <h3 class="centered-text">Выход</h3>
         </b-col>
@@ -120,18 +120,18 @@ function routeToPage(page) {
     <b-col md="12" data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
       <h2 class="title mb-3 mt-4 ms-1 me-1">Панель учителя</h2>
       <b-row class="mt-1 mx-5 mb-1">
-        <b-col md="4" class="navigate-image mb-3">
-          <b-img class="nav-img image-example" @click="routeToPage('/newConstraint')" :src="constraintPng1"
+        <b-col md="4" class="navigate-image mb-3" @click="routeToPage('/newConstraint')">
+          <b-img class="nav-img image-example" :src="constraintPng1"
                  alt="Ограничения"></b-img>
           <h3 class="centered-text">Добавление ограничений</h3>
         </b-col>
-        <b-col md="4" class="navigate-image mb-3">
-          <b-img class="nav-img image-example" @click="routeToPage('/removeConstraint')" :src="constraintPng2"
+        <b-col md="4" class="navigate-image mb-3" @click="routeToPage('/newConstraint')">
+          <b-img class="nav-img image-example" :src="constraintPng2"
                  alt="Ограничения"></b-img>
           <h3 class="centered-text">Удаление огрничений</h3>
         </b-col>
-        <b-col md="4" class="navigate-image mb-3">
-          <b-img class="nav-img image-example" @click="logOut()" :src="logoutPng"
+        <b-col md="4" class="navigate-image mb-3" @click="logOut()">
+          <b-img class="nav-img image-example" :src="logoutPng"
                  alt="Выход"></b-img>
           <h3 class="centered-text">Выход</h3>
         </b-col>
@@ -153,6 +153,8 @@ function routeToPage(page) {
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
+  opacity: 1;
+  transition: visibility 1s, opacity 1s;
 }
 
 .image-example {
@@ -189,7 +191,7 @@ function routeToPage(page) {
 
 .navigate-image:hover img {
   transform: scale(1.05);
-  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: brightness(95%);
 }
 
 .subtitle {

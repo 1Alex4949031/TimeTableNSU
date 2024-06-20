@@ -175,10 +175,6 @@ function toAllGroups() {
   transition: background-color 0.5s ease;
 }
 
-.navigate-image:hover .centered-text {
-  opacity: 0;
-  visibility: hidden;
-}
 
 .text-for-teacher {
   text-align: center;
@@ -191,6 +187,13 @@ function toAllGroups() {
   top: 40%;
   left: 10%;
   color: white;
+  opacity: 1;
+  transition: visibility 1s, opacity 1s;
+}
+
+.navigate-image:hover .centered-text {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .navigate-image {
@@ -204,7 +207,7 @@ function toAllGroups() {
 
 .navigate-image:hover img {
   transform: scale(1.05);
-  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: brightness(95%);
 }
 
 .nav-img {
