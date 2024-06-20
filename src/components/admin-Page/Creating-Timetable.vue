@@ -396,10 +396,5 @@ onMounted(() => {
   font-size: 18px;
 }
 
-.group-link {
-  margin-right: 10px;
-  font-weight: 500;
-  font-size: 12px;
-}
 
 </style>
