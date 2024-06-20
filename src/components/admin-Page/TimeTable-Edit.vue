@@ -428,14 +428,17 @@ const getBackgroundClass = (pairType) => {
 }
 
 .allowed {
+  border-radius: 10px;
   background-color: #b1fd6d;
 }
 
 .noAllowed {
+  border-radius: 10px;
   background-color: rgba(197, 197, 197, 0.92);
 }
 
 .invalid {
+  border-radius: 10px;
   background-color: #f15555 !important;
 }
 
@@ -444,6 +447,7 @@ const getBackgroundClass = (pairType) => {
 }
 
 .previous {
+  border-radius: 10px;
   background-color: rgba(154, 149, 149, 0.53);
 }
 
