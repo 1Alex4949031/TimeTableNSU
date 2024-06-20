@@ -33,6 +33,8 @@ const goToFaculty = (facultyId) => {
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
+  opacity: 1;
+  transition: visibility 1s, opacity 1s;
 }
 
 .image-example {
@@ -69,7 +71,7 @@ const goToFaculty = (facultyId) => {
 
 .navigate-image:hover img {
   transform: scale(1.05);
-  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: brightness(95%);
 }
 
 .text-faculties {
