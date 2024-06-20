@@ -1,6 +1,14 @@
 <script setup>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import LoaderCommon from "@/components/loaders/Loader-Common.vue";
+
+let showLoader = ref(true);
+onMounted(() => {
+      setTimeout(() => {
+        showLoader.value = false;
+      }, 1000)
+    }
+)
 
 const daysOfWeek = ref(['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']);
 const timeSlots = ref(['9:00', '10:50', '12:40', '14:30', '16:20', '18:10', '20:00']);
@@ -79,11 +87,10 @@ const moveClass = (fromDay, fromTimeSlot, toDay, toTimeSlot, lesson) => {
 </script>
 
 <template>
-  <div class="loader-container">
-    <LoaderCommon class="loader-common"/>
-  </div>
-
   <b-col class="schedule-container ms-4 me-4 mt-4 mb-4 position-relative">
+    <div class="loader-container" v-if="showLoader">
+      <LoaderCommon/>
+    </div>
     <table class="schedule-table">
       <thead>
       <tr>
@@ -124,7 +131,7 @@ const moveClass = (fromDay, fromTimeSlot, toDay, toTimeSlot, lesson) => {
 
 <style scoped>
 .loader-container {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -182,6 +189,7 @@ const moveClass = (fromDay, fromTimeSlot, toDay, toTimeSlot, lesson) => {
 
 .schedule-container {
   overflow-x: auto;
+  position: relative;
 }
 
 .schedule-table {
@@ -197,12 +205,7 @@ const moveClass = (fromDay, fromTimeSlot, toDay, toTimeSlot, lesson) => {
 }
 
 .schedule-table thead th {
-  background-color: #f2f2f2;
-}
-
-.lesson {
-  border: 1px solid #ced4da;
-  margin-bottom: 5px;
+  background-color: rgba(242, 242, 242, 0.5);
 }
 
 .class-cell {

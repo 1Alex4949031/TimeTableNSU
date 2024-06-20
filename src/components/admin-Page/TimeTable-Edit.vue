@@ -8,6 +8,9 @@ import labSvg from '@/assets/images/lab.svg'
 import pracSvg from '@/assets/images/prac.svg'
 import lecSvg from '@/assets/images/lec.svg'
 import editSvg from "@/assets/images/edit.svg";
+import LoaderCommon from "@/components/loaders/Loader-Common.vue";
+
+const showLoader = ref(true);
 
 const isEditOpen = ref(false);
 const selectedLesson = ref()
@@ -169,7 +172,7 @@ onMounted(async () => {
               .push(subMirror)
         }
         checkAllowed(sub, allowedOptions, allowedArr, allRooms, teachers)
-
+        showLoader.value = false;
       }
       //for (const sub of Object.values(selectedSubjects.value)) {
 
@@ -193,14 +196,28 @@ const getLessonImage = (pairType) => {
   }
 };
 
+const getBackgroundClass = (pairType) => {
+  switch (pairType) {
+    case 'lab':
+      return 'lab-background';
+    case 'prac':
+      return 'prac-background';
+    default:
+      return 'lec-background';
+  }
+};
+
 </script>
 
 <template>
   <b-col class="schedule-container ms-4 me-4 mt-4 mb-4">
+    <div class="loader-container" v-if="showLoader">
+      <LoaderCommon/>
+    </div>
     <b-col class="mb-4">
-      <table class="table schedule-table ">
+      <table class="schedule-table">
         <thead>
-        <tr class="table-row">
+        <tr>
           <th>Время</th>
           <th v-for="day in daysOfWeek" :key="day">{{ day }}</th>
         </tr>
@@ -209,7 +226,6 @@ const getLessonImage = (pairType) => {
         <tr v-for="(timeSlot, indexSlot) in timeSlots" :key="indexSlot" class="table-row">
           <th>{{ timeSlot }}</th>
           <td v-for="(day, indexDay) in daysOfWeek" :key="indexDay"
-              class="table-check"
               @dragover.prevent="handleDragOver"
               @drop.prevent="handleDrop($event, day, timeSlot)">
             <div class="class-cell"
@@ -217,18 +233,18 @@ const getLessonImage = (pairType) => {
               <div v-for="lesson in getClassInfo(day, timeSlot)" :key="lesson.subject">
                 <div
                     v-if="lesson.actual || getClassInfo(day,timeSlot).find(l => l.id === lesson.id && l.actual === true) === undefined"
-                    class="lesson"
+                    class="class-cell-info"
                     :class="{actual : lesson.actual, previous: !lesson.actual, invalid : !isAllowedMove && lesson.actual}"
                     :draggable="lesson.actual"
                     @dragstart="handleDragStart($event, day, timeSlot, lesson)">
                   <img class="lesson-svg" :src="getLessonImage(lesson.pairType)" :alt="lesson.pairType">
-                  <div class="subject-info">
+                  <div class="subject-info" :class="getBackgroundClass(lesson.pairType)">
                     {{ lesson.subject }} <br>
-                    <span class="nav-room">
-                    {{ lesson.room }}
-                  </span> <br>
                     <span class="nav-teacher">
                     {{ lesson.teacher }}
+                  </span> <br>
+                    <span class="nav-room">
+                    {{ lesson.room }}
                   </span> <br>
                   </div>
                   <img
@@ -290,6 +306,51 @@ const getLessonImage = (pairType) => {
 </template>
 
 <style scoped>
+.nav-teacher {
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.nav-room {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.subject-info {
+  border-radius: 10px;
+  padding: 10px;
+  color: rgba(0, 0, 0, 0.91);
+  font-size: 19px;
+  text-align: left;
+  margin: 10px auto;
+  font-weight: 600;
+}
+
+.lab-background {
+  background-color: rgba(255, 168, 0, 0.2);
+}
+
+.prac-background {
+  background-color: rgba(0, 117, 255, 0.2);
+}
+
+.lec-background {
+  background-color: rgba(144, 238, 144, 0.2);
+}
+
+.loader-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 1000;
+}
+
 .custom-btn-blue {
   background-color: #fff;
   color: black;
@@ -337,6 +398,7 @@ const getLessonImage = (pairType) => {
 }
 
 .schedule-container {
+  position: relative;
   overflow-x: auto;
 }
 
@@ -353,14 +415,11 @@ const getLessonImage = (pairType) => {
 }
 
 .schedule-table thead th {
-  background-color: #f2f2f2;
+  background-color: rgba(242, 242, 242, 0.5);
 }
 
-.lesson {
+.class-cell-info {
   position: relative;
-  border: 1px solid #ced4da;
-  margin-bottom: 5px;
-  border-radius: 5px;
 }
 
 .class-cell {
@@ -416,15 +475,15 @@ const getLessonImage = (pairType) => {
   position: absolute;
   width: 25px;
   height: 25px;
-  right: 5px;
-  top: 5px;
+  right: -8px;
+  top: -8px;
 }
 
 .edit-icon {
   font-size: 16px;
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 5px;
+  bottom: 10px;
 }
 
 .buttons-edit {

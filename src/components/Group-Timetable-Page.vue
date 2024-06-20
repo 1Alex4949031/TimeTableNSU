@@ -80,7 +80,7 @@ const getBackgroundClass = (item) => {
       </thead>
       <tbody>
       <tr v-for="pair in Object.keys(pairTimes).length" :key="pair">
-        <td>{{ pairTimes[pair] }}</td>
+        <th>{{ pairTimes[pair] }}</th>
         <td v-for="day in days" :key="day">
           <div class="class-cell">
             <div v-for="item in getSchedule(day, pair)" :key="item.id">
@@ -159,10 +159,11 @@ const getBackgroundClass = (item) => {
 .schedule-table td {
   border: 1px solid #ddd;
   padding: 8px;
+  text-align: center;
 }
 
 .schedule-table thead th {
-  background-color: #f2f2f2;
+  background-color: rgba(242, 242, 242, 0.5);
 }
 
 .subject-info {
@@ -188,15 +189,18 @@ const getBackgroundClass = (item) => {
 }
 
 .edit-icon {
-  font-size: 16px;
   visibility: hidden;
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 5px;
+  bottom: 10px;
+  cursor: pointer;
+  opacity: 0;
+  transition: visibility 0.3s, opacity 0.3s;
 }
 
 .class-cell-info:hover .edit-icon {
   visibility: visible;
+  opacity: 1;
 }
 
 </style>

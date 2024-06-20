@@ -178,7 +178,7 @@ onMounted(() => {
       </thead>
       <tbody>
       <tr v-for="pair in Object.keys(pairTimes).length" :key="pair">
-        <td>{{ pairTimes[pair] }}</td>
+        <th>{{ pairTimes[pair] }}</th>
         <td v-for="day in days" :key="day">
           <div class="class-cell">
             <div v-for="item in getSchedule(day, pair)" :key="item.id">
@@ -370,6 +370,7 @@ onMounted(() => {
 .schedule-table td {
   border: 1px solid #ddd;
   padding: 8px;
+  text-align: center;
 }
 
 .schedule-table thead th {
