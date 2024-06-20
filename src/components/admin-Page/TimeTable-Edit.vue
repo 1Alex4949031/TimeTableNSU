@@ -200,13 +200,13 @@ const getLessonImage = (pairType) => {
     <b-col class="mb-4">
       <table class="table schedule-table ">
         <thead>
-        <tr class = "table-row">
+        <tr class="table-row">
           <th>Время</th>
           <th v-for="day in daysOfWeek" :key="day">{{ day }}</th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(timeSlot, indexSlot) in timeSlots" :key="indexSlot" class = "table-row">
+        <tr v-for="(timeSlot, indexSlot) in timeSlots" :key="indexSlot" class="table-row">
           <th>{{ timeSlot }}</th>
           <td v-for="(day, indexDay) in daysOfWeek" :key="indexDay"
               class="table-check"
@@ -234,8 +234,8 @@ const getLessonImage = (pairType) => {
                   <img
                       v-if="lesson.actual"
                       @click="editLesson(lesson)"
-                       class="edit-icon"
-                       :src="editSvg" alt="Edit"/>
+                      class="edit-icon"
+                      :src="editSvg" alt="Edit"/>
                 </div>
               </div>
             </div>
@@ -244,59 +244,89 @@ const getLessonImage = (pairType) => {
         </tbody>
       </table>
     </b-col>
-    <b-button class="custom-btn-red" @click="saveEditServer()">Сохранить</b-button>
+    <b-button class="custom-btn-blue" @click="saveEditServer()">Сохранить</b-button>
   </b-col>
   <transition enter-active-class="modal-enter-active"
               leave-active-class="modal-leave-active">
     <div class="edit-modal" v-if="isEditOpen">
       <b-container fluid="sm" class="my-4">
-          <b-col class="d-flex flex-column justify-content-center">
-            <h2 class="modal-title mb-4">Изменение пары</h2>
-            <b-form>
-              <b-form-group class="form-group" label="Преподователь" label-for="input-subject-teacher">
-                <Multiselect
-                    v-model="teacher"
-                    :options="teachers"
-                />
-              </b-form-group>
-<!--              <b-form-group class="form-group" label="Группы" label-for="input-subject-groups">-->
-<!--                <Multiselect-->
-<!--                    v-model="group"-->
-<!--                    :options="allGroups"-->
-<!--                />-->
-<!--              </b-form-group>-->
-<!--              <b-form-group class="form-group" label="Предмет" label-for="input-subject-groups">-->
-<!--                <b-form-select v-model="subject" :options="allSubject" id="input-subject-groups"></b-form-select>-->
-<!--              </b-form-group>-->
-              <b-form-group class="form-group" label="Список комнат">
-                <Multiselect
-                    v-model="room"
-                    :options="allRooms"
-                />
-              </b-form-group>
-            </b-form>
-            <b-col class="buttons-edit">
-              <b-button @click="isEditOpen = false" class="close-button button">
-                Отменить
-              </b-button>
-              <b-button @click="saveEdit()" class="allowed button">
-                Сохранить
-              </b-button>
-            </b-col>
+        <b-col class="d-flex flex-column justify-content-center">
+          <h2 class="mb-4">Изменение пары</h2>
+          <b-form>
+            <b-form-group class="form-group" label="Преподователь" label-for="input-subject-teacher">
+              <Multiselect
+                  v-model="teacher"
+                  :options="teachers"
+              />
+            </b-form-group>
+            <!--              <b-form-group class="form-group" label="Группы" label-for="input-subject-groups">-->
+            <!--                <Multiselect-->
+            <!--                    v-model="group"-->
+            <!--                    :options="allGroups"-->
+            <!--                />-->
+            <!--              </b-form-group>-->
+            <!--              <b-form-group class="form-group" label="Предмет" label-for="input-subject-groups">-->
+            <!--                <b-form-select v-model="subject" :options="allSubject" id="input-subject-groups"></b-form-select>-->
+            <!--              </b-form-group>-->
+            <b-form-group class="form-group" label="Список комнат">
+              <Multiselect
+                  v-model="room"
+                  :options="allRooms"
+              />
+            </b-form-group>
+          </b-form>
+          <b-col class="buttons-edit">
+            <b-button @click="isEditOpen = false" class="custom-btn-red">
+              Отменить
+            </b-button>
+            <b-button @click="saveEdit()" class="custom-btn-green">
+              Сохранить
+            </b-button>
           </b-col>
+        </b-col>
       </b-container>
     </div>
   </transition>
 </template>
 
 <style scoped>
+.custom-btn-blue {
+  background-color: #fff;
+  color: black;
+  border: 1px solid #ced4da;
+  border-radius: 20px;
+  width: 40%;
+  font-size: 1rem;
+  transition: background-color 0.5s ease;
+}
+
+.custom-btn-blue:hover {
+  background-color: rgba(0, 113, 255, 0.8);
+  color: white;
+  border: 1px solid #fff;
+}
+
+.custom-btn-green {
+  background-color: #fff;
+  color: black;
+  border: 1px solid #ced4da;
+  border-radius: 20px;
+  font-size: 1rem;
+  transition: background-color 0.5s ease;
+}
+
+.custom-btn-green:hover {
+  background-color: rgba(30, 236, 9, 0.8);
+  color: white;
+  border: 1px solid #fff;
+}
+
 .custom-btn-red {
   background-color: #fff;
   color: black;
   border: 1px solid #ced4da;
   border-radius: 20px;
   font-size: 1rem;
-  width: 15%;
   transition: background-color 0.5s ease;
 }
 
@@ -314,12 +344,14 @@ const getLessonImage = (pairType) => {
   width: 100%;
   border-collapse: collapse;
 }
+
 .schedule-table th,
 .schedule-table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
+
 .schedule-table thead th {
   background-color: #f2f2f2;
 }
@@ -330,16 +362,8 @@ const getLessonImage = (pairType) => {
   margin-bottom: 5px;
   border-radius: 5px;
 }
-.table-row {
-}
-.table {
-}
-.table-check {
-}
 
 .class-cell {
-  //width: 100%;
-  //height: 100%;
   min-height: 60px;
   border-radius: 5px;
 }
@@ -366,16 +390,26 @@ const getLessonImage = (pairType) => {
 
 .edit-modal {
   position: fixed;
-  width: 600px;
-  top: 50px;
-  left: 60px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 600px;
   background: rgba(255, 255, 255, 1);
   z-index: 1000;
   display: flex;
   align-content: start;
   overflow-y: auto;
-  border: 3px solid #4b4f54;
+  border: 1px solid #4b4f54;
   border-radius: 30px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .edit-modal {
+    width: 600px;
+  }
 }
 
 .lesson-svg {
@@ -392,17 +426,10 @@ const getLessonImage = (pairType) => {
   right: 0;
   bottom: 0;
 }
+
 .buttons-edit {
-  width: 100%;
   display: flex;
   box-sizing: border-box;
-  padding: 20px;
   justify-content: space-between;
-}
-.button {
-  width: 100%;
-  display: flex;
-  box-sizing: border-box;
-  padding: 20px;
 }
 </style>
