@@ -14,9 +14,9 @@ const imageModal = require('@/assets/images/imageModal1.png')
   <transition enter-active-class="modal-enter-active"
               leave-active-class="modal-leave-active">
     <div class="fullscreen-modal" v-if="isVisibleAuth">
-      <b-button @click="closeModalAuth" class="close-button">
+      <button @click="closeModalAuth" class="close-button">
         <b-img :src="closeSvg"></b-img>
-      </b-button>
+      </button>
       <b-container fluid="sm" class="my-4">
         <b-row>
           <b-col md="6" class="d-flex flex-column justify-content-center">
@@ -106,8 +106,13 @@ const imageModal = require('@/assets/images/imageModal1.png')
 }
 
 .close-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid #ced4da;
-  border-radius: 45%;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
   color: #ced4da;
   background-color: #fff;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;

@@ -24,7 +24,7 @@ function routeToPage(page) {
 
 <template>
   <div v-if="isUserLogin === 'Admin'">
-    <b-col md="12">
+    <b-col md="12" data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
       <h2 class="title mb-3 mt-4">Панель администратора</h2>
       <b-col class="transparent-line my-2"></b-col>
       <h3 class="subtitle mt-2">Добавление</h3>
@@ -117,7 +117,7 @@ function routeToPage(page) {
   </div>
 
   <div v-else>
-    <b-col md="12">
+    <b-col md="12" data-aos="fade-in" data-aos-duration="1300" data-aos-once="true">
       <h2 class="title mb-3 mt-4 ms-1 me-1">Панель учителя</h2>
       <b-row class="mt-1 mx-5 mb-1">
         <b-col md="4" class="navigate-image mb-3">
