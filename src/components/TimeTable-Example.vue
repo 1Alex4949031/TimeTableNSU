@@ -1,5 +1,4 @@
 <script setup>
-import Loader3d from "@/components/loaders/Loader-3d.vue";
 import {onMounted, ref} from "vue";
 import LoaderCommon from "@/components/loaders/Loader-Common.vue";
 

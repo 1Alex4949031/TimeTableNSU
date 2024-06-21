@@ -1,6 +1,6 @@
 <script setup>
 
-import {onMounted, reactive, ref} from "vue";
+import {onMounted, onUnmounted, reactive, ref} from "vue";
 import {checkAllowed, getSelectedSub} from "@/js/edit-timetable";
 import Multiselect from "@vueform/multiselect";
 import {getAllowedOption, saveEditRequest} from "@/js/edit-implementing";
@@ -9,6 +9,7 @@ import pracSvg from '@/assets/images/prac.svg'
 import lecSvg from '@/assets/images/lec.svg'
 import editSvg from "@/assets/images/edit.svg";
 import LoaderCommon from "@/components/loaders/Loader-Common.vue";
+import {connect, disconnect} from "@/js/socket";
 
 const showLoader = ref(true);
 
@@ -132,6 +133,7 @@ function getEditSubject() {
 }
 
 onMounted(async () => {
+      connect()
       console.log("Pair id:", getSelectedSub().id)
       allowedOptions.value = await getAllowedOption(getSelectedSub().id)
       if (allowedOptions.value === null) {
@@ -184,7 +186,9 @@ onMounted(async () => {
       // }
     }
 )
-
+onUnmounted(() => {
+  disconnect();
+})
 const getLessonImage = (pairType) => {
   switch (pairType) {
     case 'lab':
