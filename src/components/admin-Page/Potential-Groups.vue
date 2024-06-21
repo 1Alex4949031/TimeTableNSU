@@ -3,7 +3,6 @@ import {ref, onMounted, onUnmounted} from 'vue';
 import {getGroups} from "@/js/add-get-request";
 import router from "@/router/router";
 import allGroupsImage from "@/assets/images/all_groups.png";
-import {connect, disconnect} from "@/js/socket";
 
 //const route = useRoute();
 
@@ -22,12 +21,9 @@ const isLoaded = ref(false);
 onMounted(async () => {
   groups.value = await getGroups();
   isLoaded.value = true
-  connect()
 })
 
-onUnmounted(() => {
-  disconnect();
-})
+
 </script>
 
 <template>
