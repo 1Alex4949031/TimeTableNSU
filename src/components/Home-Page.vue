@@ -1,5 +1,5 @@
 <script setup>
-import {ref, onMounted} from 'vue';
+import {onMounted, ref} from 'vue';
 import router from "@/router/router";
 
 import exampleImg1 from '@/assets/images/example1.png'
@@ -54,10 +54,6 @@ function toAllGroups() {
     <b-row class="flex-grow-1">
       <b-col cols="12" class="p-0">
         <div class="background-image"></div>
-        <!--        <div class="background-image"-->
-        <!--             :style="{backgroundImage: `url(${currentImage})`}"-->
-        <!--             :key="currentImage.value">-->
-        <!--        </div>-->
       </b-col>
     </b-row>
 
@@ -79,10 +75,13 @@ function toAllGroups() {
           <h1 class="text-for-teacher">Для учителей</h1>
         </b-col>
         <b-col class="d-flex justify-content-center align-content-between mt-2 mb-2 ms-5 me-5">
-          <h4 v-if="isUserLogin === 'User'" class="text-for-teacher-description">Для того, чтобы добавлять предпочтения,
-            пожалуйста, свяжитесь с администратором и войдите в систему!</h4>
-          <h4 v-else class="text-for-teacher-description">Вы успешно вошли в систему, теперь можно создать предпочтения.
-            Перейдите в соответствующий раздел!</h4>
+          <h4 v-if="isUserLogin === 'User'" class="text-for-teacher-description">Для того, чтобы <span
+              class="bold-text">добавлять предпочтения</span>,
+            пожалуйста, <span class="bold-text">свяжитесь с администратором</span> и <span class="bold-text">войдите в систему</span>!
+          </h4>
+          <h4 v-else class="text-for-teacher-description">Вы <span class="bold-text">успешно вошли в систему</span>,
+            теперь можно <span class="bold-text">создать предпочтения</span>.
+            Перейдите в соответствующий <span class="bold-text">раздел</span>!</h4>
         </b-col>
         <b-col class="nav-faculty mt-2 mb-2">
           <b-button v-if="isUserLogin === 'User'" class="custom-btn" @click="openModalAuth()">Войти в систему</b-button>
@@ -126,23 +125,25 @@ function toAllGroups() {
       <b-col md="4" class="mb-3">
         <b-img class="image-example" :src="exampleImg1" alt="Картинка 1"></b-img>
         <b-col>
-          <p class="description">Администратор регистрирует учителей в системе,
-            создав учебные планы по их предметам.</p>
+          <p class="description">Администратор <span class="bold-text">регистрирует учителей</span> в системе,
+            <span class="bold-text">создав учебные планы</span> по их предметам.</p>
         </b-col>
       </b-col>
 
       <b-col md="4" class="mb-3">
         <b-img class="image-example" :src="exampleImg2" alt="Картинка 2"></b-img>
         <b-col>
-          <p class="description">Учитель вносит предпочтения и ограничения для своего учебного плана.
-            Администратор создает расписание.</p>
+          <p class="description">Учитель <span class="bold-text">вносит предпочтения и ограничения</span> для своего
+            учебного плана.
+            Администратор <span class="bold-text">создает расписание</span>.</p>
         </b-col>
       </b-col>
 
       <b-col md="4" class="mb-3">
         <b-img class="image-example" :src="exampleImg3" alt="Картинка 3"></b-img>
         <b-col>
-          <p class="description">Любой пользователь системы может увидеть необходимое ему расписание!</p>
+          <p class="description">Любой пользователь системы может <span class="bold-text">посмотреть интересующее расписание!</span>
+          </p>
         </b-col>
       </b-col>
     </b-row>
@@ -150,6 +151,11 @@ function toAllGroups() {
 </template>
 
 <style scoped>
+.bold-text {
+  font-weight: bold;
+}
+
+
 .transparent-line {
   width: 100%;
   border-top: 2px solid #EAEAEA;
@@ -169,10 +175,6 @@ function toAllGroups() {
   transition: background-color 0.5s ease;
 }
 
-.navigate-image:hover .centered-text {
-  opacity: 0;
-  visibility: hidden;
-}
 
 .text-for-teacher {
   text-align: center;
@@ -185,6 +187,13 @@ function toAllGroups() {
   top: 40%;
   left: 10%;
   color: white;
+  opacity: 1;
+  transition: visibility 1s, opacity 1s;
+}
+
+.navigate-image:hover .centered-text {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .navigate-image {
@@ -198,7 +207,7 @@ function toAllGroups() {
 
 .navigate-image:hover img {
   transform: scale(1.05);
-  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: brightness(95%);
 }
 
 .nav-img {

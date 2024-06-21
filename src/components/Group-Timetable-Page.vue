@@ -48,6 +48,17 @@ const getLessonImage = (item) => {
   }
 };
 
+const getBackgroundClass = (item) => {
+  switch (item.pairType) {
+    case 'lab':
+      return 'lab-background';
+    case 'prac':
+      return 'prac-background';
+    default:
+      return 'lec-background';
+  }
+};
+
 </script>
 
 <template>
@@ -69,19 +80,19 @@ const getLessonImage = (item) => {
       </thead>
       <tbody>
       <tr v-for="pair in Object.keys(pairTimes).length" :key="pair">
-        <td>{{ pairTimes[pair] }}</td>
+        <th>{{ pairTimes[pair] }}</th>
         <td v-for="day in days" :key="day">
           <div class="class-cell">
             <div v-for="item in getSchedule(day, pair)" :key="item.id">
               <div class="class-cell-info" :class="{ 'has-border': getSchedule(day, pair).length >= 2 }">
                 <img class="lesson-svg" :src="getLessonImage(item)" :alt="item.pairType">
-                <div class="subject-info">
+                <div class="subject-info" :class="getBackgroundClass(item)">
                   {{ item.subjectName }} <br>
-                  <span class="nav-room" @click="goToRoomTimetable(item.room)">
-                    {{ item.room }}
-                  </span> <br>
                   <span class="nav-teacher" @click="goToTeacherTimetable(item.teacher)">
                     {{ item.teacher }}
+                  </span> <br>
+                  <span class="nav-room" @click="goToRoomTimetable(item.room)">
+                    {{ item.room }}
                   </span> <br>
                   <img v-if="isPotential"
                        @click="setSelectedSub(item);router.push('/time-table-edit')"
@@ -99,30 +110,32 @@ const getLessonImage = (item) => {
 </template>
 
 <style scoped>
-.nav-room {
-  cursor: pointer;
+.lab-background {
+  background-color: rgba(255, 168, 0, 0.2);
 }
 
-.nav-teacher {
-  cursor: pointer;
+.prac-background {
+  background-color: rgba(0, 117, 255, 0.2);
 }
+
+.lec-background {
+  background-color: rgba(144, 238, 144, 0.2);
+}
+
 
 .class-cell-info.has-border {
   margin-top: 5px;
   margin-bottom: 5px;
-  border-bottom: 1px solid #ddd; /* Граница между предметами */
+  border-bottom: 1px solid #ddd;
 }
 
-.subject-info {
-  margin-right: 30px;
-}
 
 .lesson-svg {
   position: absolute;
   width: 25px;
   height: 25px;
-  right: 0;
-  top: 0;
+  right: -8px;
+  top: -8px;
 }
 
 .class-cell-info {
@@ -146,22 +159,48 @@ const getLessonImage = (item) => {
 .schedule-table td {
   border: 1px solid #ddd;
   padding: 8px;
+  text-align: center;
 }
 
 .schedule-table thead th {
-  background-color: #f2f2f2;
+  background-color: rgba(242, 242, 242, 0.5);
+}
+
+.subject-info {
+  border-radius: 10px;
+  padding: 10px;
+  color: rgba(0, 0, 0, 0.91);
+  font-size: 19px;
+  text-align: left;
+  margin: 10px auto;
+  font-weight: 600;
+}
+
+.nav-room {
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.nav-teacher {
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 18px;
 }
 
 .edit-icon {
-  font-size: 16px;
   visibility: hidden;
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 5px;
+  bottom: 10px;
+  cursor: pointer;
+  opacity: 0;
+  transition: visibility 0.3s, opacity 0.3s;
 }
 
 .class-cell-info:hover .edit-icon {
   visibility: visible;
+  opacity: 1;
 }
 
 </style>

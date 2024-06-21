@@ -15,44 +15,67 @@ const goToFaculty = (facultyId) => {
     </b-col>
     <b-row>
       <b-col data-aos="fade-in" data-aos-duration="2000" data-aos-once="true"
-             v-for="(faculty, index) in Object.entries(faculties)" :key="index" cols="12" md="4"
-             class="faculty mb-2 mt-2"
+             md="4" v-for="(faculty, index) in Object.entries(faculties)" :key="index" cols="12"
+             class="navigate-image mb-3"
              @click="goToFaculty(faculty[0])">
-        <b-img class="faculty-image" :src="faculty[1].imageSrc" alt="Faculty"></b-img>
-        <b-col class="mt-1">
-          <p class="faculty-name">{{ faculty[1].name }}</p>
-        </b-col>
+        <b-img class="nav-img image-example" :src="faculty[1].imageSrc" alt="Faculty"></b-img>
+        <h3 class="centered-text">{{ faculty[1].name }}</h3>
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <style scoped>
-.faculty {
+.centered-text {
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  opacity: 1;
+  transition: visibility 1s, opacity 1s;
+}
+
+.image-example {
+  border-radius: 50px;
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover
+}
+
+.nav-img {
+  filter: brightness(50%);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.nav-img:hover {
+  filter: brightness(95%);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.navigate-image:hover .centered-text {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.navigate-image {
   cursor: pointer;
+  position: relative;
+  text-align: center;
+  object-fit: cover;
+  border-radius: 40px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.navigate-image:hover img {
+  transform: scale(1.05);
+  filter: brightness(95%);
 }
 
 .text-faculties {
   text-align: center;
   font-weight: 700;
-}
-
-.faculty-name {
-  text-align: center;
-  font-weight: 600;
-  font-size: large;
-}
-
-.faculty-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 40px;
-  transition: transform 0.3s ease;
-}
-
-.faculty-image:hover {
-  transform: scale(1.05);
-  transition: transform 0.3s ease;
 }
 </style>
