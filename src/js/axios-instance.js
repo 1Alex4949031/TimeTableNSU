@@ -3,7 +3,7 @@ import axios from "axios";
 import { useToast } from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
-const serverURL = 'http://localhost:7070'
+export const serverURL = 'http://localhost:7070'
 const toast = useToast();
 export const customInstance = axios.create({
     baseURL: serverURL,

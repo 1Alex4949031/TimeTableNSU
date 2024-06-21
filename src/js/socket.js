@@ -3,6 +3,7 @@ import {ref, onUnmounted} from 'vue';
 import SockJS from 'sockjs-client';
 import {Stomp} from '@stomp/stompjs';
 import {useToast} from "vue-toastification";
+import {serverURL} from "@/js/axios-instance";
 
 export const {isConnected, message, connect, disconnect} = useWebSocket();
 export const logs = ref([])
@@ -15,7 +16,7 @@ function useWebSocket() {
 
     const connect = () => {
         if (!isConnected.value) {
-            const socket = new SockJS('http://localhost:7070/websockets');
+            const socket = new SockJS(serverURL + '/websockets');
             stompClient = Stomp.over(() => socket);
             stompClient.connect({}, () => {
                 isConnected.value = true;
