@@ -1,5 +1,5 @@
 <script setup>
-import {ref, onMounted, onUnmounted} from 'vue';
+import {ref, onMounted} from 'vue';
 import {getGroups} from "@/js/add-get-request";
 import router from "@/router/router";
 import allGroupsImage from "@/assets/images/all_groups.png";
