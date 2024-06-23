@@ -29,12 +29,14 @@ function useWebSocket() {
                     toast.warning("Текущее расписание отстает от последней версии: " + messageData.description, { timeout: false  })
                 });
             });
+        } else {
+            console.log("already connect")
         }
     }
     const disconnect = () => {
         if (isConnected.value && stompClient) {
+            isConnected.value = false;
             stompClient.disconnect(() => {
-                isConnected.value = false;
                 console.log("OWN: " + message.value);
             });
         }
