@@ -37,7 +37,7 @@ function routeToPage(page) {
         <b-col md="4" class="navigate-image mb-3" @click="routeToPage('/newTeacher')">
           <b-img class="nav-img image-example" :src="teacherPng"
                  alt="Учитель"></b-img>
-          <h3 class="centered-text">Учитель</h3>
+          <h3 class="centered-text">Персонал</h3>
         </b-col>
 
         <b-col md="4" class="navigate-image mb-3" @click="routeToPage('/newRoom')">

@@ -7,6 +7,10 @@ import {ref} from "vue";
 const name = ref("")
 const email = ref("")
 const phone = ref("")
+
+const allRole = ref(["Учитель", "Админ"])
+const role = ref("Учитель")
+
 </script>
 
 <template>
@@ -14,7 +18,7 @@ const phone = ref("")
     <b-row data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
       <b-col md="6">
         <b-col class="mt-4 ms-4 me-4">
-          <h2 class="modal-title mb-4">Добавление Учителя</h2>
+          <h2 class="modal-title mb-4">Добавление персонал</h2>
           <b-form>
             <b-form-group class="form-group" label="Email" label-for="input-teacher-email">
               <b-form-input class="custom-input" v-model="email" id="input-teacher-email"
@@ -32,7 +36,12 @@ const phone = ref("")
                             placeholder="7 (913) 913-91-91" type="tel">
               </b-form-input>
             </b-form-group>
-            <b-button class="custom-btn mt-4" @click="regTeacher(email.valueOf(), name.valueOf(), phone.valueOf())">
+
+            <b-form-group class="form-group" label="Роль" label-for="input-room-type">
+              <b-form-select v-model="role" :options="allRole" label="Выберите опцию"></b-form-select>
+            </b-form-group>
+
+            <b-button class="custom-btn mt-4" @click="regTeacher(email.valueOf(), name.valueOf(), phone.valueOf(), 'Админ' === role)">
               Зарегистрировать учителя
             </b-button>
           </b-form>
