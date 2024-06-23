@@ -15,7 +15,6 @@ import potentialTablePng2 from "@/assets/images/potential_table2.png";
 import logoutPng from "@/assets/images/logout.png";
 import changesPng from "@/assets/images/changes.png";
 
-
 function routeToPage(page) {
   router.push(page)
 }
@@ -105,6 +104,7 @@ function routeToPage(page) {
           <b-img class="nav-img image-example" :src="changesPng"
                  alt="Изменения"></b-img>
           <h3 class="centered-text">Изменения</h3>
+
         </b-col>
 
         <b-col md="6" class="navigate-image mb-3" @click="logOut()">

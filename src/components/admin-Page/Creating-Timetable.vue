@@ -6,13 +6,14 @@ import {
   checkNewTimetableStatus,
   startCreatingNewTimetable
 } from "@/js/timetable-setting-request";
-import {onMounted, ref} from "vue";
+import {onMounted, onUnmounted, ref} from "vue";
 import closeSvg from "@/assets/images/close.svg";
 import {getAllTimetable} from "@/js/get-timetable";
 import {days, pairTimes} from "@/js/data-for-show";
 import labSvg from "@/assets/images/lab.svg";
 import pracSvg from "@/assets/images/prac.svg";
 import lecSvg from "@/assets/images/lec.svg";
+import {connect, disconnect} from "@/js/socket";
 
 const currentStatus = ref("")
 const buttonDisable = ref(false)
@@ -26,6 +27,10 @@ const isLoaded = ref(false);
 onMounted(async () => {
   timetable.value = await getAllTimetable(true);
   isLoaded.value = true
+  connect()
+})
+onUnmounted(() => {
+  disconnect();
 })
 
 const getSchedule = (dayName, pairNumber) => {
