@@ -1,6 +1,6 @@
 <script setup>
 import {useRoute} from 'vue-router';
-import {onMounted, onUnmounted, ref} from "vue";
+import {onMounted, ref} from "vue";
 import {getGroupTimetable} from "@/js/get-timetable";
 import {days, pairTimes} from "@/js/data-for-show";
 import labSvg from '@/assets/images/lab.svg'
@@ -9,7 +9,6 @@ import lecSvg from '@/assets/images/lec.svg'
 import router from "@/router/router";
 import {setSelectedSub} from "@/js/edit-timetable";
 import editSvg from '@/assets/images/edit.svg'
-import {connect, disconnect} from "@/js/socket";
 import LoaderCommon from "@/components/loaders/Loader-Common.vue";
 
 
@@ -22,14 +21,6 @@ const isPotential = route.params.potential === "potential"
 onMounted(async () => {
   timetable.value = await getGroupTimetable(groupNumber, isPotential);
   isLoaded.value = true
-  if (isPotential) {
-    connect()
-  }
-})
-onUnmounted(() => {
-  if (isPotential) {
-    disconnect();
-  }
 })
 
 const getSchedule = (dayName, pairNumber) => {

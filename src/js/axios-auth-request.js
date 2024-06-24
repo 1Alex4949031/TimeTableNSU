@@ -2,6 +2,7 @@ import {closeModalAuth} from "@/js/ModalLogic";
 import router from "@/router/router";
 import {customInstance} from "@/js/axios-instance";
 import {ref} from "vue";
+import {connect, disconnect} from "@/js/socket";
 
 export const isUserLogin = ref(localStorage.getItem("isUserLogin") || "User") // "User"/ "Admin"/"Teacher"
 
@@ -22,6 +23,7 @@ export function auth(email, password) {
             if (roles.some(role => role.includes("ROLE_ADMINISTRATOR"))) {
                 localStorage.setItem("isUserLogin", "Admin")
                 isUserLogin.value = "Admin"
+                connect()
             }
             else {
                 localStorage.setItem("isUserLogin", "Teacher")
@@ -40,6 +42,7 @@ export function logOut() {
     localStorage.removeItem("RefreshToken")
     localStorage.removeItem("isUserLogin")
     isUserLogin.value = "User"
+    disconnect();
     router.push({path: "/"}).then(x => console.log(x))
 }
 
