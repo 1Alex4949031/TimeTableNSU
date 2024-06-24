@@ -1,7 +1,7 @@
 <script setup>
 import imageModal from "@/assets/images/imageModal4.png";
 import {onMounted, ref} from "vue";
-import {getGroups, getTeachers} from "@/js/add-get-request";
+import {getGroups, getPlan, getTeachers} from "@/js/add-get-request";
 import DayTimeSelectModal from "@/components/admin-Page/Day-Time-Select-Modal.vue";
 import {addConstraint} from "@/js/constraint-requests";
 import {isSelected} from "@/js/selected-timetable";
@@ -22,12 +22,14 @@ const maxDay = ref(7)
 
 const lockDay = ref()
 
+const rawPlan = ref()
+const plan = ref("")
 
 const selectedConstraint = ref("")
 
 function addConstraints() {
   switch (selectedConstraint.value) {
-    case 'Запрещенный день для преподавания для препода' : {
+    case 'Запрещенный день для преподавания для преподавателя' : {
       addConstraint({constraintNameRu: selectedConstraint.value, teacher: teacher.value, day: lockDay.value})
       break;
     }
@@ -41,7 +43,7 @@ function addConstraints() {
       addConstraint({constraintNameRu: selectedConstraint.value, teacher: teacher.value, number: maxDay.value})
       break;
     }
-    case 'Запрещенный порядковый номер пары для препода в определённый день' : {
+    case 'Запрещенный порядковый номер пары для преподавателя в определённый день' : {
       for (let day = 1; day <= 6; day++) {
         for (let lessonNumber = 1; lessonNumber <= 7; lessonNumber++) {
           console.log(isSelected(1, 1))
@@ -95,6 +97,26 @@ function addConstraints() {
       }
       break;
     }
+    case  'Обязательное время пары': {
+      for (let day = 1; day <= 6; day++) {
+        for (let lessonNumber = 1; lessonNumber <= 7; lessonNumber++) {
+          console.log(isSelected(1, 1))
+          if (isSelected(lessonNumber, day)) {
+            console.log(plan.value)
+            addConstraint({
+              constraintNameRu: selectedConstraint.value,
+              teacher: teacher1.value,
+              subject: plan.value.subject,
+              day: day,
+              period: lessonNumber,
+              groups: plan.value.groups
+            })
+            break;
+          }
+        }
+      }
+      break;
+    }
   }
 }
 
@@ -104,6 +126,14 @@ onMounted(async () => {
   for (let x of rawGroup) {
     allGroups.value.push(x.groupNumber)
   }
+  const pplan = await getPlan()
+  rawPlan.value = pplan.map(plan => {
+    return {
+      value: plan,
+      label: plan.teacher + " " + plan.subject + " Вместимость: " + plan.groups + " " + plan.subjectType + " " + plan.timesInAWeek,
+    };
+  })
+  console.log(rawPlan.value)
 })
 
 </script>
@@ -125,13 +155,15 @@ onMounted(async () => {
               <b-form-group class="form-group" label="Преподователь" label-for="input-subject-teacher">
                 <b-form-select v-model="teacher" :options="teachers" label="ФИО" id="input-subject-teacher"/>
               </b-form-group>
+
               <b-form-group class="form-group" label="Количество рабочих дней" label-for="input-teacher-cap">
                 <b-form-input class="custom-input" v-model="maxDay" id="input-teacher-cap"
                               placeholder="" type="number"/>
               </b-form-group>
             </div>
 
-            <div v-if="selectedConstraint === 'Запрещенный порядковый номер пары для препода в определённый день'">
+            <div
+                v-if="selectedConstraint === 'Запрещенный порядковый номер пары для преподавателя в определённый день'">
               <b-form-group class="form-group" label="Преподователь" label-for="input-subject-teacher">
                 <b-form-select v-model="teacher" :options="teachers" label="ФИО" id="input-subject-teacher"/>
               </b-form-group>
@@ -168,7 +200,7 @@ onMounted(async () => {
               </b-form-group>
             </div>
 
-            <div v-if="selectedConstraint === 'Запрещенный день для преподавания для препода'">
+            <div v-if="selectedConstraint === 'Запрещенный день для преподавания для преподавателя'">
               <b-form-group class="form-group" label="Преподователь" label-for="input-subject-teacher">
                 <b-form-select v-model="teacher" :options="teachers" label="ФИО" id="input-subject-teacher"/>
               </b-form-group>
@@ -194,6 +226,24 @@ onMounted(async () => {
               <b-form-group class="form-group" label="Второй преподаватель" label-for="input-subject-teacher">
                 <b-form-select v-model="teacher2" :options="teachers" label="ФИО" id="input-subject-teacher"/>
               </b-form-group>
+            </div>
+
+            <div v-if="selectedConstraint === 'Обязательное время пары'">
+              <b-form-group class="form-group" label="Преподаватель" label-for="input-subject-teacher">
+                <b-form-select v-model="teacher1" :options="teachers" label="ФИО" id="input-subject-teacher"/>
+              </b-form-group>
+
+              <b-form-group class="form-group" label="Список предметов">
+                <Multiselect
+                    v-model="plan"
+                    :close-on-select="false"
+                    :searchable="true"
+                    :create-option="true"
+                    :options="rawPlan.filter(x => x.value.teacher === teacher1)"
+                />
+              </b-form-group>
+
+              <DayTimeSelectModal/>
             </div>
 
             <b-button class="custom-btn" @click="addConstraints">

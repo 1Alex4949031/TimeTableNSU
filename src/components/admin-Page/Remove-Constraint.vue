@@ -27,7 +27,7 @@ function processConstraint(rawConstraint) {
 
     // Возвращаем объект для options с id и текстом
     switch (constraint.constraintNameRu) {
-      case 'Запрещенный день для преподавания для препода' : {
+      case 'Запрещенный день для преподавания для преподавателя' : {
         return {
           value: constraint.id,
           label: constraint.constraintNameRu + " " + constraint.teacher + " день - " + constraint.day
@@ -45,7 +45,7 @@ function processConstraint(rawConstraint) {
           label: constraint.constraintNameRu + " для " + constraint.teacher + " - " + constraint.number
         };
       }
-      case 'Запрещенный порядковый номер пары для препода в определённый день' : {
+      case 'Запрещенный порядковый номер пары для преподавателя в определённый день' : {
         return {
           value: constraint.id,
           label: constraint.constraintNameRu + " учитель - " + constraint.teacher + " день - " + constraint.day + " пара - " + constraint.period
@@ -58,7 +58,7 @@ function processConstraint(rawConstraint) {
         };
       }
     }
-    return {value: constraint.id, label: constraint.id + textValues};
+    return {value: constraint.id, label: textValues};
   });
 }
 
