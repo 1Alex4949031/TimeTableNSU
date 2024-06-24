@@ -10,6 +10,7 @@ import router from "@/router/router";
 import {setSelectedSub} from "@/js/edit-timetable";
 import editSvg from '@/assets/images/edit.svg'
 import {connect, disconnect} from "@/js/socket";
+import LoaderCommon from "@/components/loaders/Loader-Common.vue";
 
 
 const isLoaded = ref(false);
@@ -71,14 +72,16 @@ const getBackgroundClass = (item) => {
 </script>
 
 <template>
-  <b-col md="6" data-aos="fade-in" data-aos-duration="1800" data-aos-once="true">
+  <b-col md="12" data-aos="fade-in" data-aos-duration="1800" data-aos-once="true">
     <b-col class="mt-4 ms-4 me-4">
       <h1>Расписание группы {{ groupNumber }}</h1>
     </b-col>
   </b-col>
   <b-col class="schedule-container ms-4 me-4 mt-4 mb-4"
          data-aos="fade-in" data-aos-duration="1800" data-aos-once="true">
-    <h4 class="mt-1" v-if="!isLoaded">Загрузка...</h4>
+    <div class="loader-container mt-1" v-if="!isLoaded">
+      <LoaderCommon/>
+    </div>
     <h4 class="mt-1" v-else-if="timetable === null">Похоже, такого расписания не существует!</h4>
     <table v-else class="schedule-table">
       <thead>
@@ -119,6 +122,19 @@ const getBackgroundClass = (item) => {
 </template>
 
 <style scoped>
+.loader-container {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 1000;
+}
+
+
 .lab-background {
   background-color: rgba(255, 168, 0, 0.2);
 }
