@@ -225,6 +225,7 @@ export function removeGroup(group) {
     customInstance
         .post(
             '/api/admin/delete_group/' + group,
+            {},
             {useToken: true, requestName: "Remove group", showToast: true}
         )
         .then(response => {
@@ -239,6 +240,7 @@ export function removeSubject(subject) {
     customInstance
         .post(
             '/api/admin/delete_subject/' + subject,
+            {},
             {useToken: true, requestName: "Remove subject", showToast: true}
         )
         .then(response => {
@@ -267,7 +269,7 @@ export async function getChanges() {
     return customInstance
         .get(
             '/api/admin/get_logs/all',
-            {useToken: false, requestName: "Get all change", showToast: false}
+            {useToken: true, requestName: "Get all change", showToast: false}
         )
         .then(response => {
             console.log(response.config["requestName"], "Done")
