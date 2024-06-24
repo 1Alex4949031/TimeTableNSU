@@ -100,7 +100,7 @@ const routes = [
         component: TimeTableExample
     },
     {
-        path: '/time-table-edit',
+        path: '/time-table-edit/:group',
         component: TimeTableEdit
     },
     {

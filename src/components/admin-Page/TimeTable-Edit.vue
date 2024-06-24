@@ -1,6 +1,6 @@
 <script setup>
-
-import {onMounted, onUnmounted, reactive, ref} from "vue";
+import {useRoute} from 'vue-router';
+import {onMounted, onUnmounted, reactive, ref, computed} from "vue";
 import {checkAllowed, getSelectedSub} from "@/js/edit-timetable";
 import Multiselect from "@vueform/multiselect";
 import {getAllowedOption, saveEditRequest} from "@/js/edit-implementing";
@@ -211,9 +211,18 @@ const getBackgroundClass = (pairType) => {
   }
 };
 
+
+const route = useRoute()
+const groupNumber = computed(() => route.params.group)
+
 </script>
 
 <template>
+  <b-col md="12" data-aos="fade-in" data-aos-duration="1800" data-aos-once="true">
+    <b-col class="mt-4 ms-4 me-4">
+      <h1> Изменение пар группы {{ groupNumber }}</h1>
+    </b-col>
+  </b-col>
   <b-col class="schedule-container ms-4 me-4 mt-4 mb-4">
     <div class="loader-container" v-if="showLoader">
       <LoaderCommon/>
