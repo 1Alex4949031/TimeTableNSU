@@ -98,6 +98,11 @@ async function startCreatingNew(useTestingParam = false) {
 onMounted(() => {
   checkStatus()
 })
+
+const refreshAndActivate = () => {
+  window.location.reload();
+  activateNewTimetable();
+}
 </script>
 
 <template>
@@ -122,7 +127,7 @@ onMounted(() => {
           <b-button @click="startCreatingNew(true)" :disabled="buttonDisable" class="custom-btn-blue mt-2 mb-2">
             Запустить создание расписания по тестовым данным
           </b-button>
-          <b-button @click="activateNewTimetable()" :disabled="buttonDisable" class="custom-btn-blue mt-2 mb-2">
+          <b-button @click="refreshAndActivate" :disabled="buttonDisable" class="custom-btn-blue mt-2 mb-2">
             Активировать новое
             расписание
           </b-button>
@@ -192,11 +197,6 @@ onMounted(() => {
                   <span class="nav-room">
                     {{ item.room }}
                   </span> <br>
-                  <!--                  <span v-for="group in item.groups.split(',')"-->
-                  <!--                        :key="group"-->
-                  <!--                        class="group-link">-->
-                  <!--                  {{ group }}-->
-                  <!--                </span> <br>-->
                 </div>
               </div>
             </div>
