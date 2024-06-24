@@ -57,7 +57,15 @@
 <!--</style>-->
 
 <script setup>
-import { isSelected, toggleSelection } from "@/js/selected-timetable";
+import {isSelected, selectedDay, selectedPair, toggleSelection} from "@/js/selected-timetable";
+import {defineProps} from "@vue/runtime-core"
+
+const props = defineProps({
+  multipleSelect: {
+    type: Boolean,
+    default: true
+  }
+});
 
 const time = ["9:00", "10:50", "12:40", "14:30", "16:20", "18:10", "20:00"];
 </script>
@@ -77,10 +85,11 @@ const time = ["9:00", "10:50", "12:40", "14:30", "16:20", "18:10", "20:00"];
       <tr v-for="lessonNumber in 7" :key="lessonNumber">
         <td>{{ time[lessonNumber - 1] }}</td>
         <td v-for="day in 6" :key="day"
-            :class="{ 'selected': isSelected(lessonNumber, day) }"
+            :class="{ 'selected': (isSelected(lessonNumber, day) && props.multipleSelect) || (!props.multipleSelect && lessonNumber === selectedPair && day === selectedDay)}"
             class="time-slot"
-            @click="toggleSelection(lessonNumber, day)">
-          <div class="inner-element" v-if="isSelected(lessonNumber, day)">✖</div>
+            @click="toggleSelection(lessonNumber, day, props.multipleSelect)">
+          <div class="inner-element-red" v-if="isSelected(lessonNumber, day) && props.multipleSelect">✖</div>
+          <div class="inner-element-green" v-if="!props.multipleSelect && lessonNumber === selectedPair && day === selectedDay">✔</div>
         </td>
       </tr>
     </table>
@@ -108,8 +117,14 @@ th, td {
   background-color: #f0f0f0;
 }
 
-.selected .inner-element {
+.selected .inner-element-red {
   color: lightcoral;
+  font-size: large;
+  line-height: 1;
+}
+
+.selected .inner-element-green {
+  color: darkgreen;
   font-size: large;
   line-height: 1;
 }

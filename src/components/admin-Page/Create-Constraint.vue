@@ -260,7 +260,7 @@ onMounted(async () => {
                 />
               </b-form-group>
 
-              <DayTimeSelectModal/>
+              <DayTimeSelectModal :multipleSelect="false"/>
             </div>
 
             <b-button class="custom-btn" @click="addConstraints">
