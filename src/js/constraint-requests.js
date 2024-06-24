@@ -15,8 +15,8 @@ import {customInstance} from "@/js/axios-instance";
 
 export function addConstraint(data) {
     //Временное решение
-     const newData = {...data} //{constraintNameRu: "", group: 0, group1: 0, group2: 0, day: 0, number: 0,
-    //     period: 0, teacher: "", teacher1: "", teacher2: "", ...data}
+     const newData = {constraintNameRu: "", group: 0, group1: 0, group2: 0, day: 0, number: 0,
+         period: 0, teacher: "", teacher1: "", teacher2: "", room : "0", ...data} //{ ...data}
     customInstance
         .post(
             '/api/constraints/create',
