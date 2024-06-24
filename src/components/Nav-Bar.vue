@@ -17,7 +17,8 @@ function routeToMain() {
 </script>
 
 <template>
-  <b-navbar toggleable="lg" type="dark" variant="light" data-aos="fade-in" data-aos-duration="1000" data-aos-once="true">
+  <b-navbar toggleable="lg" type="dark" variant="light" data-aos="fade-in" data-aos-duration="1000"
+            data-aos-once="true">
     <b-navbar-brand>
       <b-row class="brand-row" @click="routeToMain">
         <img class="logo" :src=logo alt="Logo">
@@ -27,18 +28,12 @@ function routeToMain() {
       </b-row>
     </b-navbar-brand>
 
-    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-    <b-collapse id="nav-collapse" is-nav>
-
-      <b-navbar-nav class="custom-navbar-nav">
-
-        <b-nav-form>
-          <b-button v-if="isUserLogin === 'User'" class="custom-btn" @click="openModalAuth()">Вход</b-button>
-          <b-button v-else class="custom-btn" @click="routeToOptions">Опции</b-button>
-        </b-nav-form>
-      </b-navbar-nav>
-    </b-collapse>
+    <b-navbar-nav class="custom-navbar-nav">
+      <b-nav-form>
+        <b-button v-if="isUserLogin === 'User'" class="custom-btn" @click="openModalAuth()">Вход</b-button>
+        <b-button v-else class="custom-btn" @click="routeToOptions">Опции</b-button>
+      </b-nav-form>
+    </b-navbar-nav>
   </b-navbar>
 
   <div class="modals">
