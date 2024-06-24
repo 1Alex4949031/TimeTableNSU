@@ -44,7 +44,7 @@ export async function getGroupTimetable(group, potential = false) {
     return await customInstance
         .get(
             url,
-            {useToken: false, requestName: "Get group timetable" + group}
+            {useToken: potential, requestName: "Get group timetable" + group}
         )
         .then(response => {
             console.log(response.data)
@@ -64,7 +64,7 @@ export async function getTeacherTimetable(teacher, potential = false) {
     return await customInstance
         .get(
             url,
-            {useToken: false, requestName: "Get teacher timetable" + teacher}
+            {useToken: potential, requestName: "Get teacher timetable" + teacher}
         )
         .then(response => {
             return response.data
@@ -84,7 +84,7 @@ export async function getRoomTimetable(room, potential = false) {
     return await customInstance
         .get(
             url,
-            {useToken: false, requestName: "Get room timetable" + room}
+            {useToken: potential, requestName: "Get room timetable" + room}
         )
         .then(response => {
             return response.data
@@ -104,7 +104,7 @@ export async function getAllTimetable(potential = false) {
         .get(
             url,
             {
-                useToken: false,
+                useToken: potential,
                 requestName: "Get all timetable",
                 showToast: false
             }
