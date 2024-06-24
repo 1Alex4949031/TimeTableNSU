@@ -12,7 +12,7 @@ export async function saveEditRequest(ArrSubject) {
             url,
             ArrSubject,
             {
-                useToken: false,
+                useToken: true,
                 requestName: "Update potential timetable"
             }
         )
@@ -33,7 +33,7 @@ export async function getAllowedOption(id) {
                 subjectId: id
             },
             {
-                useToken: false,
+                useToken: true,
                 requestName: "Get Allowed Option",
                 timeout: 240000
             }
