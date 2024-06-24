@@ -18,5 +18,14 @@ html, body {
 <script setup>
 import NavBar from "@/components/Nav-Bar.vue";
 import FooterComponent from "@/components/Footer-Component.vue";
+import {onMounted} from "vue";
+import {connect} from "@/js/socket";
+import {isUserLogin} from "@/js/axios-auth-request";
 
+onMounted(() => {
+  if(isUserLogin) {
+    connect()
+  }
+
+})
 </script>
