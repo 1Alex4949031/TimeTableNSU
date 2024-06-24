@@ -35,10 +35,11 @@
 
 
 import {customInstance} from "@/js/axios-instance";
+
 export async function getGroupTimetable(group, potential = false) {
     let url = '/timetable/actual/group/' + group
-    if (potential){
-        url = url.replace("actual","potential")
+    if (potential) {
+        url = url.replace("actual", "potential")
     }
     return await customInstance
         .get(
@@ -54,10 +55,11 @@ export async function getGroupTimetable(group, potential = false) {
             return null
         });
 }
-export async function getTeacherTimetable(teacher, potential = false)  {
+
+export async function getTeacherTimetable(teacher, potential = false) {
     let url = '/timetable/actual/teacher/' + teacher
-    if (potential){
-         url = url.replace("actual","potential")
+    if (potential) {
+        url = url.replace("actual", "potential")
     }
     return await customInstance
         .get(
@@ -73,10 +75,11 @@ export async function getTeacherTimetable(teacher, potential = false)  {
         });
 
 }
-export async function getRoomTimetable(room, potential = false)  {
+
+export async function getRoomTimetable(room, potential = false) {
     let url = '/timetable/actual/room/' + room
-    if (potential){
-        url = url.replace("actual","potential")
+    if (potential) {
+        url = url.replace("actual", "potential")
     }
     return await customInstance
         .get(
@@ -92,15 +95,19 @@ export async function getRoomTimetable(room, potential = false)  {
         });
 }
 
-export async function getAllTimetable(potential = false)  {
+export async function getAllTimetable(potential = false) {
     let url = "/timetable/actual/all"
-    if (potential){
-        url = url.replace("actual","potential")
+    if (potential) {
+        url = url.replace("actual", "potential")
     }
     return await customInstance
         .get(
             url,
-            {useToken: false, requestName: "Get all timetable"}
+            {
+                useToken: false,
+                requestName: "Get all timetable",
+                showToast: false
+            }
         )
         .then(response => {
             return response.data
