@@ -1,5 +1,5 @@
 
-import {ref, onUnmounted} from 'vue';
+import {ref} from 'vue';
 import SockJS from 'sockjs-client';
 import {Stomp} from '@stomp/stompjs';
 import {useToast} from "vue-toastification";
@@ -41,10 +41,6 @@ function useWebSocket() {
             });
         }
     };
-
-    onUnmounted(() => {
-        disconnect();
-    });
 
     return {isConnected, message, connect, disconnect};
 }
