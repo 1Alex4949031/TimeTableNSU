@@ -44,9 +44,13 @@ export async function startCreatingNewTimetable(useTestingParam = false) {
         .post(
             url,
             {},
-            {useToken: true, requestName: "Create timetable async"}
+            {
+                useToken: true,
+                requestName: "Create timetable async",
+            }
         )
         .then(response => {
+            window.location.reload()
             console.log(response.config["requestName"], "Done")
         })
         .catch(consoleMessage => {
@@ -70,11 +74,11 @@ export async function checkNewTimetableStatus() {
             console.log(response.config["requestName"], "Done")
             const ans = response.data.message
             console.log(ans)
-            return [ans,0]
+            return [ans, 0]
         })
         .catch(error => {
             console.error(error)
-            if(error.message !== undefined)
+            if (error.message !== undefined)
                 return "Ошибка!"
             return ["Ошибка при составлении расписания", error]
         });

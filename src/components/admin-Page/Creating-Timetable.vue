@@ -28,6 +28,10 @@ onMounted(async () => {
   isLoaded.value = true
 })
 
+onMounted(() => {
+  checkStatus()
+})
+
 const getSchedule = (dayName, pairNumber) => {
   const dayNumber = days.indexOf(dayName) + 1;
   return timetable.value.filter(
@@ -92,17 +96,8 @@ async function startCreatingNew(useTestingParam = false) {
   currentStatus.value = "Получаю информацию..."
   buttonDisable.value = true
   await startCreatingNewTimetable(useTestingParam)
-  await checkStatus()
 }
 
-onMounted(() => {
-  checkStatus()
-})
-
-const refreshAndActivate = () => {
-  window.location.reload();
-  activateNewTimetable();
-}
 </script>
 
 <template>
@@ -127,7 +122,7 @@ const refreshAndActivate = () => {
           <b-button @click="startCreatingNew(true)" :disabled="buttonDisable" class="custom-btn-blue mt-2 mb-2">
             Запустить создание расписания по тестовым данным
           </b-button>
-          <b-button @click="refreshAndActivate" :disabled="buttonDisable" class="custom-btn-blue mt-2 mb-2">
+          <b-button @click="activateNewTimetable()" :disabled="buttonDisable" class="custom-btn-blue mt-2 mb-2">
             Активировать новое
             расписание
           </b-button>
