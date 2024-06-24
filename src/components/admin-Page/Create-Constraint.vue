@@ -4,7 +4,7 @@ import {onMounted, ref} from "vue";
 import {getGroups, getPlan, getRoom, getTeachers} from "@/js/add-get-request";
 import DayTimeSelectModal from "@/components/admin-Page/Day-Time-Select-Modal.vue";
 import {addConstraint} from "@/js/constraint-requests";
-import {isSelected} from "@/js/selected-timetable";
+import {isSelected, selectedDay, selectedPair} from "@/js/selected-timetable";
 import {constraint, daysWithKey} from "@/js/data-for-show";
 import Multiselect from "@vueform/multiselect";
 import {processRoom} from "@/js/process-select";
@@ -102,23 +102,18 @@ function addConstraints() {
       break;
     }
     case  'Обязательное время пары': {
-      for (let day = 1; day <= 6; day++) {
-        for (let lessonNumber = 1; lessonNumber <= 7; lessonNumber++) {
-          console.log(isSelected(1, 1))
-          if (isSelected(lessonNumber, day)) {
-            console.log(plan.value)
-            addConstraint({
-              constraintNameRu: selectedConstraint.value,
-              teacher: teacher1.value,
-              subject: plan.value.subject,
-              day: day,
-              period: lessonNumber,
-              groups: plan.value.groups,
-              room: room.value
-            })
-            break;
-          }
-        }
+      if (selectedPair.value != null && selectedDay.value != null)
+        console.log(plan.value)
+      {
+        addConstraint({
+          constraintNameRu: selectedConstraint.value,
+          teacher: teacher1.value,
+          subject: plan.value.subject,
+          day: selectedDay.value,
+          period: selectedPair.value,
+          groups: plan.value.groups,
+          room: room.value
+        })
       }
       break;
     }
