@@ -125,10 +125,10 @@ function routeToPage(page) {
                  alt="Ограничения"></b-img>
           <h3 class="centered-text">Добавление ограничений</h3>
         </b-col>
-        <b-col md="4" class="navigate-image mb-3" @click="routeToPage('/newConstraint')">
+        <b-col md="4" class="navigate-image mb-3" @click="routeToPage('/removeConstraint')">
           <b-img class="nav-img image-example" :src="constraintPng2"
                  alt="Ограничения"></b-img>
-          <h3 class="centered-text">Удаление огрничений</h3>
+          <h3 class="centered-text">Удаление ограничений</h3>
         </b-col>
         <b-col md="4" class="navigate-image mb-3" @click="logOut()">
           <b-img class="nav-img image-example" :src="logoutPng"
