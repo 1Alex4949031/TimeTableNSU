@@ -1,12 +1,13 @@
 <script setup>
 import imageModal from "@/assets/images/imageModal4.png";
 import {onMounted, ref} from "vue";
-import {getGroups, getPlan, getTeachers} from "@/js/add-get-request";
+import {getGroups, getPlan, getRoom, getTeachers} from "@/js/add-get-request";
 import DayTimeSelectModal from "@/components/admin-Page/Day-Time-Select-Modal.vue";
 import {addConstraint} from "@/js/constraint-requests";
 import {isSelected} from "@/js/selected-timetable";
 import {constraint, daysWithKey} from "@/js/data-for-show";
 import Multiselect from "@vueform/multiselect";
+import {processRoom} from "@/js/process-select";
 
 const teachers = ref([])
 const teacher = ref("")
@@ -24,6 +25,9 @@ const lockDay = ref()
 
 const rawPlan = ref()
 const plan = ref("")
+
+const allRoom = ref([])
+const room = ref()
 
 const selectedConstraint = ref("")
 
@@ -80,7 +84,7 @@ function addConstraints() {
     case  'Недопустимые пересечения учителей': {
       if (teacher1.value !== teacher2.value) {
         addConstraint({
-          constraintNameRu: 'Перегруз учителей (?)',
+          constraintNameRu: 'Недопустимое пересечение преподавателей',
           teacher2: teacher2.value,
           teacher1: teacher1.value
         })
@@ -90,7 +94,7 @@ function addConstraints() {
     case  'Недопустимые пересечения групп': {
       if (group1.value !== group2.value) {
         addConstraint({
-          constraintNameRu: 'Перегруз групп (??)',
+          constraintNameRu: 'Недопустимое пересечение групп',
           group2: group2.value,
           group1: group1.value
         })
@@ -109,7 +113,8 @@ function addConstraints() {
               subject: plan.value.subject,
               day: day,
               period: lessonNumber,
-              groups: plan.value.groups
+              groups: plan.value.groups,
+              room: room.value
             })
             break;
           }
@@ -133,7 +138,9 @@ onMounted(async () => {
       label: plan.teacher + " " + plan.subject + " Вместимость: " + plan.groups + " " + plan.subjectType + " " + plan.timesInAWeek,
     };
   })
-  console.log(rawPlan.value)
+
+  const rawRoom = await getRoom()
+  allRoom.value = processRoom(rawRoom)
 })
 
 </script>
@@ -240,6 +247,16 @@ onMounted(async () => {
                     :searchable="true"
                     :create-option="true"
                     :options="rawPlan.filter(x => x.value.teacher === teacher1)"
+                />
+              </b-form-group>
+
+              <b-form-group class="form-group" label="Список кабинетов">
+                <Multiselect
+                    v-model="room"
+                    :close-on-select="false"
+                    :searchable="true"
+                    :create-option="true"
+                    :options="allRoom"
                 />
               </b-form-group>
 

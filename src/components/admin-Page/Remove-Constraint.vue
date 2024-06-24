@@ -51,13 +51,26 @@ function processConstraint(rawConstraint) {
           label: constraint.constraintNameRu + " учитель - " + constraint.teacher + " день - " + constraint.day + " пара - " + constraint.period
         };
       }
-      case 'Запрещенные порядковый номер пары для групп в определённый день' : {
+      case 'Обязательное время пары' : {
         return {
           value: constraint.id,
-          label: constraint.constraintNameRu + " группа - " + constraint.group + " день - " + constraint.day + " пара - " + constraint.period
+          label: constraint.constraintNameRu + " преподаватель - " + constraint.teacher + " группы - " + constraint.groups + ", день - " + constraint.day + ", пара - " + constraint.period + ", кабинет - " + constraint.room
+        };
+      }
+      case 'Недопустимое пересечение преподавателей' : {
+        return {
+          value: constraint.id,
+          label: constraint.constraintNameRu + " группа - " + constraint.teacher2 + " " + constraint.teacher1
+        };
+      }
+      case 'Недопустимое пересечение групп' : {
+        return {
+          value: constraint.id,
+          label: constraint.constraintNameRu + " группы - " + constraint.group2 + " " + constraint.group1
         };
       }
     }
+
     return {value: constraint.id, label: textValues};
   });
 }
