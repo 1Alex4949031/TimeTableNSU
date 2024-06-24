@@ -68,6 +68,10 @@ const getBackgroundClass = (item) => {
   }
 };
 
+const goToTimeTableEditPage = (groupName) => {
+  router.push(`/time-table-edit/${groupName}`);
+}
+
 </script>
 
 <template>
@@ -104,7 +108,7 @@ const getBackgroundClass = (item) => {
                     {{ item.room }}
                   </span> <br>
                   <img v-if="isPotential"
-                       @click="setSelectedSub(item);router.push('/time-table-edit')"
+                       @click="setSelectedSub(item);goToTimeTableEditPage(groupNumber)"
                        class="edit-icon"
                        :src="editSvg" alt="Edit"/>
                 </div>
