@@ -7,7 +7,7 @@ import {addConstraint} from "@/js/constraint-requests";
 import {isSelected, selectedDay, selectedPair} from "@/js/selected-timetable";
 import {constraint, daysWithKey} from "@/js/data-for-show";
 import Multiselect from "@vueform/multiselect";
-import {processRoom} from "@/js/process-select";
+import {processRoom, roomTypeParse} from "@/js/process-select";
 
 const teachers = ref([])
 const teacher = ref("")
@@ -130,7 +130,7 @@ onMounted(async () => {
   rawPlan.value = pplan.map(plan => {
     return {
       value: plan,
-      label: plan.teacher + " " + plan.subject + " Вместимость: " + plan.groups + " " + plan.subjectType + " " + plan.timesInAWeek,
+      label: "Учитель: " + plan.teacher + " Предмет: " + plan.subject + " Группы: " + plan.groups + " Раз в неделю: " + plan.timesInAWeek + " Аудитория: " + roomTypeParse(plan.subjectType),
     };
   })
 

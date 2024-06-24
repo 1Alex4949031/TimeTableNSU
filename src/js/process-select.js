@@ -1,4 +1,4 @@
-const roomTypeParse = (roomType) => {
+export const roomTypeParse = (roomType) => {
     switch (roomType) {
         case "prac":
             return "Практическая"
