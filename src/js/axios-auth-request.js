@@ -22,7 +22,6 @@ export function auth(email, password) {
             if (roles.some(role => role.includes("ROLE_ADMINISTRATOR"))) {
                 localStorage.setItem("isUserLogin", "Admin")
                 isUserLogin.value = "Admin"
-
             }
             else {
                 localStorage.setItem("isUserLogin", "Teacher")

@@ -89,10 +89,14 @@ export function addPlan(teacher, subject, timesInAWeek, subjectType, groups) {
 }
 
 
-export function regTeacher(email, fullName, phone) {
+export function regTeacher(email, fullName, phone, admin = false) {
+    let url = "register_teacher"
+    if (admin) {
+        url = "register_admin"
+    }
     customInstance
         .post(
-            '/api/admin/register_teacher',
+            '/api/admin/' + url,
             {email, fullName, phone},
             {
                 useToken: true,
